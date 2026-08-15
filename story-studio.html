@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Story Studio — Send Us Your Handwritten Story!</title>
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Fredoka:wght@400;500;600;700&family=Gochi+Hand&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sunny:#ffd23f; --coral:#ff6b6b; --grape:#9b5de5; --mint:#3ec99b;
+    --sky:#6ec6ff; --ink:#2b2440; --cream:#fff8ee; --paper:#fffdf8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Fredoka',sans-serif;color:var(--ink);background:var(--cream);line-height:1.6;min-height:100vh;}
+  h1,h2,h3{font-family:'Baloo 2',cursive;line-height:1.15;}
+  .doodle{font-family:'Gochi Hand',cursive;}
+  .blob{position:fixed;border-radius:50%;filter:blur(2px);opacity:.45;z-index:0;pointer-events:none;}
+  @keyframes floaty{0%,100%{transform:translateY(0) rotate(var(--r,0deg));}50%{transform:translateY(-14px) rotate(var(--r,0deg));}}
+  .float{animation:floaty 4s ease-in-out infinite;}
+
+  .topbar{background:rgba(255,248,238,.92);backdrop-filter:blur(8px);border-bottom:3px dashed var(--sunny);position:sticky;top:0;z-index:20;}
+  .topbar-in{max-width:820px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .home-link{font-family:'Baloo 2';font-weight:600;font-size:.95rem;color:var(--grape);text-decoration:none;
+    border:2px solid var(--grape);border-radius:999px;padding:7px 16px;transition:.15s;white-space:nowrap;}
+  .home-link:hover{background:var(--grape);color:#fff;}
+  .logo{display:flex;align-items:center;gap:10px;font-family:'Baloo 2';font-weight:800;font-size:1.37rem;color:var(--grape);}
+  .logo .mark{width:40px;height:40px;background:var(--sunny);border-radius:14px 14px 14px 4px;display:grid;place-items:center;font-size:1.3rem;transform:rotate(-6deg);box-shadow:3px 3px 0 rgba(0,0,0,.12);}
+
+  .wrap{max-width:720px;margin:0 auto;padding:40px 20px 70px;position:relative;z-index:2;}
+  .hero-head{text-align:center;margin-bottom:26px;}
+  .pill{display:inline-flex;gap:8px;align-items:center;background:#fff;border:3px solid var(--grape);color:var(--grape);font-weight:600;padding:6px 16px;border-radius:999px;font-size:.9rem;transform:rotate(-2deg);box-shadow:3px 3px 0 rgba(155,93,229,.2);}
+  .hero-head h1{font-size:2.6rem;margin:16px 0 8px;}
+  .hero-head h1 .hl{color:var(--coral);}
+  .hero-head p{font-size:1.15rem;color:#5a5470;max-width:520px;margin:0 auto;}
+
+  .card{background:var(--paper);border:3px solid var(--ink);border-radius:26px;padding:30px;box-shadow:9px 9px 0 var(--sunny);}
+  .field{margin-bottom:18px;}
+  .field label{display:block;font-family:'Baloo 2';font-weight:600;margin-bottom:6px;font-size:1.02rem;}
+  .field label .req{color:var(--coral);}
+  .field label .hintlabel{font-family:'Fredoka';font-weight:400;font-size:.85rem;color:#8a8397;}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  input[type=text],input[type=email],input[type=number],select{
+    width:100%;font-family:'Fredoka';font-size:1rem;padding:13px 16px;border:3px solid #e6ddcf;border-radius:14px;outline:none;background:#fff;transition:.15s;
+  }
+  input:focus,select:focus{border-color:var(--grape);box-shadow:0 0 0 4px rgba(155,93,229,.15);}
+
+  .drop{
+    border:3px dashed var(--sky);border-radius:20px;background:#f2fbff;padding:26px 20px;text-align:center;cursor:pointer;transition:.15s;position:relative;
+  }
+  .drop.drag{background:#e3f6ff;border-color:var(--grape);transform:scale(1.01);}
+  .drop.hide{display:none;}
+  .drop .cam{font-size:2.6rem;}
+  .drop h3{font-size:1.2rem;margin:6px 0 4px;color:var(--ink);}
+  .drop p{color:#6a89a0;font-size:.95rem;}
+  .drop .doodle{color:var(--sky);font-size:1.1rem;}
+
+  /* page grid */
+  .pages{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:6px;}
+  .pagecard{position:relative;border:3px solid var(--ink);border-radius:16px;overflow:hidden;background:#fff;box-shadow:4px 4px 0 rgba(43,36,64,.13);}
+  .pagecard img{display:block;width:100%;height:150px;object-fit:cover;}
+  .pagecard .pnum{position:absolute;top:8px;left:8px;background:var(--grape);color:#fff;font-family:'Baloo 2';font-weight:700;font-size:.8rem;padding:3px 10px;border-radius:999px;border:2px solid #fff;}
+  .pagecard .rm{position:absolute;top:6px;right:6px;width:26px;height:26px;border-radius:50%;border:2px solid var(--ink);background:var(--coral);color:#fff;font-weight:700;cursor:pointer;line-height:1;font-size:.9rem;display:grid;place-items:center;}
+  .addmore{margin-top:12px;width:100%;font-family:'Baloo 2';font-weight:600;font-size:1rem;cursor:pointer;border:3px dashed var(--grape);color:var(--grape);background:#faf5ff;padding:12px;border-radius:14px;transition:.15s;}
+  .addmore:hover{background:#f1e6ff;}
+  .addmore:disabled{opacity:.5;cursor:not-allowed;border-style:solid;}
+
+  .btn{font-family:'Baloo 2';font-weight:700;font-size:1.1rem;cursor:pointer;border:none;padding:16px 28px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .15s,box-shadow .15s;width:100%;}
+  .btn-primary{background:var(--coral);color:#fff;box-shadow:5px 5px 0 #c0392b;margin-top:16px;}
+  .btn-primary:hover:not(:disabled){transform:translate(-2px,-2px);box-shadow:7px 7px 0 #c0392b;}
+  .btn-primary:disabled{opacity:.55;cursor:not-allowed;}
+
+  .note{font-size:.88rem;color:#8a8397;text-align:center;margin-top:14px;}
+
+  #status{display:none;text-align:center;padding:16px;margin-top:16px;border-radius:16px;font-weight:600;}
+  #status.load{display:block;background:#eef4ff;color:var(--grape);}
+  #status.err{display:block;background:#ffe9e6;color:#c0392b;}
+  .spinner{width:20px;height:20px;border:3px solid rgba(155,93,229,.3);border-top-color:var(--grape);border-radius:50%;display:inline-block;vertical-align:-4px;margin-right:8px;animation:spin .8s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  #success{display:none;text-align:center;}
+  #success .party{font-size:4.5rem;}
+  #success h2{font-size:2.2rem;color:var(--mint);margin:6px 0;}
+  #success p{font-size:1.1rem;color:#5a5470;max-width:440px;margin:6px auto 0;}
+  .again{margin-top:22px;}
+
+  .mini-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px;}
+  .mini{background:#fff;border:2px solid var(--ink);border-radius:16px;padding:14px;text-align:center;box-shadow:4px 4px 0 rgba(43,36,64,.12);}
+  .mini .e{font-size:1.8rem;}
+  .mini b{font-family:'Baloo 2';display:block;font-size:.95rem;margin-top:4px;}
+  .mini span{font-size:.8rem;color:#8a8397;}
+
+  @media(max-width:560px){.row2{grid-template-columns:1fr;}.hero-head h1{font-size:2rem;}.mini-steps{grid-template-columns:1fr;}}
+
+  .consent{margin-top:16px;background:#f7f3ff;border:3px dashed var(--grape);border-radius:16px;padding:14px 16px;}
+  .consent label{display:flex;gap:10px;align-items:flex-start;font-family:'Fredoka';font-weight:400;font-size:.92rem;color:#4a4360;cursor:pointer;line-height:1.5;}
+  .consent input{width:20px;height:20px;min-width:20px;margin-top:2px;accent-color:var(--grape);}
+  .consent a{color:var(--grape);}
+
+  .logo .mark{display:none;}
+  .logo-mark{width:34px;height:auto;display:block;flex:0 0 auto;}
+  .logo{gap:12px!important;}
+
+  .logo{align-items:center;}
+
+  /* logo + tagline stacked, left aligned */
+  nav,.topbar{border-bottom:3px dashed var(--sunny);}
+  .logo{align-items:center;}
+  .logo-text{display:flex;flex-direction:column;align-items:flex-start;line-height:1.02;}
+  .logo-tag{font-family:'Caveat',cursive;font-weight:600;font-size:1.1rem;color:#8a8397;
+    letter-spacing:.2px;margin-top:1px;white-space:nowrap;}
+  @media(max-width:700px){.logo-tag{display:none;}}
+
+  /* members entry point */
+  .nav-member{border:2px solid var(--mint)!important;color:#0b6b47!important;font-weight:600!important;}
+  .nav-member.on{background:var(--mint)!important;color:#06301f!important;}
+</style>
+</head>
+<body>
+<div class="blob float" style="width:160px;height:160px;background:var(--sunny);top:120px;left:-50px;"></div>
+<div class="blob float" style="width:130px;height:130px;background:var(--coral);top:400px;right:-40px;animation-delay:1s;"></div>
+<div class="blob float" style="width:120px;height:120px;background:var(--grape);bottom:60px;left:-30px;animation-delay:.5s;"></div>
+
+<div class="topbar"><div class="topbar-in">
+  <a href="index.html" class="logo" style="text-decoration:none;"><svg class="logo-mark" viewBox="0 0 90 175" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(24,26)"><path d="M52 8 L52 92 Q52 128 20 128 Q-8 128 -12 104" fill="none" stroke="#ffd23f" stroke-width="26" stroke-linecap="round"/><path d="M52 8 L52 92 Q52 128 20 128 Q-8 128 -12 104" fill="none" stroke="#2b2440" stroke-width="4" stroke-linecap="round" opacity=".85"/><path d="M39 6 L52 -22 L65 6 Z" fill="#ff6b6b" stroke="#2b2440" stroke-width="3.5" stroke-linejoin="round"/><path d="M46 -6 L52 -20 L58 -6 Z" fill="#2b2440"/><circle cx="-12" cy="104" r="6" fill="#ff6b6b"/></g></svg><span class="logo-text">Joy of Writing<span class="logo-tag">where every child falls in love with words</span></span></a>
+  <a href="fun-tools.html#unlock" class="home-link nav-member" id="memberBtn">🔑 Members</a>
+  <a href="index.html" class="home-link">← Home</a>
+</div></div>
+
+
+<div class="wrap">
+  <div class="hero-head">
+    <span class="pill">📸 Story Studio</span>
+    <h1>Send us your <span class="hl">handwritten</span> story!</h1>
+    <p>Snap photos of your story — up to 4 pages. Your writing coach will read it and send back friendly feedback. ✨</p>
+    <p style="margin-top:12px;font-size:.95rem;color:#8a8397;">👋 Mentor feedback is part of a paid plan — <a href="index.html#pricing" style="color:var(--grape);font-weight:500;">see plans from ₹299</a>. Already joined? Send your story below.</p>
+  </div>
+
+  <form class="card" id="form" autocomplete="off">
+    <div class="row2">
+      <div class="field">
+        <label>Your first name <span class="req">*</span></label>
+        <input type="text" id="name" placeholder="e.g. Aarav" required>
+      </div>
+      <div class="field">
+        <label>Your age</label>
+        <input type="number" id="age" min="6" max="15" placeholder="6–15">
+      </div>
+    </div>
+    <div class="field">
+      <label>Parent's email <span class="req">*</span></label>
+      <input type="email" id="email" placeholder="so we can send your feedback ✉️" required>
+    </div>
+
+    <div class="field">
+      <label>Photos of your story <span class="req">*</span> <span class="hintlabel">— up to 4 pages, in order</span></label>
+      <div class="drop" id="drop">
+        <div class="cam">📷</div>
+        <h3>Tap to add your pages</h3>
+        <p>or drag &amp; drop them here</p>
+        <div class="doodle">add page 1 first, then 2, 3, 4 ☀️</div>
+        <input type="file" id="file" accept="image/*" capture="environment" multiple style="display:none;">
+      </div>
+      <div id="pages" class="pages"></div>
+      <button type="button" class="addmore" id="addBtn" style="display:none;">➕ Add another page</button>
+    </div>
+
+    <div class="consent">
+      <label>
+        <input type="checkbox" id="consent" required>
+        <span>I am this child's parent or guardian, and I agree that Joy of Writing may store this story and send feedback to my email. <a href="privacy.html" target="_blank">Privacy policy</a></span>
+      </label>
+    </div>
+
+    <button type="submit" class="btn btn-primary" id="submit">Send my story 🚀</button>
+    <div class="note">📖 Tip: lay each page flat in good light, keep the whole page in the photo, and write the page number on each sheet.</div>
+
+    <div id="status"></div>
+  </form>
+
+  <div class="card" id="success">
+    <div class="party">🎉</div>
+    <h2>Woohoo, got it!</h2>
+    <p id="successmsg">Your story is on its way to your writing coach. Keep an eye on your parent's inbox for happy feedback soon! 💜</p>
+    <button class="btn btn-primary again" id="again">Send another story ✏️</button>
+  </div>
+
+  <div class="mini-steps">
+    <div class="mini"><div class="e">📸</div><b>1. Upload</b><span>Up to 4 pages</span></div>
+    <div class="mini"><div class="e">🔎</div><b>2. We read it</b><span>Turned into text &amp; reviewed</span></div>
+    <div class="mini"><div class="e">💌</div><b>3. Feedback</b><span>Kind notes to your inbox</span></div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   CONFIG
+   ============================================================ */
+const WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/28346307/44gpupi/";
+const IMGBB_API_KEY = "2dbfd0db4ba0182dfb6e8c7a8ba79b58";
+const MAX_PAGES = 4;
+
+const form=document.getElementById('form');
+const drop=document.getElementById('drop');
+const fileInput=document.getElementById('file');
+const pagesBox=document.getElementById('pages');
+const addBtn=document.getElementById('addBtn');
+const statusBox=document.getElementById('status');
+const submitBtn=document.getElementById('submit');
+let pages=[]; // array of File objects, in page order
+
+drop.addEventListener('click',()=>fileInput.click());
+addBtn.addEventListener('click',()=>fileInput.click());
+['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('drag');}));
+['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('drag');}));
+drop.addEventListener('drop',e=>{if(e.dataTransfer.files.length)addFiles(e.dataTransfer.files);});
+fileInput.addEventListener('change',e=>{if(e.target.files.length)addFiles(e.target.files);fileInput.value='';});
+
+function addFiles(fileList){
+  statusBox.className='';statusBox.style.display='none';
+  for(const f of fileList){
+    if(!f.type.startsWith('image/')) continue;
+    if(pages.length>=MAX_PAGES){showStatus('err','You can add up to '+MAX_PAGES+' pages. 📄');break;}
+    pages.push(f);
+  }
+  renderPages();
+}
+
+function removePage(i){pages.splice(i,1);renderPages();}
+
+function renderPages(){
+  pagesBox.innerHTML='';
+  pages.forEach((f,i)=>{
+    const card=document.createElement('div');
+    card.className='pagecard';
+    const img=document.createElement('img');
+    const r=new FileReader();r.onload=e=>img.src=e.target.result;r.readAsDataURL(f);
+    const num=document.createElement('span');num.className='pnum';num.textContent='Page '+(i+1);
+    const rm=document.createElement('button');rm.type='button';rm.className='rm';rm.textContent='✕';
+    rm.addEventListener('click',()=>removePage(i));
+    card.appendChild(img);card.appendChild(num);card.appendChild(rm);
+    pagesBox.appendChild(card);
+  });
+  // toggle drop zone vs add button
+  if(pages.length===0){drop.classList.remove('hide');addBtn.style.display='none';}
+  else{drop.classList.add('hide');addBtn.style.display=pages.length<MAX_PAGES?'block':'none';}
+}
+
+function loadImage(file){
+  return new Promise((res,rej)=>{
+    const r=new FileReader();
+    r.onload=e=>{const img=new Image();img.onload=()=>res(img);img.onerror=rej;img.src=e.target.result;};
+    r.onerror=rej;r.readAsDataURL(file);
+  });
+}
+
+/* Stitch pages vertically into ONE labeled JPEG (order = page order). */
+async function buildStitchedImage(files,targetW=1200,quality=0.82){
+  const imgs=await Promise.all(files.map(loadImage));
+  const gap=20, labelH=(files.length>1?46:0);
+  const scaled=imgs.map(img=>({img,w:targetW,h:Math.round(img.height*(targetW/img.width))}));
+  const totalH=scaled.reduce((a,s)=>a+s.h+labelH,0)+gap*(scaled.length-1);
+  const c=document.createElement('canvas');c.width=targetW;c.height=totalH;
+  const ctx=c.getContext('2d');
+  ctx.fillStyle='#ffffff';ctx.fillRect(0,0,targetW,totalH);
+  let y=0;
+  scaled.forEach((s,i)=>{
+    if(labelH){
+      ctx.fillStyle='#1F3864';ctx.font='bold 30px sans-serif';ctx.textBaseline='middle';
+      ctx.fillText('— Page '+(i+1)+' —',12,y+labelH/2);
+      y+=labelH;
+    }
+    ctx.drawImage(s.img,0,y,s.w,s.h);
+    y+=s.h+gap;
+  });
+  return c.toDataURL('image/jpeg',quality);
+}
+
+async function uploadToImgbb(dataUrl){
+  const base64=dataUrl.split(',')[1];
+  const body=new FormData();body.append('image',base64);
+  const res=await fetch('https://api.imgbb.com/1/upload?expiration=604800&key='+IMGBB_API_KEY,{method:'POST',body});
+  const json=await res.json();
+  if(!json.success)throw new Error('image host failed');
+  return json.data.url;
+}
+
+function showStatus(kind,msg){statusBox.className=kind;statusBox.style.display='block';statusBox.innerHTML=(kind==='load'?'<span class="spinner"></span>':'')+msg;}
+
+form.addEventListener('submit',async e=>{
+  e.preventDefault();
+  if(pages.length===0){showStatus('err','Please add at least one photo of your story 📷');return;}
+  if(!document.getElementById('consent').checked){showStatus('err','A parent or guardian needs to tick the consent box first 💜');return;}
+  submitBtn.disabled=true;
+  showStatus('load','Sending your story…');
+  try{
+    const stitched=await buildStitchedImage(pages);
+    let imageUrl=null,imageBase64=null;
+    if(IMGBB_API_KEY){imageUrl=await uploadToImgbb(stitched);}
+    else{imageBase64=stitched;}
+
+    const payload={
+      name:document.getElementById('name').value.trim(),
+      age:document.getElementById('age').value,
+      email:document.getElementById('email').value.trim(),
+      pageCount:String(pages.length),
+      filename:'story-'+pages.length+'pages.jpg',
+      submittedAt:new Date().toISOString(),plan:(window.jowPlanForPayload?window.jowPlanForPayload():'free-trial'),
+      imageUrl:imageUrl,
+      imageBase64:imageBase64
+    };
+
+    if(WEBHOOK_URL.startsWith('PASTE_')){
+      await new Promise(r=>setTimeout(r,900));
+      finishSuccess('✅ Demo mode: the page works! Connect your Zapier webhook to start receiving stories.');
+      return;
+    }
+
+    const fdata=new URLSearchParams();
+    Object.keys(payload).forEach(k=>fdata.append(k, payload[k]==null?'':payload[k]));
+    await fetch(WEBHOOK_URL,{method:'POST',mode:'no-cors',body:fdata});
+    finishSuccess();
+  }catch(err){
+    console.error('Upload error:',err);
+    submitBtn.disabled=false;
+    showStatus('err','Oops! We couldn’t send your story ('+((err&&err.message)||'unknown error')+'). Please try again. 🙈');
+  }
+});
+
+function finishSuccess(customMsg){
+  form.style.display='none';
+  if(customMsg)document.getElementById('successmsg').textContent=customMsg;
+  document.getElementById('success').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.getElementById('again').addEventListener('click',()=>location.reload());
+</script>
+
+<script>
+/* shows the member's plan in the header once they have entered their code */
+(function(){
+  var el=document.getElementById('memberBtn'); if(!el) return;
+  var PLANS={storyteller:'Storyteller',author:'Young Author'};
+  var p=null; try{p=localStorage.getItem('jow_plan_v1');}catch(e){}
+  if(p&&PLANS[p]){ el.textContent='✨ '+PLANS[p]; el.classList.add('on'); el.title='You are signed in on this device'; }
+})();
+</script>
+
+<script>
+/* ================= FREE FIRST STORY =================
+   Every child may send one story free. After that we ask the
+   parent to choose a plan. Members with an access code are
+   never limited.
+
+   Honest note for Anuradha: this limit lives in the browser, so
+   a determined person can clear it. The real check is your
+   Google Sheet — the "Plan" column tells you whether a story
+   came from a paying family or a free trial, and you can see
+   repeat email addresses.                                        */
+(function(){
+  var PLAN_KEY  = 'jow_plan_v1';
+  var TRIAL_KEY = 'jow_trial_v1';
+
+  var C = document.getElementById('ssForm')
+        ? { form:'ssForm', success:'ssSuccess', msg:'ssSuccessMsg', email:'ssEmail', again:'ssAgain', home:'index.html' }
+        : { form:'form',      success:'success',  msg:'successmsg',  email:'email',  again:'again',  home:'index.html' };
+
+  var form = document.getElementById(C.form) || document.querySelector('form');
+  if(!form) return;
+  var successBox = document.getElementById(C.success);
+
+  function get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+  function set(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+
+  function isMember(){ var p=get(PLAN_KEY); return p==='storyteller' || p==='author'; }
+  function trialUsed(){ return !!get(TRIAL_KEY); }
+  function planLabel(){
+    var p=get(PLAN_KEY);
+    if(p==='storyteller') return 'Storyteller';
+    if(p==='author')      return 'Young Author';
+    return trialUsed() ? 'free trial used' : 'free trial';
+  }
+
+  /* ---------- styles ---------- */
+  var css = document.createElement('style');
+  css.textContent =
+    '.trial-note{border:3px dashed #3ec99b;background:#effcf6;border-radius:18px;padding:16px 18px;margin-bottom:20px;}'+
+    '.trial-note b{font-family:"Baloo 2";}'+
+    '.trial-note p{margin:4px 0 0;font-size:.95rem;color:#3f6b58;line-height:1.55;}'+
+    '.trial-wall{border:3px solid #2b2440;background:#fffdf8;border-radius:24px;padding:32px 26px;text-align:center;'+
+      'box-shadow:8px 8px 0 rgba(43,36,64,.15);}'+
+    '.trial-wall .e{font-size:3rem;}'+
+    '.trial-wall h3{font-family:"Baloo 2";font-size:1.7rem;margin:8px 0 10px;}'+
+    '.trial-wall p{color:#5a5470;line-height:1.6;max-width:430px;margin:0 auto 20px;}'+
+    '.trial-wall .row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;}'+
+    '.trial-wall a{font-family:"Baloo 2";font-weight:700;text-decoration:none;border-radius:999px;padding:14px 24px;display:inline-block;}'+
+    '.trial-wall .go{background:#ff6b6b;color:#fff;box-shadow:4px 4px 0 #c0392b;}'+
+    '.trial-wall .alt{background:#fff;color:#9b5de5;border:3px solid #9b5de5;}';
+  document.head.appendChild(css);
+
+  /* ---------- the wall shown once the free story is used ---------- */
+  function buildWall(){
+    var d=document.createElement('div');
+    d.className='trial-wall';
+    d.innerHTML =
+      '<div class="e">💌</div>'+
+      '<h3>You have used your free story!</h3>'+
+      '<p>Your first story is with your writing coach. To keep sending stories and get feedback every week, '+
+      'choose a plan — they start at ₹299.</p>'+
+      '<div class="row">'+
+        '<a class="go" href="'+C.home+'#pricing">See plans ✨</a>'+
+        '<a class="alt" href="fun-tools.html#unlock">I have an access code 🔑</a>'+
+      '</div>';
+    return d;
+  }
+
+  /* ---------- the friendly banner above the form ---------- */
+  function buildNote(){
+    var d=document.createElement('div');
+    d.className='trial-note';
+    if(isMember()){
+      d.innerHTML='<b>✨ '+planLabel()+' — welcome back!</b><p>Send as many stories as you like. Your coach will reply to each one.</p>';
+    } else {
+      d.innerHTML='<b>🎁 Your first story is free</b><p>Send one story and a real writing coach will read it and write back to you — '+
+        'no payment needed. After that, choose a plan to keep going.</p>';
+    }
+    return d;
+  }
+
+  function lock(){
+    form.style.display='none';
+    if(successBox && successBox.style.display!=='block'){ successBox.style.display='none'; }
+    if(!document.querySelector('.trial-wall')) form.parentNode.insertBefore(buildWall(), form);
+  }
+
+  /* ---------- set the page up ---------- */
+  if(!isMember() && trialUsed()){
+    lock();
+  } else {
+    form.parentNode.insertBefore(buildNote(), form);
+  }
+
+  /* stop a submit that slipped through */
+  form.addEventListener('submit', function(e){
+    if(!isMember() && trialUsed()){ e.preventDefault(); e.stopImmediatePropagation(); lock(); }
+  }, true);
+
+  /* tell the backend which kind of submission this is */
+  window.jowPlanForPayload = function(){
+    return isMember() ? get(PLAN_KEY) : 'free-trial';
+  };
+
+  /* when the success card appears, remember the free story was used */
+  if(successBox){
+    new MutationObserver(function(){
+      if(successBox.style.display!=='block') return;
+      if(isMember()) return;
+      if(!trialUsed()){
+        var em=document.getElementById(C.email);
+        set(TRIAL_KEY, (em&&em.value?em.value.trim():'used')+'|'+new Date().toISOString());
+      }
+      var msg=document.getElementById(C.msg);
+      if(msg){
+        msg.innerHTML='Your story is with your writing coach and feedback is on the way to your parent\'s inbox. 💜'+
+          '<br><br><b>That was your free story.</b> To keep writing with us every week, '+
+          '<a href="'+C.home+'#pricing" style="color:#9b5de5;font-weight:600;">have a look at the plans</a> — they start at ₹299.';
+      }
+      var again=document.getElementById(C.again);
+      if(again){
+        var fresh=again.cloneNode(false);           /* drops the old "send another" handler */
+        fresh.textContent='See plans ✨';
+        fresh.addEventListener('click', function(){ location.href=C.home+'#pricing'; });
+        again.parentNode.replaceChild(fresh, again);
+      }
+    }).observe(successBox, {attributes:true, attributeFilter:['style']});
+  }
+})();
+</script>
+</body>
+</html>
