@@ -961,11 +961,14 @@
      in bulk and you can see who is using what.
 
      Format:  JOY-<PLAN LETTER><6 CHARS>
-              S = Storyteller,  A = Young Author
-     Example: JOY-SB85WK3A  ->  Storyteller
+              B = Starter  (B for Basic - Starter begins with S too)
+              S = Storyteller
+              A = Young Author
+     Example: JOY-BQ42MTX   ->  Starter
+              JOY-SB85WK3A  ->  Storyteller
               JOY-AP6X9RRD  ->  Young Author
 
-     A code is valid if it starts with JOY-S or JOY-A followed by
+     A code is valid if it starts with JOY-B, JOY-S or JOY-A followed by
      5-10 characters after the plan letter. Revoke a family by adding their code
      to the BLOCKED list below. Keep a record of which code went to
      which family in your Google Sheet.                              */
@@ -976,8 +979,10 @@
     code = (code||'').trim().toUpperCase();
     if(BLOCKED.indexOf(code) > -1) return null;
     if(LEGACY[code]) return LEGACY[code];
-    if(!/^JOY-[SA][A-Z0-9]{5,10}$/.test(code)) return null;
-    return code.charAt(4) === 'S' ? 'storyteller' : 'author';
+    if(!/^JOY-[BSA][A-Z0-9]{5,10}$/.test(code)) return null;
+    var letter = code.charAt(4);
+    if(letter === 'B') return 'starter';
+    return letter === 'S' ? 'storyteller' : 'author';
   }
 
   /* where the plan is remembered on this device */
@@ -985,7 +990,8 @@
 
   /* what each plan can do */
   var PLANS = {
-    starter:     { name:'Starter',      tools:false },
+    none:        { name:'Free',         tools:false },   /* no code entered yet */
+    starter:     { name:'Starter',      tools:false },   /* paid, but no fun tools */
     storyteller: { name:'Storyteller',  tools:true  },
     author:      { name:'Young Author', tools:true  }
   };
@@ -993,12 +999,12 @@
   /* tools anyone can use, even without a paid plan */
   var FREE_TOOLS = ['spark'];
 
-  function plan(){ try{ return localStorage.getItem(KEY) || 'starter'; }catch(e){ return 'starter'; } }
+  function plan(){ try{ return localStorage.getItem(KEY) || 'none'; }catch(e){ return 'none'; } }
   function setPlan(p){ try{ localStorage.setItem(KEY,p); }catch(e){} }
 
   window.jowLocked = function(id){
     if(FREE_TOOLS.indexOf(id) > -1) return false;
-    return !(PLANS[plan()] || PLANS.starter).tools;
+    return !(PLANS[plan()] || PLANS.none).tools;
   };
   window.jowUpsell = function(id){
     document.getElementById('upTitle').textContent = 'This tool is part of the Storyteller plan';
@@ -1007,17 +1013,18 @@
   };
 
   function paint(){
-    var p = PLANS[plan()] || PLANS.starter;
+    var p = PLANS[plan()] || PLANS.none;
     var chip = document.getElementById('planChip');
     var note = document.getElementById('planNote');
     if(chip){
       chip.textContent = p.name;
       chip.className = 'plan-chip' + (p.tools ? ' pro' : '');
     }
-    if(note) note.textContent = p.tools ? '— all tools unlocked ✨' : '— fun tools are locked';
+    if(note) note.textContent = p.tools ? '— all tools unlocked ✨'
+      : (plan() === 'starter' ? '— add fun tools by upgrading' : '— fun tools are locked');
     var out = document.getElementById('planOutBtn');
     var cbt = document.getElementById('planCodeBtn');
-    var signedIn = p.tools;
+    var signedIn = plan() !== 'none';
     if(out) out.style.display = signedIn ? '' : 'none';
     if(cbt) cbt.style.display = signedIn ? 'none' : '';
     document.querySelectorAll('.ft-card').forEach(function(c){

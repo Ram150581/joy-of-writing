@@ -375,10 +375,12 @@ document.getElementById('again').addEventListener('click',()=>location.reload())
   function get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
   function set(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
 
-  function isMember(){ var p=get(PLAN_KEY); return p==='storyteller' || p==='author'; }
+  /* any paid plan — Starter included — may send unlimited stories */
+  function isMember(){ var p=get(PLAN_KEY); return p==='starter' || p==='storyteller' || p==='author'; }
   function trialUsed(){ return !!get(TRIAL_KEY); }
   function planLabel(){
     var p=get(PLAN_KEY);
+    if(p==='starter')     return 'Starter';
     if(p==='storyteller') return 'Storyteller';
     if(p==='author')      return 'Young Author';
     return trialUsed() ? 'free trial used' : 'free trial';
