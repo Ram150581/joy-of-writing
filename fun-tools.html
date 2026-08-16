@@ -954,10 +954,10 @@
 
 <div class="up-back" id="upBack">
   <div class="up-box">
-    <div class="e">🔒</div>
+    <div class="e" id="upEmoji">🔒</div>
     <h3 id="upTitle">This tool is part of the Storyteller plan</h3>
     <p id="upText">Upgrade to <b>Storyteller</b> or <b>Young Author</b> and use all ten fun writing tools right away.</p>
-    <a href="index.html#pricing" class="btn btn-primary">See plans &amp; upgrade ✨</a>
+    <a href="index.html#pricing" class="btn btn-primary" id="upPlans">See plans &amp; upgrade ✨</a>
     <div class="up-code">
       <input type="text" id="upCode" placeholder="access code" maxlength="24">
       <button type="button" id="upGo">Unlock</button>
@@ -1023,6 +1023,8 @@
     return !(PLANS[plan()] || PLANS.none).tools;
   };
   window.jowUpsell = function(id){
+    document.getElementById('upEmoji').textContent = '🔒';
+    document.getElementById('upPlans').style.display = '';
     document.getElementById('upTitle').textContent = 'This tool is part of the Storyteller plan';
     document.getElementById('upText').innerHTML = 'Upgrade to <b>Storyteller</b> or <b>Young Author</b> and use all ten fun writing tools right away.';
     document.getElementById('upBack').classList.add('on');
@@ -1090,12 +1092,21 @@
     /* arriving from the Members button on any page */
     function openIfUnlockHash(){
       if(location.hash !== '#unlock') return;
-      var joined = false;
-      try{ joined = (localStorage.getItem('jow_plan_v1')||'') !== ''; }catch(e){}
+      var saved = '';
+      try{ saved = localStorage.getItem('jow_plan_v1') || ''; }catch(e){}
+      var joined = saved !== '';
+      var atTop  = saved === 'author';
+
+      document.getElementById('upEmoji').textContent = joined ? '🎉' : '🔑';
+      /* only offer an upgrade when there is genuinely one to buy */
+      document.getElementById('upPlans').style.display = atTop ? 'none' : '';
+
       document.getElementById('upTitle').textContent = joined ? 'You are already signed in 🎉' : 'Welcome back! Enter your access code';
-      document.getElementById('upText').innerHTML = joined
-        ? 'Your plan is saved on this device, so all your tools are ready. Using a different phone or laptop? Type your code again below.'
-        : 'We emailed your personal code when you joined. Type it here to unlock your tools. Not joined yet?';
+      document.getElementById('upText').innerHTML = !joined
+        ? 'We emailed your personal code when you joined. Type it here to unlock your tools. Not joined yet?'
+        : atTop
+          ? 'You are on <b>Young Author</b>, our highest plan — every tool is already yours. Using a different phone or laptop? Type your code again below.'
+          : 'Your plan is saved on this device, so all your tools are ready. Using a different phone or laptop? Type your code again below.';
       document.getElementById('upBack').classList.add('on');
       var f=document.getElementById('upCode'); if(f){ setTimeout(function(){ f.focus(); }, 120); }
     }
