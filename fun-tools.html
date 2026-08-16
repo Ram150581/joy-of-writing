@@ -1036,13 +1036,20 @@
       chip.textContent = p.name;
       chip.className = 'plan-chip' + (p.tools ? ' pro' : '');
     }
-    if(note) note.textContent = p.tools ? '— all tools unlocked ✨'
-      : (plan() === 'starter' ? '— add fun tools by upgrading' : '— fun tools are locked');
+    var atTop = plan() === 'author';          /* nothing left to upgrade to */
+    if(note) note.textContent =
+        atTop            ? '— our highest plan, everything unlocked 🎉'
+      : p.tools          ? '— all tools unlocked ✨'
+      : plan()==='starter' ? '— add fun tools by upgrading'
+      :                    '— fun tools are locked';
+
     var out = document.getElementById('planOutBtn');
     var cbt = document.getElementById('planCodeBtn');
+    var upb = document.getElementById('planUpBtn');
     var signedIn = plan() !== 'none';
     if(out) out.style.display = signedIn ? '' : 'none';
     if(cbt) cbt.style.display = signedIn ? 'none' : '';
+    if(upb) upb.style.display = atTop ? 'none' : '';
     document.querySelectorAll('.ft-card').forEach(function(c){
       var locked = window.jowLocked(c.dataset.t);
       c.classList.toggle('locked', locked);
@@ -2112,6 +2119,45 @@
   var PLANS={storyteller:'Storyteller',author:'Young Author'};
   var p=null; try{p=localStorage.getItem('jow_plan_v1');}catch(e){}
   if(p&&PLANS[p]){ el.textContent='✨ '+PLANS[p]; el.classList.add('on'); el.title='You are signed in on this device'; }
+})();
+</script>
+<script>
+/* ================= CARRY THE TOOL CONTEXT TO THE UPLOAD PAGE =================
+   Every tool ends with "upload my story". Without this, all ten arrive at
+   Story Studio looking identical and you cannot tell which prompt the child
+   was answering. This attaches the tool, the topic they picked and the
+   writing spark to the link as it is clicked.                                */
+(function(){
+  var NAMES = { builder:'Story Builder', card:'Festival Card',
+    letter:'Letter to My Future Self', comic:'Comic Strip', photo:'Photo Story',
+    interview:'Story Detective', recipe:'Recipe Writer', relay:'Story Relay',
+    spark:'Daily Spark', festival:'Festival Inventor' };
+  var PROMPTS = ['fcPrompt','flPrompt','spPrompt','sbSeedText','rlSeedText'];
+
+  document.addEventListener('click', function(e){
+    var a = e.target && e.target.closest ? e.target.closest('a[href^="story-studio.html"]') : null;
+    if(!a) return;
+    var page = a.closest('.tool-page');
+    if(!page) return;
+
+    var slug = String(page.id || '').replace('tool-','');
+    var q = [];
+    q.push('tool=' + encodeURIComponent(NAMES[slug] || slug));
+
+    var sel = page.querySelector('.sel');
+    if(sel && sel.textContent.trim()){
+      q.push('topic=' + encodeURIComponent(sel.textContent.trim().slice(0,60)));
+    }
+    for(var i=0;i<PROMPTS.length;i++){
+      var el = page.querySelector('#' + PROMPTS[i]);
+      var t  = el ? el.textContent.trim() : '';
+      if(t && t.indexOf('Tap a spark') < 0){
+        q.push('prompt=' + encodeURIComponent(t.slice(0,300)));
+        break;
+      }
+    }
+    a.href = 'story-studio.html?' + q.join('&');
+  }, true);
 })();
 </script>
 </body>

@@ -320,6 +320,9 @@ form.addEventListener('submit',async e=>{
       pageCount:String(pages.length),
       filename:'story-'+pages.length+'pages.jpg',
       submittedAt:new Date().toISOString(),plan:(window.jowPlanForPayload?window.jowPlanForPayload():'free-trial'),token:'joy-2026-anuradha',
+      tool:(window.jowCtx?window.jowCtx.tool:''),
+      topic:(window.jowCtx?window.jowCtx.topic:''),
+      prompt:(window.jowCtx?window.jowCtx.prompt:''),
       imageUrl:imageUrl,
       imageBase64:imageBase64
     };
@@ -490,6 +493,36 @@ document.getElementById('again').addEventListener('click',()=>location.reload())
       }
     }).observe(successBox, {attributes:true, attributeFilter:['style']});
   }
+})();
+</script>
+<script>
+/* ---- shows which tool the child came from, and tells the backend ---- */
+(function(){
+  var q = new URLSearchParams(location.search);
+  window.jowCtx = { tool:q.get('tool')||'', topic:q.get('topic')||'', prompt:q.get('prompt')||'' };
+  if(!window.jowCtx.tool) return;
+
+  var form = document.getElementById('form');
+  if(!form) return;
+
+  var css = document.createElement('style');
+  css.textContent =
+    '.ctx-note{border:3px solid var(--grape);background:#faf5ff;border-radius:18px;padding:16px 18px;margin-bottom:18px;}'+
+    '.ctx-note .h{font-family:"Baloo 2";font-weight:700;color:var(--grape);font-size:1.02rem;}'+
+    '.ctx-note .t{font-family:"Baloo 2";font-weight:600;margin-top:2px;}'+
+    '.ctx-note .p{font-family:"Caveat",cursive;font-size:1.3rem;color:#4a4360;margin-top:8px;line-height:1.35;}';
+  document.head.appendChild(css);
+
+  var d = document.createElement('div');
+  d.className = 'ctx-note';
+  var html = '<div class="h">✍️ You are sending your ' + esc(window.jowCtx.tool) + '</div>';
+  if(window.jowCtx.topic)  html += '<div class="t">' + esc(window.jowCtx.topic) + '</div>';
+  if(window.jowCtx.prompt) html += '<div class="p">“' + esc(window.jowCtx.prompt) + '”</div>';
+  d.innerHTML = html;
+  form.parentNode.insertBefore(d, form);
+
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 })();
 </script>
 </body>
