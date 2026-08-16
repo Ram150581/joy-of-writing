@@ -241,13 +241,29 @@
   .logo-text{display:flex;flex-direction:column;align-items:flex-start;line-height:1.02;}
   .logo-tag{font-family:'Caveat',cursive;font-weight:600;font-size:1.1rem;color:#8a8397;
     letter-spacing:.2px;margin-top:1px;white-space:nowrap;}
-  @media(max-width:700px){.logo-tag{display:none;}}
 
   /* members entry point */
   .ss-addmore{margin-top:12px;width:100%;font-family:'Baloo 2';font-weight:600;cursor:pointer;border:3px dashed var(--grape);color:var(--grape);background:#faf5ff;padding:12px;border-radius:14px;}
   .ss-addmore:hover{background:#f1e6ff;}
   .nav-member{border:2px solid var(--mint)!important;color:#0b6b47!important;font-weight:600!important;}
   .nav-member.on{background:var(--mint)!important;color:#06301f!important;}
+
+  /* ---- mobile: keep the tagline, just make it fit ---- */
+  @media(max-width:700px){
+    .logo{font-size:1.12rem!important;gap:9px!important;}
+    .logo-mark{width:28px!important;}
+    .logo-tag{display:block!important;font-size:.78rem!important;white-space:normal!important;
+      line-height:1.15;max-width:200px;margin-top:2px;}
+  }
+  @media(max-width:360px){
+    .logo{font-size:1rem!important;}
+    .logo-tag{font-size:.72rem!important;max-width:165px;}
+  }
+
+  @media(max-width:560px){
+    .fc-row{grid-template-columns:1fr;}
+    .sp-stats{grid-template-columns:1fr;}
+  }
 </style>
 <style>
   .tools{padding:74px 0;background:linear-gradient(180deg,#fff8ee,#ffeede);border-top:4px dashed var(--coral);}
@@ -423,8 +439,8 @@
     <a href="index.html" class="logo" style="text-decoration:none;"><svg class="logo-mark" viewBox="0 0 90 175" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(24,26)"><path d="M52 8 L52 92 Q52 128 20 128 Q-8 128 -12 104" fill="none" stroke="#ffd23f" stroke-width="26" stroke-linecap="round"/><path d="M52 8 L52 92 Q52 128 20 128 Q-8 128 -12 104" fill="none" stroke="#2b2440" stroke-width="4" stroke-linecap="round" opacity=".85"/><path d="M39 6 L52 -22 L65 6 Z" fill="#ff6b6b" stroke="#2b2440" stroke-width="3.5" stroke-linejoin="round"/><path d="M46 -6 L52 -20 L58 -6 Z" fill="#2b2440"/><circle cx="-12" cy="104" r="6" fill="#ff6b6b"/></g></svg><span class="logo-text">Joy of Writing<span class="logo-tag">where every child falls in love with words</span></span></a>
     <div class="nav-links" style="display:flex;">
       <a href="index.html">← Home</a>
-      <a href="fun-tools.html#unlock" class="nav-member" id="memberBtn">🔑 Members</a>
       <a href="story-studio.html" class="nav-cta">Send a Story 📸</a>
+      <a href="fun-tools.html#unlock" class="nav-member" id="memberBtn">🔑 Members</a>
     </div>
   </div>
 </nav>

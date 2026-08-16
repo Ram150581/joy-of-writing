@@ -244,11 +244,22 @@
   .logo-text{display:flex;flex-direction:column;align-items:flex-start;line-height:1.02;}
   .logo-tag{font-family:'Caveat',cursive;font-weight:600;font-size:1.1rem;color:#8a8397;
     letter-spacing:.2px;margin-top:1px;white-space:nowrap;}
-  @media(max-width:700px){.logo-tag{display:none;}}
 
   /* members entry point */
   .nav-member{border:2px solid var(--mint)!important;color:#0b6b47!important;font-weight:600!important;}
   .nav-member.on{background:var(--mint)!important;color:#06301f!important;}
+
+  /* ---- mobile: keep the tagline, just make it fit ---- */
+  @media(max-width:700px){
+    .logo{font-size:1.12rem!important;gap:9px!important;}
+    .logo-mark{width:28px!important;}
+    .logo-tag{display:block!important;font-size:.78rem!important;white-space:normal!important;
+      line-height:1.15;max-width:200px;margin-top:2px;}
+  }
+  @media(max-width:360px){
+    .logo{font-size:1rem!important;}
+    .logo-tag{font-size:.72rem!important;max-width:165px;}
+  }
 </style>
 <style>
   .pp{max-width:760px;margin:0 auto;padding:48px 22px 80px;}
@@ -269,8 +280,8 @@
     <div class="nav-links" style="display:flex;">
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
-      <a href="fun-tools.html#unlock" class="nav-member" id="memberBtn">🔑 Members</a>
       <a href="story-studio.html" class="nav-cta">Send a Story 📸</a>
+      <a href="fun-tools.html#unlock" class="nav-member" id="memberBtn">🔑 Members</a>
     </div>
   </div>
 </nav>
