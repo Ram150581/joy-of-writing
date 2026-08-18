@@ -3,7 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fun Writing Tools — Joy of Writing</title>
+<title>Fun Writing Activities for Kids - 9 Free Ideas | Joy of Writing</title>
+<meta name="description" content="Nine playful writing activities for children: Indian festival cards, comic strips, letters to your future self, family recipes, grandparent interviews and more. Print, write by hand, and get feedback.">
+<link rel="canonical" href="https://www.joyofwriting.in/fun-tools.html">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Joy of Writing">
+<meta property="og:title" content="Fun Writing Activities for Kids - 9 Free Ideas | Joy of Writing">
+<meta property="og:description" content="Nine playful writing activities for children: Indian festival cards, comic strips, letters to your future self, family recipes, grandparent interviews and more. Print, write by hand, and get feedback.">
+<meta property="og:url" content="https://www.joyofwriting.in/fun-tools.html">
+<meta property="og:image" content="https://www.joyofwriting.in/realistic-banner.jpg">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Fun Writing Activities for Kids - 9 Free Ideas | Joy of Writing">
+<meta name="twitter:description" content="Nine playful writing activities for children: Indian festival cards, comic strips, letters to your future self, family recipes, grandparent interviews and more. Print, write by hand, and get feedback.">
+<meta name="twitter:image" content="https://www.joyofwriting.in/realistic-banner.jpg">
 <link rel="icon" href="favicon.ico">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -334,9 +348,23 @@
   .ft-hero h1{font-family:'Caveat',cursive;font-size:clamp(2.4rem,6vw,4rem);color:#1F3864;margin:12px 0 6px;}
   .ft-hero p{font-size:1.15rem;color:#5a5470;max-width:620px;margin:0 auto;}
   .ft-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding:44px 0 70px;}
-  .ft-card{text-align:left;background:var(--paper);border:3px solid var(--ink);border-radius:24px;padding:22px;cursor:pointer;
-    box-shadow:7px 7px 0 rgba(43,36,64,.16);transition:transform .15s,box-shadow .15s;font-family:'Fredoka',sans-serif;}
-  .ft-card:hover{transform:translate(-3px,-3px);box-shadow:10px 10px 0 var(--sunny);}
+  /* Index cards, not stickers. A warm paper face, a hairline edge, and a
+     coloured strip at the top so the ten tools are told apart by colour
+     rather than by a heavy outline. No offset shadow. */
+  .ft-card{text-align:left;background:#fffefb;border:1px solid #ece3d6;border-radius:18px;
+    padding:26px 22px 24px;cursor:pointer;position:relative;overflow:hidden;
+    transition:transform .18s ease, border-color .18s ease, background .18s ease;
+    font-family:'Fredoka',sans-serif;}
+  .ft-card:before{content:"";position:absolute;top:0;left:0;right:0;height:5px;
+    background:var(--sunny);transition:height .18s ease;}
+  .ft-card:nth-child(3n+2):before{background:var(--coral);}
+  .ft-card:nth-child(3n+3):before{background:var(--sky);}
+  .ft-card:nth-child(4n+1):before{background:var(--mint);}
+  .ft-card:nth-child(5n+3):before{background:var(--grape);}
+  /* lifts very slightly and the top strip thickens — movement, not a drop shadow */
+  .ft-card:hover{transform:translateY(-4px);border-color:#dcd0bd;background:#fffdf6;}
+  .ft-card:hover:before{height:9px;}
+  .ft-card:focus-visible{outline:3px solid var(--grape);outline-offset:3px;}
   .ft-emoji{font-size:2.4rem;display:block;}
   .ft-name{font-family:'Baloo 2';font-weight:700;font-size:1.25rem;color:var(--ink);display:block;margin:6px 0 6px;}
   .ft-desc{font-size:.95rem;color:#5a5470;line-height:1.45;display:block;}
@@ -412,9 +440,11 @@
   .plan-bar button.solid{background:var(--coral);border-color:var(--coral);color:#fff;}
   .ft-card{position:relative;}
   .ft-card.locked{opacity:.62;}
-  .ft-card.locked:hover{transform:none;box-shadow:7px 7px 0 rgba(43,36,64,.16);}
-  .lock-badge{position:absolute;top:12px;right:12px;background:#fff;border:2px solid var(--ink);
-    border-radius:999px;padding:3px 10px;font-size:.72rem;font-family:'Baloo 2';font-weight:700;}
+  .ft-card.locked:hover{transform:none;border-color:#ece3d6;background:#fffefb;}
+  .ft-card.locked:hover:before{height:5px;}
+  .lock-badge{position:absolute;top:16px;right:14px;background:#f6f1e8;border:1px solid #e2d7c6;
+    color:#8a8397;border-radius:999px;padding:3px 10px;font-size:.7rem;
+    font-family:'Baloo 2';font-weight:700;letter-spacing:.3px;}
   /* modal */
   .up-back{position:fixed;inset:0;background:rgba(43,36,64,.55);display:none;place-items:center;z-index:200;padding:20px;}
   .up-back.on{display:grid;}
@@ -437,7 +467,8 @@
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="logo" style="text-decoration:none;"><svg class="logo-mark" viewBox="0 0 90 175" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(24,26)"><path d="M52 8 L52 92 Q52 128 20 128 Q-8 128 -12 104" fill="none" stroke="#ffd23f" stroke-width="26" stroke-linecap="round"/><path d="M52 8 L52 92 Q52 128 20 128 Q-8 128 -12 104" fill="none" stroke="#2b2440" stroke-width="4" stroke-linecap="round" opacity=".85"/><path d="M39 6 L52 -22 L65 6 Z" fill="#ff6b6b" stroke="#2b2440" stroke-width="3.5" stroke-linejoin="round"/><path d="M46 -6 L52 -20 L58 -6 Z" fill="#2b2440"/><circle cx="-12" cy="104" r="6" fill="#ff6b6b"/></g></svg><span class="logo-text">Joy of Writing<span class="logo-tag">where every child falls in love with words</span></span></a>
-    <div class="nav-links" style="display:flex;">
+    <button class="burger" aria-label="Menu" onclick="document.getElementById(\'navlinks\').classList.toggle(\'open\')">☰</button>
+    <div class="nav-links" id="navlinks">
       <a href="index.html">← Home</a>
       <a href="story-studio.html" class="nav-cta">Send a Story 📸</a>
       <a href="fun-tools.html#unlock" class="nav-member" id="memberBtn">🔑 Members</a>
@@ -1265,7 +1296,7 @@
       'Deliver on: '+iso(d)+' ('+fmt(d)+')\nWriting spark: '+(spark||'—')+'\n\n'+
       'Add this to the "Future Letters" tab of the Joy of Writing submissions sheet, then upload the photo of the handwritten letter.'
     );
-    window.location.href='mailto:ramkumarwork189@gmail.com?subject='+subject+'&body='+body;
+    window.location.href='mailto:anuradha@joyofwriting.in?subject='+subject+'&body='+body;
     statusEl.className='fl-status ok';
     statusEl.textContent='🔒 Sealed! Now handwrite your letter and upload the photo below.';
   });
@@ -2169,6 +2200,32 @@
     }
     a.href = 'story-studio.html?' + q.join('&');
   }, true);
+})();
+</script>
+<script>
+/* ---- mobile menu: open, and close again the way people expect ---- */
+(function(){
+  var links = document.getElementById('navlinks');
+  if(!links) return;
+  var bar = document.querySelector('nav');
+
+  /* tapping any link closes it */
+  links.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ links.classList.remove('open'); });
+  });
+
+  /* tapping anywhere else on the page closes it — the burger lives inside
+     <nav>, so tapping that still toggles rather than instantly closing */
+  document.addEventListener('click', function(e){
+    if(!links.classList.contains('open')) return;
+    if(bar && bar.contains(e.target)) return;
+    links.classList.remove('open');
+  });
+
+  /* and the escape key, for anyone on a keyboard */
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') links.classList.remove('open');
+  });
 })();
 </script>
 </body>

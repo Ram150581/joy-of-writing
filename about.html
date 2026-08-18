@@ -3,7 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About — Joy of Writing</title>
+<title>Meet Anuradha - Writing Coach for Children | Joy of Writing</title>
+<meta name="description" content="Anuradha has been a professional writer for two decades. Joy of Writing is her way of bringing together the two things she loves most: children and writing.">
+<link rel="canonical" href="https://www.joyofwriting.in/about.html">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Joy of Writing">
+<meta property="og:title" content="Meet Anuradha - Writing Coach for Children | Joy of Writing">
+<meta property="og:description" content="Anuradha has been a professional writer for two decades. Joy of Writing is her way of bringing together the two things she loves most: children and writing.">
+<meta property="og:url" content="https://www.joyofwriting.in/about.html">
+<meta property="og:image" content="https://www.joyofwriting.in/realistic-banner.jpg">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Meet Anuradha - Writing Coach for Children | Joy of Writing">
+<meta name="twitter:description" content="Anuradha has been a professional writer for two decades. Joy of Writing is her way of bringing together the two things she loves most: children and writing.">
+<meta name="twitter:image" content="https://www.joyofwriting.in/realistic-banner.jpg">
 <link rel="icon" href="favicon.ico">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -309,7 +323,8 @@
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="logo" style="text-decoration:none;"><svg class="logo-mark" viewBox="0 0 90 175" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(24,26)"><path d="M52 8 L52 92 Q52 128 20 128 Q-8 128 -12 104" fill="none" stroke="#ffd23f" stroke-width="26" stroke-linecap="round"/><path d="M52 8 L52 92 Q52 128 20 128 Q-8 128 -12 104" fill="none" stroke="#2b2440" stroke-width="4" stroke-linecap="round" opacity=".85"/><path d="M39 6 L52 -22 L65 6 Z" fill="#ff6b6b" stroke="#2b2440" stroke-width="3.5" stroke-linejoin="round"/><path d="M46 -6 L52 -20 L58 -6 Z" fill="#2b2440"/><circle cx="-12" cy="104" r="6" fill="#ff6b6b"/></g></svg><span class="logo-text">Joy of Writing<span class="logo-tag">where every child falls in love with words</span></span></a>
-    <div class="nav-links" style="display:flex;">
+    <button class="burger" aria-label="Menu" onclick="document.getElementById(\'navlinks\').classList.toggle(\'open\')">☰</button>
+    <div class="nav-links" id="navlinks">
       <a href="index.html">Home</a>
       <a href="index.html#how">Programs</a>
       <a href="fun-tools.html">Fun Tools</a>
@@ -401,6 +416,32 @@
   var PLANS={storyteller:'Storyteller',author:'Young Author'};
   var p=null; try{p=localStorage.getItem('jow_plan_v1');}catch(e){}
   if(p&&PLANS[p]){ el.textContent='✨ '+PLANS[p]; el.classList.add('on'); el.title='You are signed in on this device'; }
+})();
+</script>
+<script>
+/* ---- mobile menu: open, and close again the way people expect ---- */
+(function(){
+  var links = document.getElementById('navlinks');
+  if(!links) return;
+  var bar = document.querySelector('nav');
+
+  /* tapping any link closes it */
+  links.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ links.classList.remove('open'); });
+  });
+
+  /* tapping anywhere else on the page closes it — the burger lives inside
+     <nav>, so tapping that still toggles rather than instantly closing */
+  document.addEventListener('click', function(e){
+    if(!links.classList.contains('open')) return;
+    if(bar && bar.contains(e.target)) return;
+    links.classList.remove('open');
+  });
+
+  /* and the escape key, for anyone on a keyboard */
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') links.classList.remove('open');
+  });
 })();
 </script>
 </body>
