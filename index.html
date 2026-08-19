@@ -259,6 +259,22 @@
     .fame-grid{grid-template-columns:1fr;}
     .ss-row2{grid-template-columns:1fr;}
   }
+
+  /* ---- mobile header: the burger must always win the tap ---- */
+  @media(max-width:860px){
+    .nav-inner{position:relative;gap:10px;}
+    /* the logo may shrink, but it may never spill over the burger */
+    .logo{flex:1 1 auto;min-width:0;overflow:hidden;}
+    .logo-text{min-width:0;}
+    .logo-tag{overflow:hidden;text-overflow:ellipsis;}
+    /* a proper 44px tap target, sitting above everything in the bar */
+    .burger{flex:0 0 auto;position:relative;z-index:3;width:44px;height:44px;
+      display:grid!important;place-items:center;border-radius:12px;line-height:1;}
+    .burger:active{background:rgba(43,36,64,.08);}
+    /* the dropdown sits above the bar, never behind it */
+    .nav-links.open{z-index:60;max-width:min(78vw,300px);}
+    .nav-links.open a{padding:12px 16px;}
+  }
 </style>
 <script type="application/ld+json">
 {
@@ -379,7 +395,7 @@
     </div>
     <div class="steps">
       <div class="step"><span class="num">1</span><div class="emo">💛</div><h4>Choose a plan</h4>
-        <p>Pick the plan that suits your child. Your access code arrives by email within minutes.</p></div>
+        <p>Pick the plan that suits your child. Anuradha emails your access code within one working day.</p></div>
       <div class="step"><span class="num">2</span><div class="emo">🎥</div><h4>Join the live sessions</h4>
         <p>Meet your writing coach online each week — and get that week's writing spark.</p></div>
       <div class="step"><span class="num">3</span><div class="emo">✍️</div><h4>Write it by hand</h4>
@@ -817,7 +833,7 @@ function sendBookInterest(e){
       <div class="after-step"><span class="n">1</span><div class="e">💳</div><h4>You choose a plan</h4>
         <p>Pay securely through Razorpay. You will need the parent's email and your child's name and age.</p></div>
       <div class="after-step"><span class="n">2</span><div class="e">🔑</div><h4>Your code arrives</h4>
-        <p>Within minutes we email you a personal access code that unlocks the fun writing tools for your child.</p></div>
+        <p>Anuradha emails you a personal access code within one working day. It unlocks the fun writing tools for your child.</p></div>
       <div class="after-step"><span class="n">3</span><div class="e">🎥</div><h4>Workshop details</h4>
         <p>We email you the joining link and timing for your first online workshop, plus your child's first writing challenge.</p></div>
       <div class="after-step"><span class="n">4</span><div class="e">✍️</div><h4>They write, we reply</h4>
@@ -1011,20 +1027,26 @@ function sendBookInterest(e){
   if(!links) return;
   var bar = document.querySelector('nav');
 
-  /* tapping any link closes it */
+  /* Close on a link tap — but AFTER the browser has taken the tap.
+     Hiding the link mid-click makes some mobile browsers drop the
+     navigation entirely, which looks like an unclickable menu. */
   links.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click', function(){ links.classList.remove('open'); });
+    a.addEventListener('click', function(){
+      setTimeout(function(){ links.classList.remove('open'); }, 0);
+    });
   });
 
-  /* tapping anywhere else on the page closes it — the burger lives inside
-     <nav>, so tapping that still toggles rather than instantly closing */
+  /* tapping anywhere else closes it — the burger lives inside <nav>,
+     so tapping that still toggles rather than instantly closing */
   document.addEventListener('click', function(e){
     if(!links.classList.contains('open')) return;
     if(bar && bar.contains(e.target)) return;
     links.classList.remove('open');
   });
 
-  /* and the escape key, for anyone on a keyboard */
+  /* never let a stale open menu survive a back/forward navigation */
+  window.addEventListener('pageshow', function(){ links.classList.remove('open'); });
+
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape') links.classList.remove('open');
   });
