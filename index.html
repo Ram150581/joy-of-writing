@@ -145,6 +145,9 @@
   .fame .kicker{color:#fff3c4;}
   .fame .sec-sub{color:#effaff;}
   .fame-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;}
+  /* while only one or two writers are featured, keep the cards centred
+     rather than stretched across a three-column row */
+  .fame-grid.few{grid-template-columns:repeat(auto-fit,minmax(270px,380px));justify-content:center;}
   .fame-card{background:var(--paper);border:3px solid var(--ink);border-radius:20px;padding:22px;box-shadow:7px 7px 0 rgba(43,36,64,.25);position:relative;transform:rotate(-1deg);}
   .fame-card:nth-child(2){transform:rotate(1.5deg);}
   .fame-card:nth-child(3){transform:rotate(-.5deg);}
@@ -337,7 +340,7 @@
 <nav>
   <div class="nav-inner">
     <a href="#top" class="logo" style="text-decoration:none;" aria-label="Go to homepage"><svg class="logo-mark" viewBox="0 0 90 175" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(24,26)"><path d="M52 8 L52 92 Q52 128 20 128 Q-8 128 -12 104" fill="none" stroke="#ffd23f" stroke-width="26" stroke-linecap="round"/><path d="M52 8 L52 92 Q52 128 20 128 Q-8 128 -12 104" fill="none" stroke="#2b2440" stroke-width="4" stroke-linecap="round" opacity=".85"/><path d="M39 6 L52 -22 L65 6 Z" fill="#ff6b6b" stroke="#2b2440" stroke-width="3.5" stroke-linejoin="round"/><path d="M46 -6 L52 -20 L58 -6 Z" fill="#2b2440"/><circle cx="-12" cy="104" r="6" fill="#ff6b6b"/></g></svg><span class="logo-text">Joy of Writing<span class="logo-tag">where every child falls in love with words</span></span></a>
-    <button class="burger" onclick="document.getElementById('navlinks').classList.toggle('open')">☰</button>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="navlinks">☰</button>
     <div class="nav-links" id="navlinks">
       <a href="#how">Programs</a>
       <a href="fun-tools.html">Fun Tools</a>
@@ -415,34 +418,26 @@
 <section class="fame" id="fame">
   <div class="wrap">
     <div class="center" style="max-width:680px;">
-      <span class="kicker">✨ every single week ✨</span>
+      <span class="kicker">✨ real stories, real writers ✨</span>
       <h2 class="sec-title">The Wall of Fame 🏆</h2>
-      <p class="sec-sub center">Each week we pick the <b>three best pieces</b>, feature them here with a big congrats, and email each young author a certificate to keep forever.</p>
+      <p class="sec-sub center">Stories that made us stop and read them twice. Every writer we feature gets a big congratulations and a certificate to keep forever.</p>
     </div>
-    <div class="fame-grid">
+    <div class="fame-grid few">
       <div class="fame-card">
-        <span class="medal">🥇</span>
-        <div class="rank">This week's #1</div>
-        <h4>Aarav</h4>
-        <div class="meta">age 8 · Mumbai</div>
-        <div class="excerpt">“The raindrop was scared of falling, until it saw the whole ocean waiting to catch it…”</div>
-        <div class="congrats">🎉 Congratulations, Aarav!</div>
+        <span class="medal">🏅</span>
+        <div class="rank">Featured writer</div>
+        <h4>Veda</h4>
+        <div class="meta">age 8 · “The Giant Good Bye”</div>
+        <div class="excerpt">“It went to a very very very very big cave. It was dark, they could not see, so they made a fire…”</div>
+        <div class="congrats">🎉 Congratulations, Veda!</div>
       </div>
       <div class="fame-card">
-        <span class="medal">🥈</span>
-        <div class="rank">This week's #2</div>
-        <h4>Diya</h4>
-        <div class="meta">age 13 · Bengaluru</div>
-        <div class="excerpt">“Some silences are louder than any argument I have ever won…”</div>
-        <div class="congrats">🎉 Congratulations, Diya!</div>
-      </div>
-      <div class="fame-card">
-        <span class="medal">🥉</span>
-        <div class="rank">This week's #3</div>
-        <h4>Kabir</h4>
-        <div class="meta">age 11 · Jaipur</div>
-        <div class="excerpt">“If I could bottle one afternoon, it would be the one where my grandfather taught me to fly a kite…”</div>
-        <div class="congrats">🎉 Congratulations, Kabir!</div>
+        <span class="medal">🏅</span>
+        <div class="rank">Featured writer</div>
+        <h4>Shloka</h4>
+        <div class="meta">age 12 · “The Escape Mission”</div>
+        <div class="excerpt">“The sky looked melted chocolate with sprinkles…”</div>
+        <div class="congrats">🎉 Congratulations, Shloka!</div>
       </div>
     </div>
 
@@ -461,6 +456,107 @@
         <p>for a brilliant piece featured on our Wall of Fame ✨</p>
         <span class="seal">🏅</span>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- FIVE DAY STREAK -->
+<style>
+  .streak{padding:74px 0;background:var(--cream);border-top:4px dashed var(--sky);}
+  .streak .head{text-align:center;max-width:660px;margin:0 auto 34px;}
+  .streak .head h2{font-size:2.4rem;margin:14px 0 8px;}
+  .streak .head h2 .hl{color:var(--sky-deep);}
+  .streak .head p{color:#5a5470;font-size:1.06rem;}
+  .badge-row{
+    display:flex;justify-content:center;align-items:flex-end;
+    gap:20px;flex-wrap:wrap;margin:36px 0 30px;
+  }
+  .bdg{width:132px;text-align:center;}
+  .bdg .disc{
+    width:104px;height:104px;border-radius:50%;margin:0 auto 10px;
+    display:grid;place-items:center;position:relative;
+  }
+  .bdg .disc i{
+    width:76px;height:76px;border-radius:50%;background:var(--paper);
+    display:grid;place-items:center;font-size:2rem;font-style:normal;
+  }
+  .bdg .n{
+    position:absolute;top:-6px;right:-2px;width:32px;height:32px;border-radius:50%;
+    background:var(--ink);color:#fff;font-family:'Baloo 2';font-weight:700;
+    font-size:.95rem;display:grid;place-items:center;
+  }
+  .bdg h5{font-family:'Baloo 2';font-size:1.02rem;margin-bottom:2px;}
+  .bdg p{font-size:.83rem;color:#8a8397;line-height:1.4;}
+  .bdg.gold{width:152px;}
+  .bdg.gold .disc{width:124px;height:124px;box-shadow:0 0 0 6px #fff3c4;}
+  .bdg.gold .disc i{width:92px;height:92px;font-size:2.4rem;}
+  .streak-rules{
+    max-width:720px;margin:0 auto;background:var(--paper);
+    border:1px solid #ece3d6;border-radius:18px;padding:26px 28px;position:relative;overflow:hidden;
+  }
+  .streak-rules:before{
+    content:"";position:absolute;inset:0 0 auto 0;height:5px;
+    background:linear-gradient(90deg,var(--coral),var(--sky),var(--mint),var(--grape),var(--sunny));
+  }
+  .streak-rules h4{font-family:'Baloo 2';font-size:1.16rem;margin-bottom:12px;}
+  .streak-rules li{list-style:none;padding-left:30px;position:relative;margin-bottom:10px;color:#5a5470;font-size:.99rem;}
+  .streak-rules li:before{content:"✓";position:absolute;left:0;top:0;color:var(--mint);font-weight:700;font-size:1.1rem;}
+  .streak-rules li.soft:before{content:"↺";color:var(--sky-deep);}
+  .streak-cta{text-align:center;margin-top:28px;}
+  @media(max-width:720px){
+    .badge-row{gap:14px;}
+    .bdg{width:96px;}
+    .bdg .disc{width:78px;height:78px;}
+    .bdg .disc i{width:56px;height:56px;font-size:1.5rem;}
+    .bdg.gold{width:110px;}
+    .bdg.gold .disc{width:92px;height:92px;}
+    .bdg.gold .disc i{width:68px;height:68px;font-size:1.8rem;}
+    .bdg p{display:none;}
+  }
+</style>
+<section class="streak" id="streak">
+  <div class="wrap">
+    <div class="head">
+      <span class="badge-pill">🔥 the five-day streak</span>
+      <h2>Write five days in a row, <span class="hl">collect five badges</span></h2>
+      <p>Send us a story on five days running and a badge lands in your inbox each day — stamped with the date you wrote it and the fun tool you used. The fifth one is gold. 🏆</p>
+    </div>
+
+    <div class="badge-row">
+      <div class="bdg">
+        <div class="disc" style="background:var(--coral);"><i>✏️</i><span class="n">1</span></div>
+        <h5>Day one</h5><p>The hardest one. You started.</p>
+      </div>
+      <div class="bdg">
+        <div class="disc" style="background:var(--sky);"><i>🌟</i><span class="n">2</span></div>
+        <h5>Day two</h5><p>Back again — that's a habit forming.</p>
+      </div>
+      <div class="bdg">
+        <div class="disc" style="background:var(--mint);"><i>📖</i><span class="n">3</span></div>
+        <h5>Day three</h5><p>Halfway. Your writing is warming up.</p>
+      </div>
+      <div class="bdg">
+        <div class="disc" style="background:var(--grape);"><i>🚀</i><span class="n">4</span></div>
+        <h5>Day four</h5><p>Almost there. Keep the pen moving.</p>
+      </div>
+      <div class="bdg gold">
+        <div class="disc" style="background:#f6c026;"><i>🏆</i><span class="n">5</span></div>
+        <h5>Streak complete!</h5><p>Five days of writing, in a row.</p>
+      </div>
+    </div>
+
+    <div class="streak-rules">
+      <h4>How the streak works</h4>
+      <ul>
+        <li>One handwritten story a day, five days running. Any of the fun tools, or your own idea.</li>
+        <li>Each badge is stamped with the date and time you sent it, and which tool you used — so it is really yours.</li>
+        <li>Every badge you earn is yours to keep, always.</li>
+        <li class="soft">Missed a day? Nothing is taken away. You keep the badges you earned, and a fresh streak begins whenever you write again.</li>
+      </ul>
+    </div>
+
+    <div class="streak-cta">
+      <a href="#studio" class="btn btn-primary">Start my streak today 🔥</a>
     </div>
   </div>
 </section>
@@ -636,14 +732,36 @@
   .bp-form input,.bp-form textarea{width:100%;font-family:'Fredoka';font-size:1rem;padding:12px 14px;border:none;border-radius:12px;outline:none;}
   .bp-form textarea{resize:vertical;min-height:70px;margin-bottom:12px;}
   .bp-note{font-size:.85rem;color:#c7c0e0;text-align:center;margin-top:12px;}
-  @media(max-width:860px){.bp-weeks{grid-template-columns:1fr 1fr;}.bp-tracks{grid-template-columns:1fr;}.bp-row{grid-template-columns:1fr;}}
+  /* coming-soon treatment */
+  .bp-soon{
+    display:flex;gap:16px;align-items:flex-start;
+    background:rgba(255,210,63,.12);border:2px solid rgba(255,210,63,.45);
+    border-radius:20px;padding:20px 24px;margin-bottom:30px;
+  }
+  .bp-soon .ico{font-size:1.9rem;line-height:1;}
+  .bp-soon h4{font-family:'Baloo 2';font-size:1.15rem;color:var(--sunny);margin-bottom:6px;}
+  .bp-soon p{font-size:.98rem;color:#d8d2ef;}
+  .bp-tag{
+    display:inline-block;background:var(--sunny);color:#4a3600;
+    font-family:'Baloo 2';font-weight:800;font-size:.72rem;letter-spacing:.06em;
+    border-radius:999px;padding:3px 12px;margin-left:8px;vertical-align:middle;
+  }
+  @media(max-width:860px){.bp-weeks{grid-template-columns:1fr 1fr;}.bp-tracks{grid-template-columns:1fr;}.bp-row{grid-template-columns:1fr;}.bp-soon{flex-direction:column;gap:10px;}}
 </style>
 <section class="bookprog" id="book">
   <div class="wrap">
     <div class="head">
-      <span class="badge-pill" style="background:#fff;">📖 New: Guided Program</span>
+      <span class="badge-pill" style="background:#fff;">📖 Coming soon</span>
       <h2>Write Your Own <span class="hl">Book</span> — and Publish It Too!</h2>
       <p>Not just a story — a whole book, with your name on the cover. A 4-week journey with a real writing mentor by your side every step of the way.</p>
+    </div>
+
+    <div class="bp-soon">
+      <div class="ico">🚧</div>
+      <div>
+        <h4>We're still building this one</h4>
+        <p>Anuradha is putting the finishing touches to the four-week programme, and it isn't open for sign-ups yet. Here is what it will look like — and if it sounds right for your child, leave your name below and you'll be the first to know when the doors open.</p>
+      </div>
     </div>
 
     <div class="bp-weeks">
@@ -654,7 +772,7 @@
     </div>
 
     <div class="bp-publish">
-      <h3>🌟 Then — pick how you want to publish!</h3>
+      <h3>🌟 Then — pick how you want to publish! <span class="bp-tag">PLANNED</span></h3>
       <div class="bp-tracks">
         <div class="bp-track"><div class="e">🌐</div><h5>Free Digital Debut</h5><p>Featured on our Wall of Fame, plus we help you publish it for free on StoryWeaver — a real platform read by millions of kids worldwide.</p></div>
         <div class="bp-track"><div class="e">📗</div><h5>Keepsake Printed Book</h5><p>A small print run (5–20 copies) of your very own paperback to gift family &amp; friends — affordable print-on-demand, no big upfront cost.</p></div>
@@ -663,12 +781,12 @@
     </div>
 
     <div class="bp-cta">
-      <div><div class="bp-price">₹1,999 <small>one-time · 4 weeks · includes weekly mentor review</small></div></div>
-      <a href="#bookform" class="btn btn-primary" style="width:auto;">I want to write my book! 📖</a>
+      <div><div class="bp-price">Opening soon <small>4 weeks · weekly mentor review · pricing shared when we open</small></div></div>
+      <a href="#bookform" class="btn btn-primary" style="width:auto;">Tell me when it opens 🔔</a>
     </div>
 
     <form class="bp-form" id="bookform" onsubmit="return sendBookInterest(event)">
-      <h4 style="font-family:'Baloo 2';margin-bottom:14px;">Tell us a little about your young author 👇</h4>
+      <h4 style="font-family:'Baloo 2';margin-bottom:14px;">Join the waiting list 👇</h4>
       <div class="bp-row">
         <input type="text" id="bkName" placeholder="Child's first name" required>
         <input type="number" id="bkAge" min="6" max="15" placeholder="Age (6–15)" required>
@@ -678,8 +796,8 @@
         <input type="text" id="bkPhone" placeholder="Parent's phone (optional)">
       </div>
       <textarea id="bkIdea" placeholder="Any idea already brewing for their book? (optional — it's okay to leave blank!)"></textarea>
-      <button type="submit" class="btn btn-primary" style="width:100%;">Send my interest ✉️</button>
-      <p class="bp-note">We'll personally reach out within a day or two to plan your child's 4-week book journey. 💜</p>
+      <button type="submit" class="btn btn-primary" style="width:100%;">Add me to the waiting list ✉️</button>
+      <p class="bp-note">No payment, no commitment — we'll simply email you first when the programme opens. 💜</p>
     </form>
   </div>
 </section>
@@ -691,13 +809,13 @@ function sendBookInterest(e){
   const email=document.getElementById('bkEmail').value.trim();
   const phone=document.getElementById('bkPhone').value.trim();
   const idea=document.getElementById('bkIdea').value.trim();
-  const subject=encodeURIComponent('Write Your Own Book — new interest: '+name);
+  const subject=encodeURIComponent('Book programme waiting list: '+name);
   const body=encodeURIComponent(
-    'A new family is interested in the Write Your Own Book program!\n\n'+
-    'Child name: '+name+'\nAge: '+age+'\nParent email: '+email+'\nParent phone: '+(phone||'—')+'\nBook idea so far: '+(idea||'—')+'\n\nPlease reach out to plan their 4-week journey.'
+    'A family would like to be told when the Write Your Own Book programme opens.\n\n'+
+    'Child name: '+name+'\nAge: '+age+'\nParent email: '+email+'\nParent phone: '+(phone||'—')+'\nBook idea so far: '+(idea||'—')+'\n\nAdd them to the waiting list — no reply needed until the programme opens.'
   );
   window.location.href='mailto:anuradha@joyofwriting.in?subject='+subject+'&body='+body;
-  showToast('💌 Opening your email app to send your interest…');
+  showToast('💌 Opening your email app to join the waiting list…');
   return false;
 }
 </script>
@@ -1026,13 +1144,29 @@ function sendBookInterest(e){
   var links = document.getElementById('navlinks');
   if(!links) return;
   var bar = document.querySelector('nav');
+  var burger = document.getElementById('burger') || document.querySelector('.burger');
+
+  /* The toggle lives here rather than in an onclick attribute. An inline
+     handler is one stray backslash away from being a syntax error, and a
+     broken handler looks exactly like a menu that will not open. */
+  function setOpen(open){
+    links.classList.toggle('open', open);
+    if(burger) burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  if(burger){
+    burger.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      setOpen(!links.classList.contains('open'));
+    });
+  }
 
   /* Close on a link tap — but AFTER the browser has taken the tap.
      Hiding the link mid-click makes some mobile browsers drop the
      navigation entirely, which looks like an unclickable menu. */
   links.querySelectorAll('a').forEach(function(a){
     a.addEventListener('click', function(){
-      setTimeout(function(){ links.classList.remove('open'); }, 0);
+      setTimeout(function(){ setOpen(false); }, 0);
     });
   });
 
@@ -1041,14 +1175,14 @@ function sendBookInterest(e){
   document.addEventListener('click', function(e){
     if(!links.classList.contains('open')) return;
     if(bar && bar.contains(e.target)) return;
-    links.classList.remove('open');
+    setOpen(false);
   });
 
   /* never let a stale open menu survive a back/forward navigation */
-  window.addEventListener('pageshow', function(){ links.classList.remove('open'); });
+  window.addEventListener('pageshow', function(){ setOpen(false); });
 
   document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape') links.classList.remove('open');
+    if(e.key === 'Escape') setOpen(false);
   });
 })();
 </script>

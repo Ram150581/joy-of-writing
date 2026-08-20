@@ -430,6 +430,54 @@
   .sb-err.show{display:block;}
   .sb-progress{font-family:'Baloo 2';font-weight:700;color:var(--grape);text-align:center;margin-bottom:10px;font-size:.95rem;}
   .sb-qtitle{font-family:'Baloo 2';font-size:1.4rem;text-align:center;margin-bottom:18px;}
+  /* ---- the shape of a story: a wobbly hand-drawn path, not a flowchart ---- */
+  .sh-wrap{max-width:720px;margin:44px auto 0;}
+  .sh-head{text-align:center;margin-bottom:28px;}
+  .sh-head h3{font-family:'Baloo 2';font-size:1.75rem;margin-bottom:8px;}
+  .sh-head p{color:#5a5470;font-size:1rem;max-width:520px;margin:0 auto;}
+  .sh-path{position:relative;padding-left:8px;}
+  /* the dashed trail running down behind the stops */
+  .sh-path:before{
+    content:"";position:absolute;left:35px;top:26px;bottom:26px;width:0;
+    border-left:4px dashed #e4d9c6;z-index:0;
+  }
+  .sh-stop{display:flex;gap:18px;align-items:flex-start;margin-bottom:20px;position:relative;z-index:1;}
+  .sh-dot{
+    flex:0 0 auto;width:58px;height:58px;border-radius:50%;
+    display:grid;place-items:center;font-size:1.7rem;
+    border:3px solid var(--ink);box-shadow:3px 3px 0 rgba(43,36,64,.16);
+  }
+  .sh-body{
+    flex:1 1 auto;background:var(--paper);border:2px solid #ece3d6;
+    border-radius:18px;padding:16px 20px;
+  }
+  /* each card leans a slightly different way, like paper on a desk */
+  .sh-stop:nth-child(odd)  .sh-body{transform:rotate(-.5deg);}
+  .sh-stop:nth-child(even) .sh-body{transform:rotate(.6deg);}
+  .sh-n{font-family:'Gochi Hand';font-size:1.25rem;color:var(--coral);}
+  .sh-body h4{font-family:'Baloo 2';font-size:1.22rem;margin:0 0 8px;}
+  .sh-body ul{margin:0;padding:0;}
+  .sh-body li{
+    list-style:none;position:relative;padding-left:24px;margin-bottom:7px;
+    color:#4a4360;font-size:.97rem;line-height:1.55;
+  }
+  .sh-body li:before{content:"✏️";position:absolute;left:0;top:0;font-size:.85rem;}
+  .sh-tip{
+    margin-top:10px;background:#fff8e6;border:1px dashed #e8d5a8;border-radius:12px;
+    padding:9px 13px;font-size:.9rem;color:#7a5a1e;line-height:1.5;
+  }
+  .sh-foot{
+    text-align:center;font-family:'Gochi Hand';font-size:1.4rem;
+    color:#5a5470;margin-top:24px;
+  }
+  @media(max-width:560px){
+    .sh-path:before{left:26px;}
+    .sh-dot{width:44px;height:44px;font-size:1.3rem;}
+    .sh-stop{gap:12px;}
+    .sh-body{padding:14px 16px;}
+    .sh-body h4{font-size:1.1rem;}
+  }
+
   #sbOpts{display:flex;flex-direction:column;gap:12px;}
   #sbOpts .sb-chip{width:100%;text-align:left;font-size:1.05rem;padding:14px 18px;}
   .sb-nav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:16px;}
@@ -484,7 +532,7 @@
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="logo" style="text-decoration:none;"><svg class="logo-mark" viewBox="0 0 90 175" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(24,26)"><path d="M52 8 L52 92 Q52 128 20 128 Q-8 128 -12 104" fill="none" stroke="#ffd23f" stroke-width="26" stroke-linecap="round"/><path d="M52 8 L52 92 Q52 128 20 128 Q-8 128 -12 104" fill="none" stroke="#2b2440" stroke-width="4" stroke-linecap="round" opacity=".85"/><path d="M39 6 L52 -22 L65 6 Z" fill="#ff6b6b" stroke="#2b2440" stroke-width="3.5" stroke-linejoin="round"/><path d="M46 -6 L52 -20 L58 -6 Z" fill="#2b2440"/><circle cx="-12" cy="104" r="6" fill="#ff6b6b"/></g></svg><span class="logo-text">Joy of Writing<span class="logo-tag">where every child falls in love with words</span></span></a>
-    <button class="burger" aria-label="Menu" onclick="document.getElementById(\'navlinks\').classList.toggle(\'open\')">☰</button>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="navlinks">☰</button>
     <div class="nav-links" id="navlinks">
       <a href="index.html">← Home</a>
       <a href="story-studio.html" class="nav-cta">Send a Story 📸</a>
@@ -593,7 +641,88 @@
       <a href="story-studio.html" class="btn btn-primary" style="width:100%;">I'm done — upload my story ✏️</a>
       <button type="button" class="sb-redo" id="sbRedo">↺ start over</button>
     </div>
-  
+
+    <!-- the shape of a story: guidance the child can read while writing -->
+    <div class="sh-wrap">
+      <div class="sh-head">
+        <h3>🗺️ The shape of a story</h3>
+        <p>Your seeds tell you <b>what</b> to write about. This tells you <b>how</b> to build it. Follow the path — or wander off it, that's allowed too!</p>
+      </div>
+
+      <div class="sh-path">
+        <div class="sh-stop">
+          <div class="sh-dot" style="background:var(--sunny);">🌍</div>
+          <div class="sh-body">
+            <span class="sh-n">First</span>
+            <h4>Show us where we are</h4>
+            <ul>
+              <li>What can you <b>see, hear and smell</b> in this place?</li>
+              <li>Is it hot? Noisy? Empty? Scary at night?</li>
+            </ul>
+            <p class="sh-tip">✨ Two or three sentences is plenty. Don't describe every single thing!</p>
+          </div>
+        </div>
+
+        <div class="sh-stop">
+          <div class="sh-dot" style="background:var(--coral);">👋</div>
+          <div class="sh-body">
+            <span class="sh-n">Next</span>
+            <h4>Introduce your people</h4>
+            <ul>
+              <li>What does your hero <b>look like</b>? What are they wearing?</li>
+              <li>One thing they <b>always</b> do or say — a habit, a favourite word.</li>
+              <li>What do they want more than anything in the world?</li>
+            </ul>
+            <p class="sh-tip">✨ Show it happening instead of listing it. "She checked her pockets three times" tells us more than "she was nervous".</p>
+          </div>
+        </div>
+
+        <div class="sh-stop">
+          <div class="sh-dot" style="background:var(--sky);">💥</div>
+          <div class="sh-body">
+            <span class="sh-n">Then</span>
+            <h4>Something goes wrong</h4>
+            <ul>
+              <li>What breaks the ordinary day?</li>
+              <li>Who — or what — is standing in the way?</li>
+              <li>How does your hero feel the moment it happens?</li>
+            </ul>
+            <p class="sh-tip">✨ This is where your story really starts. Get here quickly!</p>
+          </div>
+        </div>
+
+        <div class="sh-stop">
+          <div class="sh-dot" style="background:var(--grape);">🌀</div>
+          <div class="sh-body">
+            <span class="sh-n">In the middle</span>
+            <h4>Try, fail, try again</h4>
+            <ul>
+              <li>What's the <b>first</b> thing they try? Let it go wrong!</li>
+              <li>Now make things a little worse before they get better.</li>
+              <li>Who helps? Who makes it harder?</li>
+            </ul>
+            <p class="sh-tip">✨ A story where everything works first time is a story with no story in it.</p>
+          </div>
+        </div>
+
+        <div class="sh-stop">
+          <div class="sh-dot" style="background:var(--mint);">✨</div>
+          <div class="sh-body">
+            <span class="sh-n">At the end</span>
+            <h4>Give us a twist</h4>
+            <ul>
+              <li>Surprise us — did the help come from somewhere nobody expected?</li>
+              <li>Was the problem something else all along?</li>
+              <li>What has <b>changed</b> for your hero now?</li>
+            </ul>
+            <p class="sh-tip">✨ Finish on a picture, not an explanation. Let us see the last moment.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="sh-foot">You don't have to use all five. Even three of these makes a proper story. 💛</p>
+    </div>
+
 </div>
 <div class="tool-page" id="tool-card">
 <div class="head">
@@ -2284,13 +2413,29 @@
   var links = document.getElementById('navlinks');
   if(!links) return;
   var bar = document.querySelector('nav');
+  var burger = document.getElementById('burger') || document.querySelector('.burger');
+
+  /* The toggle lives here rather than in an onclick attribute. An inline
+     handler is one stray backslash away from being a syntax error, and a
+     broken handler looks exactly like a menu that will not open. */
+  function setOpen(open){
+    links.classList.toggle('open', open);
+    if(burger) burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  if(burger){
+    burger.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      setOpen(!links.classList.contains('open'));
+    });
+  }
 
   /* Close on a link tap — but AFTER the browser has taken the tap.
      Hiding the link mid-click makes some mobile browsers drop the
      navigation entirely, which looks like an unclickable menu. */
   links.querySelectorAll('a').forEach(function(a){
     a.addEventListener('click', function(){
-      setTimeout(function(){ links.classList.remove('open'); }, 0);
+      setTimeout(function(){ setOpen(false); }, 0);
     });
   });
 
@@ -2299,14 +2444,14 @@
   document.addEventListener('click', function(e){
     if(!links.classList.contains('open')) return;
     if(bar && bar.contains(e.target)) return;
-    links.classList.remove('open');
+    setOpen(false);
   });
 
   /* never let a stale open menu survive a back/forward navigation */
-  window.addEventListener('pageshow', function(){ links.classList.remove('open'); });
+  window.addEventListener('pageshow', function(){ setOpen(false); });
 
   document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape') links.classList.remove('open');
+    if(e.key === 'Escape') setOpen(false);
   });
 })();
 </script>

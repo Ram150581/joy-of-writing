@@ -340,7 +340,7 @@
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="logo" style="text-decoration:none;"><svg class="logo-mark" viewBox="0 0 90 175" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(24,26)"><path d="M52 8 L52 92 Q52 128 20 128 Q-8 128 -12 104" fill="none" stroke="#ffd23f" stroke-width="26" stroke-linecap="round"/><path d="M52 8 L52 92 Q52 128 20 128 Q-8 128 -12 104" fill="none" stroke="#2b2440" stroke-width="4" stroke-linecap="round" opacity=".85"/><path d="M39 6 L52 -22 L65 6 Z" fill="#ff6b6b" stroke="#2b2440" stroke-width="3.5" stroke-linejoin="round"/><path d="M46 -6 L52 -20 L58 -6 Z" fill="#2b2440"/><circle cx="-12" cy="104" r="6" fill="#ff6b6b"/></g></svg><span class="logo-text">Joy of Writing<span class="logo-tag">where every child falls in love with words</span></span></a>
-    <button class="burger" aria-label="Menu" onclick="document.getElementById(\'navlinks\').classList.toggle(\'open\')">☰</button>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="navlinks">☰</button>
     <div class="nav-links" id="navlinks">
       <a href="index.html">Home</a>
       <a href="index.html#how">Programs</a>
@@ -441,13 +441,29 @@
   var links = document.getElementById('navlinks');
   if(!links) return;
   var bar = document.querySelector('nav');
+  var burger = document.getElementById('burger') || document.querySelector('.burger');
+
+  /* The toggle lives here rather than in an onclick attribute. An inline
+     handler is one stray backslash away from being a syntax error, and a
+     broken handler looks exactly like a menu that will not open. */
+  function setOpen(open){
+    links.classList.toggle('open', open);
+    if(burger) burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  if(burger){
+    burger.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      setOpen(!links.classList.contains('open'));
+    });
+  }
 
   /* Close on a link tap — but AFTER the browser has taken the tap.
      Hiding the link mid-click makes some mobile browsers drop the
      navigation entirely, which looks like an unclickable menu. */
   links.querySelectorAll('a').forEach(function(a){
     a.addEventListener('click', function(){
-      setTimeout(function(){ links.classList.remove('open'); }, 0);
+      setTimeout(function(){ setOpen(false); }, 0);
     });
   });
 
@@ -456,14 +472,14 @@
   document.addEventListener('click', function(e){
     if(!links.classList.contains('open')) return;
     if(bar && bar.contains(e.target)) return;
-    links.classList.remove('open');
+    setOpen(false);
   });
 
   /* never let a stale open menu survive a back/forward navigation */
-  window.addEventListener('pageshow', function(){ links.classList.remove('open'); });
+  window.addEventListener('pageshow', function(){ setOpen(false); });
 
   document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape') links.classList.remove('open');
+    if(e.key === 'Escape') setOpen(false);
   });
 })();
 </script>
