@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Online Writing Workshop for Kids — Sat 29 Aug, 11 AM | Joy of Writing</title>
+<meta name="description" content="A free 30-minute online writing workshop for children aged 6 to 12. Saturday 29 August, 11 AM. Bring paper and a pen — we'll do the rest. Register free.">
+<link rel="canonical" href="https://www.joyofwriting.in/workshop.html">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Joy of Writing">
+<meta property="og:title" content="Free Online Writing Workshop for Kids — Sat 29 Aug, 11 AM">
+<meta property="og:description" content="30 minutes, completely free, for children aged 6 to 12. All you need is paper and a pen.">
+<meta property="og:url" content="https://www.joyofwriting.in/workshop.html">
+<meta property="og:image" content="https://www.joyofwriting.in/realistic-banner.jpg">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Free Online Writing Workshop for Kids — Sat 29 Aug, 11 AM">
+<meta name="twitter:description" content="30 minutes, completely free, for children aged 6 to 12. All you need is paper and a pen.">
+<meta name="twitter:image" content="https://www.joyofwriting.in/realistic-banner.jpg">
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Fredoka:wght@400;500;600&family=Gochi+Hand&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky:#6ec6ff; --sky-deep:#3aa8f0; --sunny:#ffd23f; --coral:#ff6b6b;
+    --grape:#9b5de5; --mint:#3ec99b; --ink:#2b2440; --cream:#fff8ee;
+    --paper:#fffdf8; --line:#e8ded0; --soft:#5a5470;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Fredoka',sans-serif;color:var(--ink);background:var(--cream);line-height:1.6;overflow-x:hidden;}
+  h1,h2,h3,h4{font-family:'Baloo 2',cursive;line-height:1.18;}
+  .wrap{max-width:620px;margin:0 auto;padding:0 20px;}
+
+  .topbar{background:rgba(255,248,238,.94);backdrop-filter:blur(8px);border-bottom:1px solid #f0e2c2;position:sticky;top:0;z-index:20;}
+  .topbar-in{max-width:620px;margin:0 auto;padding:11px 20px;display:flex;align-items:center;justify-content:space-between;}
+  .logo{display:flex;align-items:center;gap:9px;font-family:'Baloo 2';font-weight:800;font-size:1.2rem;color:var(--grape);text-decoration:none;}
+  .logo svg{width:24px;height:auto;}
+  .home-link{font-size:.86rem;color:var(--soft);text-decoration:none;}
+
+  /* ---- hero ---- */
+  .hero{padding:30px 0 8px;text-align:center;}
+  .free-tag{
+    display:inline-block;background:var(--mint);color:#083d2c;font-family:'Baloo 2';
+    font-weight:800;font-size:.82rem;letter-spacing:.08em;padding:5px 15px;border-radius:999px;
+  }
+  .hero h1{font-size:2.15rem;margin:14px 0 10px;}
+  .hero h1 .hl{color:var(--coral);}
+  .hero .lead{color:var(--soft);font-size:1.05rem;}
+
+  .facts{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:22px 0 6px;
+  }
+  .fact{
+    background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:12px 10px;
+  }
+  .fact .k{font-size:.74rem;letter-spacing:.06em;color:#9a9287;text-transform:uppercase;}
+  .fact .v{font-family:'Baloo 2';font-weight:700;font-size:1.02rem;margin-top:1px;}
+
+  /* ---- countdown ---- */
+  .count{
+    background:var(--ink);color:#fff;border-radius:18px;padding:16px;margin-top:16px;
+    display:flex;justify-content:center;gap:8px;
+  }
+  .cbox{min-width:62px;}
+  .cnum{font-family:'Baloo 2';font-weight:800;font-size:1.75rem;line-height:1;color:var(--sunny);}
+  .clab{font-size:.68rem;letter-spacing:.09em;text-transform:uppercase;color:#bdb6d4;margin-top:3px;}
+  .count.over{display:block;text-align:center;font-family:'Baloo 2';font-weight:700;}
+
+  /* ---- form ---- */
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:22px;margin-top:22px;position:relative;overflow:hidden;}
+  .card:before{content:"";position:absolute;inset:0 0 auto 0;height:4px;
+    background:linear-gradient(90deg,var(--sunny),var(--coral),var(--sky),var(--mint));}
+  .card h2{font-size:1.4rem;margin-bottom:4px;}
+  .card .sub{color:var(--soft);font-size:.93rem;margin-bottom:14px;}
+  label{display:block;font-weight:500;font-size:.88rem;margin:13px 0 5px;}
+  input[type=text],input[type=email],input[type=number],input[type=tel]{
+    width:100%;padding:13px 14px;font-size:1rem;font-family:inherit;
+    border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);
+  }
+  input:focus{outline:2px solid var(--sunny);outline-offset:1px;}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .req{color:var(--coral);}
+  .consent{margin-top:15px;background:#f9f5ff;border:1px solid #e6d9fb;border-radius:12px;padding:12px 13px;}
+  .consent label{display:flex;gap:10px;align-items:flex-start;font-size:.88rem;color:#4a4360;margin:0;font-weight:400;cursor:pointer;}
+  .consent input{width:19px;height:19px;min-width:19px;margin-top:2px;accent-color:var(--grape);}
+  .btn{
+    font-family:'Baloo 2';font-weight:700;font-size:1.06rem;cursor:pointer;border:none;
+    padding:15px 24px;border-radius:999px;text-decoration:none;
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-primary{background:var(--coral);color:#fff;box-shadow:0 3px 10px rgba(43,36,64,.08);width:100%;margin-top:16px;}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(43,36,64,.13);}
+  .btn-primary[disabled]{opacity:.6;cursor:not-allowed;transform:none;}
+  .formnote{font-size:.82rem;color:#8a8397;text-align:center;margin-top:11px;}
+  .errline{color:#c0392b;font-size:.87rem;margin-top:9px;display:none;}
+  .errline.show{display:block;}
+
+  .done{display:none;text-align:center;padding:8px 0;}
+  .done .tick{font-size:2.6rem;}
+  .done h3{font-size:1.4rem;margin:8px 0 6px;}
+  .done p{color:var(--soft);font-size:.96rem;}
+  .wa{
+    display:inline-flex;align-items:center;gap:8px;margin-top:16px;
+    background:#25D366;color:#fff;font-family:'Baloo 2';font-weight:700;
+    padding:12px 22px;border-radius:999px;text-decoration:none;font-size:.96rem;
+  }
+
+  /* ---- content blocks ---- */
+  .block{margin-top:26px;}
+  .block h3{font-size:1.25rem;margin-bottom:10px;}
+  .steps li{
+    list-style:none;padding-left:32px;position:relative;margin-bottom:9px;
+    color:#4a4360;font-size:.98rem;
+  }
+  .steps li:before{
+    content:attr(data-n);position:absolute;left:0;top:1px;width:22px;height:22px;
+    background:var(--sunny);border-radius:50%;display:grid;place-items:center;
+    font-family:'Baloo 2';font-weight:700;font-size:.8rem;color:#5f4300;
+  }
+  .need{background:#fff8e6;border:1px dashed #e8d5a8;border-radius:14px;padding:14px 16px;font-size:.96rem;color:#7a5a1e;}
+  .quote{
+    background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-top:10px;
+  }
+  .quote p{font-family:'Gochi Hand';font-size:1.24rem;color:#4a4360;line-height:1.45;}
+  .quote .who{font-size:.83rem;color:#9a9287;margin-top:7px;}
+  .faq{border-top:1px solid var(--line);padding:13px 0;}
+  .faq h4{font-size:1rem;margin-bottom:3px;}
+  .faq p{color:var(--soft);font-size:.93rem;}
+
+  footer{text-align:center;padding:34px 20px 40px;color:#9a9287;font-size:.84rem;}
+  footer a{color:var(--grape);}
+
+  @media(max-width:420px){
+    .hero h1{font-size:1.85rem;}
+    .cbox{min-width:54px;}
+    .cnum{font-size:1.5rem;}
+    .row2{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="topbar-in">
+  <a href="index.html" class="logo">
+    <svg viewBox="0 0 90 175" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(24,26)"><path d="M52 8 L52 92 Q52 128 20 128 Q-8 128 -12 104" fill="none" stroke="#ffd23f" stroke-width="26" stroke-linecap="round"/><path d="M52 8 L52 92 Q52 128 20 128 Q-8 128 -12 104" fill="none" stroke="#2b2440" stroke-width="4" stroke-linecap="round" opacity=".85"/><path d="M39 6 L52 -22 L65 6 Z" fill="#ff6b6b" stroke="#2b2440" stroke-width="3.5" stroke-linejoin="round"/><path d="M46 -6 L52 -20 L58 -6 Z" fill="#2b2440"/><circle cx="-12" cy="104" r="6" fill="#ff6b6b"/></g></svg>
+    Joy of Writing
+  </a>
+  <a href="index.html" class="home-link">About us →</a>
+</div></div>
+
+<div class="wrap">
+
+  <div class="hero">
+    <span class="free-tag">COMPLETELY FREE</span>
+    <h1>A 30-minute writing workshop your child will <span class="hl">actually enjoy</span></h1>
+    <p class="lead">Live with Anuradha, online. Bring paper and a pen — we'll do the rest.</p>
+
+    <div class="facts">
+      <div class="fact"><div class="k">When</div><div class="v">Sat 29 August</div></div>
+      <div class="fact"><div class="k">Time</div><div class="v">11:00 AM IST</div></div>
+      <div class="fact"><div class="k">Ages</div><div class="v">6 to 12</div></div>
+      <div class="fact"><div class="k">Length</div><div class="v">30 minutes</div></div>
+    </div>
+
+    <div class="count" id="count">
+      <div class="cbox"><div class="cnum" id="cd">–</div><div class="clab">days</div></div>
+      <div class="cbox"><div class="cnum" id="ch">–</div><div class="clab">hours</div></div>
+      <div class="cbox"><div class="cnum" id="cm">–</div><div class="clab">mins</div></div>
+    </div>
+  </div>
+
+  <!-- REGISTRATION -->
+  <div class="card" id="regCard">
+    <h2>Save your child's seat</h2>
+    <p class="sub">Takes about twenty seconds. We'll email you the Google Meet link.</p>
+
+    <form id="regForm" novalidate>
+      <div class="row2">
+        <div>
+          <label for="wName">Child's first name <span class="req">*</span></label>
+          <input type="text" id="wName" maxlength="30" autocomplete="off" required>
+        </div>
+        <div>
+          <label for="wAge">Age <span class="req">*</span></label>
+          <input type="number" id="wAge" min="4" max="16" inputmode="numeric" required>
+        </div>
+      </div>
+
+      <label for="wEmail">Parent's email <span class="req">*</span></label>
+      <input type="email" id="wEmail" autocomplete="email" inputmode="email" required>
+
+      <label for="wPhone">Parent's WhatsApp number <span style="font-weight:400;color:#9a9287">(optional)</span></label>
+      <input type="tel" id="wPhone" autocomplete="tel" inputmode="tel" maxlength="18">
+
+      <div class="consent">
+        <label>
+          <input type="checkbox" id="wConsent">
+          <span>I'm the parent or guardian, and I'm happy for my child to join this session.</span>
+        </label>
+      </div>
+
+      <div class="errline" id="wErr"></div>
+      <button type="submit" class="btn btn-primary" id="wGo">Save my child's seat 🎟️</button>
+      <p class="formnote">Free. No payment details. We'll only email you about this workshop.</p>
+    </form>
+
+    <div class="done" id="regDone">
+      <div class="tick">🎉</div>
+      <h3 id="doneTitle">You're in!</h3>
+      <p>Check your inbox — the joining link is on its way. We'll send a reminder on Saturday morning too.</p>
+      <a class="wa" id="waShare" href="#" target="_blank" rel="noopener">Tell another parent 💬</a>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>What happens in the 30 minutes</h3>
+    <ul class="steps">
+      <li data-n="1"><b>A warm-up game</b> — everyone writes one silly sentence. No wrong answers, and it breaks the ice.</li>
+      <li data-n="2"><b>One real story</b> — Anuradha gives a spark, and the children write by hand for ten minutes.</li>
+      <li data-n="3"><b>Reading out, if they'd like to</b> — nobody is made to. Shy writers can just listen.</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="need"><b>What you need:</b> paper, a pen, and a quiet corner. That's genuinely it — no printing, no apps to install, no preparation.</div>
+  </div>
+
+  <div class="block">
+    <h3>What your child gets back</h3>
+    <p style="color:var(--soft);font-size:.96rem;">Real writing from real children, and the kind of reply we send:</p>
+    <div class="quote">
+      <p>"The sky looked melted chocolate with sprinkles…"</p>
+      <div class="who">Shloka, 12 — from "The Escape Mission"</div>
+    </div>
+    <div class="quote">
+      <p>"It went to a very very very very big cave. It was dark, they could not see, so they made a fire…"</p>
+      <div class="who">Veda, 8 — from "The Giant Good Bye"</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>Questions parents ask</h3>
+    <div class="faq">
+      <h4>Does my child have to be on camera?</h4>
+      <p>No. Cameras and microphones are entirely optional — plenty of children prefer to listen and write with theirs off, and that's completely fine.</p>
+    </div>
+    <div class="faq">
+      <h4>Is this really free?</h4>
+      <p>Yes. No payment details, no trial that starts charging. If you'd like to carry on afterwards we have paid plans, but nobody will be pushed.</p>
+    </div>
+    <div class="faq">
+      <h4>Do I need to sit with my child?</h4>
+      <p>No. Children from 6 upwards can join on their own — settle them in with paper and a pen, and leave them to it. You're very welcome to stay if your child would rather you did.</p>
+    </div>
+    <div class="faq">
+      <h4>What if we miss it?</h4>
+      <p>Register anyway — we'll email you when the next one is scheduled.</p>
+    </div>
+    <div class="faq">
+      <h4>Who is teaching?</h4>
+      <p>Anuradha, who has been a professional writer for two decades. <a href="about.html" style="color:var(--grape);">More about her →</a></p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 Joy of Writing · <a href="privacy.html">Privacy</a> · <a href="index.html">joyofwriting.in</a></p>
+  <p style="margin-top:6px;">Questions? Write to <a href="mailto:anuradha@joyofwriting.in">anuradha@joyofwriting.in</a></p>
+</footer>
+
+<script>
+(function(){
+  /* Saturday 29 August 2026, 11:00 IST. The +05:30 matters — without it
+     a phone set to another timezone counts down to the wrong moment. */
+  var WHEN = new Date('2026-08-29T11:00:00+05:30');
+
+  var box = document.getElementById('count');
+  function tick(){
+    var left = WHEN - new Date();
+    if(left <= 0){
+      box.className = 'count over';
+      box.textContent = 'The workshop is starting — check your email for the link! 🎉';
+      return;
+    }
+    var m = Math.floor(left/60000);
+    document.getElementById('cd').textContent = Math.floor(m/1440);
+    document.getElementById('ch').textContent = Math.floor(m%1440/60);
+    document.getElementById('cm').textContent = m%60;
+  }
+  tick(); setInterval(tick, 30000);
+
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbyVNrxHAfBx21Dnn1R_EStpu1nng8g4yPg3Yh8vEBQZa7yR07av8yBkMvBre409ZBk/exec';
+
+  var form = document.getElementById('regForm');
+  var err  = document.getElementById('wErr');
+  var go   = document.getElementById('wGo');
+
+  function fail(msg, focusEl){
+    err.textContent = msg;
+    err.classList.add('show');
+    if(focusEl) focusEl.focus();
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    err.classList.remove('show');
+
+    var name  = document.getElementById('wName').value.trim();
+    var age   = document.getElementById('wAge').value.trim();
+    var email = document.getElementById('wEmail').value.trim();
+    var phone = document.getElementById('wPhone').value.trim();
+    var ok    = document.getElementById('wConsent').checked;
+
+    if(!name)  return fail('Please tell us your child’s first name.', document.getElementById('wName'));
+    if(!age || +age < 4 || +age > 16)
+                return fail('Please enter an age between 4 and 16.', document.getElementById('wAge'));
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))
+                return fail('That email address doesn’t look quite right.', document.getElementById('wEmail'));
+    if(!ok)    return fail('Please tick the box to confirm you’re the parent or guardian.');
+
+    go.disabled = true;
+    go.textContent = 'Saving your seat…';
+
+    var body = new URLSearchParams({
+      src:'workshop', token:'joy-2026-anuradha',
+      name:name, age:age, email:email, phone:phone,
+      session:'2026-08-29 11:00',
+      submittedAt:new Date().toISOString()
+    });
+
+    fetch(ENDPOINT, {method:'POST', body:body})
+      .then(function(){ show(name); })
+      .catch(function(){
+        /* The request usually still lands even when the browser blocks
+           us reading the reply, so treat it as done rather than making
+           a parent fill the form twice. */
+        show(name);
+      });
+  });
+
+  function show(name){
+    document.getElementById('regForm').style.display = 'none';
+    document.getElementById('doneTitle').textContent = name ? ('You’re in, ' + name + '!') : 'You’re in!';
+    var d = document.getElementById('regDone');
+    d.style.display = 'block';
+
+    var msg = 'Free 30-minute online writing workshop for kids (6-12) this Saturday 11 AM. ' +
+              'My child is going — thought yours might like it too: https://www.joyofwriting.in/workshop.html';
+    document.getElementById('waShare').href = 'https://wa.me/?text=' + encodeURIComponent(msg);
+
+    d.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+})();
+</script>
+</body>
+</html>
