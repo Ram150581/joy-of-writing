@@ -309,6 +309,8 @@
       "name": "Starter",
       "price": "299",
       "priceCurrency": "INR",
+      "billingDuration": 1,
+      "billingIncrement": "P1M",
       "description": "Upload stories and get mentor feedback, one workshop session, digital badge."
     },
     {
@@ -316,6 +318,8 @@
       "name": "Storyteller",
       "price": "499",
       "priceCurrency": "INR",
+      "billingDuration": 1,
+      "billingIncrement": "P1M",
       "description": "Everything in Starter plus all fun writing tools, three weeks of workshops and weekly challenges."
     },
     {
@@ -323,6 +327,8 @@
       "name": "Young Author",
       "price": "999",
       "priceCurrency": "INR",
+      "billingDuration": 1,
+      "billingIncrement": "P1M",
       "description": "Everything in Storyteller plus five weeks of workshops and a one-to-one coaching session."
     }
   ]
@@ -645,7 +651,7 @@
       <span class="badge-pill">📸 Story Studio</span>
       <h2>Send us your <span class="hl">handwritten</span> story!</h2>
       <p>Snap photos of your story — up to 4 pages — and your writing coach will send back friendly feedback. ✨</p>
-      <p style="margin-top:12px;font-size:.95rem;color:#8a8397;">👋 Mentor feedback is part of a paid plan — <a href="#pricing" style="color:var(--grape);font-weight:500;">see plans from ₹299</a>. Already joined? Just send your story below.</p>
+      <p style="margin-top:12px;font-size:.95rem;color:#8a8397;">👋 Mentor feedback is part of a paid plan — <a href="#pricing" style="color:var(--grape);font-weight:500;">see plans from ₹299 a month</a>. Already joined? Just send your story below.</p>
     </div>
     <form class="ss-card" id="ssForm" autocomplete="off">
       <div class="ss-row2">
@@ -850,7 +856,7 @@ function sendBookInterest(e){
     <div class="center" style="max-width:680px;">
       <span class="kicker">simple, friendly plans</span>
       <h2 class="sec-title">Pricing for every family 💛</h2>
-      <p class="sec-sub center">Start for just ₹299. Move up whenever your child is ready.</p>
+      <p class="sec-sub center">From ₹299 a month. Pause any month, cancel any time — no notice, no questions.</p>
     </div>
 
     <div class="pt-wrap">
@@ -859,47 +865,47 @@ function sendBookInterest(e){
         <thead>
           <tr>
             <th class="pt-feature" style="background:var(--ink);color:#fff;">What's included</th>
-            <th><span class="pt-plan">Starter</span><span class="pt-price">₹299</span><span class="pt-sub">your first step ✨</span></th>
-            <th><span class="pop2">⭐ Most loved</span><span class="pt-plan">Storyteller</span><span class="pt-price">₹499</span><span class="pt-sub">the happy habit 💛</span></th>
-            <th><span class="pt-plan">Young Author</span><span class="pt-price">₹999</span><span class="pt-sub">go all in 🚀</span></th>
+            <th><span class="pt-plan">Starter</span><span class="pt-price">₹299<small>/month</small></span><span class="pt-sub">your first step ✨</span></th>
+            <th><span class="pop2">⭐ Most loved</span><span class="pt-plan">Storyteller</span><span class="pt-price">₹499<small>/month</small></span><span class="pt-sub">the happy habit 💛</span></th>
+            <th><span class="pt-plan">Young Author</span><span class="pt-price">₹999<small>/month</small></span><span class="pt-sub">go all in 🚀</span></th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="pt-feature">✍️ Upload your stories &amp; get mentor feedback</td>
-            <td><span class="tick">✔</span></td>
-            <td><span class="tick">✔</span></td>
-            <td><span class="tick">✔</span></td>
+            <td class="pt-feature">🎥 Live online sessions with Anuradha</td>
+            <td><span class="tick">✔</span><span class="note">2 a month</span></td>
+            <td><span class="tick">✔</span><span class="note">3 a month</span></td>
+            <td><span class="tick">✔</span><span class="note">every week</span></td>
           </tr>
           <tr>
-            <td class="pt-feature">🎥 Access to online writing workshops</td>
-            <td><span class="tick">✔</span><span class="note">1 session</span></td>
-            <td><span class="tick">✔</span><span class="note">3 weeks</span></td>
-            <td><span class="tick">✔</span><span class="note">5 weeks</span></td>
+            <td class="pt-feature">✍️ Handwritten stories read &amp; answered</td>
+            <td><span class="tick">✔</span><span class="note">4 a month</span></td>
+            <td><span class="tick">✔</span><span class="note">8 a month</span></td>
+            <td><span class="tick">✔</span><span class="note">as many as you like</span></td>
           </tr>
           <tr>
-            <td class="pt-feature">🏅 A digital badge to celebrate your writing</td>
-            <td><span class="tick">✔</span></td>
-            <td><span class="tick">✔</span></td>
-            <td><span class="tick">✔</span></td>
-          </tr>
-          <tr>
-            <td class="pt-feature">🎨 Access to all the fun writing tools</td>
+            <td class="pt-feature">🎨 All ten fun writing tools</td>
             <td><span class="cross">✘</span></td>
             <td><span class="tick">✔</span></td>
             <td><span class="tick">✔</span></td>
           </tr>
           <tr>
-            <td class="pt-feature">🎯 One weekly challenge for 3 weeks</td>
-            <td><span class="cross">✘</span></td>
+            <td class="pt-feature">🔥 Five-day streak badges</td>
+            <td><span class="tick">✔</span></td>
             <td><span class="tick">✔</span></td>
             <td><span class="tick">✔</span></td>
           </tr>
           <tr>
-            <td class="pt-feature">👩‍🏫 A personalised coaching session</td>
-            <td><span class="cross">✘</span></td>
-            <td><span class="cross">✘</span></td>
-            <td><span class="tick">✔</span><span class="note">one-time · 30 min 1:1</span></td>
+            <td class="pt-feature">🏆 Wall of Fame &amp; certificates</td>
+            <td><span class="tick">✔</span></td>
+            <td><span class="tick">✔</span></td>
+            <td><span class="tick">✔</span></td>
+          </tr>
+          <tr>
+            <td class="pt-feature">⏸️ Pause for a month, cancel anytime</td>
+            <td><span class="tick">✔</span></td>
+            <td><span class="tick">✔</span></td>
+            <td><span class="tick">✔</span></td>
           </tr>
         </tbody>
         <tfoot>
@@ -913,7 +919,8 @@ function sendBookInterest(e){
       </table>
     </div>
     <p class="pt-hint">← swipe to compare all three plans →</p>
-    <p style="text-align:center;font-size:.92rem;color:#8a8397;margin-top:14px;">Secure payment by Razorpay · UPI, cards, netbanking &amp; wallets accepted 🔒</p>
+    <p style="text-align:center;font-size:.92rem;color:#8a8397;margin-top:14px;">Renews monthly by UPI or card · Secure payment by Razorpay 🔒<br>
+    <span style="font-size:.88rem;">Need a break? Email us and we'll pause your month — school holidays, exams, anything. Cancel whenever you like.</span></p>
 
     <div class="extra-plans">
       <div class="chip2"><b>Extra 1:1 coaching</b> — add more personal sessions · <b>₹599 each</b></div>
@@ -968,12 +975,12 @@ function sendBookInterest(e){
   <div class="blob" style="width:160px;height:160px;background:#ff6b6b;bottom:-50px;right:-40px;opacity:.4;"></div>
   <div class="wrap">
     <h2>Ready to spark the joy of writing? 🚀</h2>
-    <p>Join today for just ₹299 and give your child a challenge this very week. Their first story is waiting to be written.</p>
+    <p>Join today from ₹299 a month and give your child a challenge this very week. Their first story is waiting to be written.</p>
     <div class="signup">
       <a href="#pricing" class="btn btn-primary">See plans &amp; join 💛</a>
       <a href="about.html" class="btn btn-ghost">Meet Anuradha ✍️</a>
     </div>
-    <p style="font-size:.9rem;margin-top:14px;color:#8f88ad;">Plans from ₹299. No hidden fees. Questions? Write to <a href="mailto:anuradha@joyofwriting.in" style="color:#ffd23f;">anuradha@joyofwriting.in</a> 💜</p>
+    <p style="font-size:.9rem;margin-top:14px;color:#8f88ad;">Plans from ₹299 a month. Pause or cancel any time, no hidden fees. Questions? Write to <a href="mailto:anuradha@joyofwriting.in" style="color:#ffd23f;">anuradha@joyofwriting.in</a> 💜</p>
   </div>
 </section>
 
@@ -1068,7 +1075,7 @@ function sendBookInterest(e){
       '<div class="e">💌</div>'+
       '<h3>You have used your free story!</h3>'+
       '<p>Your first story is with your writing coach. To keep sending stories and get feedback every week, '+
-      'choose a plan — they start at ₹299.</p>'+
+      'choose a plan — they start at ₹299 a month.</p>'+
       '<div class="row">'+
         '<a class="go" href="'+C.home+'#pricing">See plans ✨</a>'+
         '<a class="alt" href="fun-tools.html#unlock">I have an access code 🔑</a>'+
@@ -1125,7 +1132,7 @@ function sendBookInterest(e){
       if(msg){
         msg.innerHTML='Your story is with your writing coach and feedback is on the way to your parent\'s inbox. 💜'+
           '<br><br><b>That was your free story.</b> To keep writing with us every week, '+
-          '<a href="'+C.home+'#pricing" style="color:#9b5de5;font-weight:600;">have a look at the plans</a> — they start at ₹299.';
+          '<a href="'+C.home+'#pricing" style="color:#9b5de5;font-weight:600;">have a look at the plans</a> — they start at ₹299 a month.';
       }
       var again=document.getElementById(C.again);
       if(again){
