@@ -846,19 +846,19 @@ function sendBookInterest(e){
      of them will not fit a 1120px page at full size. Zoom shrinks the
      whole card evenly — nothing stretches or crops — and unlike
      transform:scale it also shrinks the space the card occupies. */
+  /* No transform and no zoom here, deliberately. Razorpay's checkout opens
+     as a position:fixed overlay, and a transformed ancestor makes fixed
+     positioning resolve against that ancestor instead of the window — the
+     checkout opens somewhere off-screen and the button appears dead.
+     Widening is done with negative margins, which are safe. */
   .plan-buttons{
     display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;
-    gap:14px;margin:26px 0 0 50%;
-    /* step outside the 1120px column so the cards can be larger */
-    width:min(1280px, calc(100vw - 36px));
-    transform:translateX(-50%);
+    gap:16px;margin:26px -70px 0;
   }
-  .plan-buttons > div{flex:0 0 auto;zoom:.84;}
+  .plan-buttons > div{flex:0 0 auto;}
   .plan-buttons form{margin:0;}
-  /* Below this they stack, so there is no reason to shrink them at all. */
-  @media(max-width:1000px){
-    .plan-buttons{gap:4px;}
-    .plan-buttons > div{zoom:.9;}
+  @media(max-width:1100px){
+    .plan-buttons{margin-left:0;margin-right:0;}
   }
   .pt .pt-sub{font-size:.8rem;color:#c7c0e0;display:block;margin-top:4px;}
   .pt col.hi{background:#fff8e5;}
