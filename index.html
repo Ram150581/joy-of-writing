@@ -375,7 +375,7 @@
   <div class="wrap hero-grid">
     <div>
       <span class="badge-pill">🌍 For curious kids aged 6–15</span>
-      <h1>Where kids fall in love with <span class="hl">writing</span> — one <span class="hl2">story</span> at a time.</h1>
+      <h1>Where kids fall in love with <span class="hl">writing</span>.</h1>
       <p class="lead">In a world racing toward AI, we help children discover the pure joy of putting <em>their own</em> words on the page. Fun weekly challenges, real feedback, and a wall that celebrates young authors. ✨</p>
       <div class="hero-btns">
         <a href="#pricing" class="btn btn-primary">See plans &amp; join 💛</a>
@@ -839,6 +839,27 @@ function sendBookInterest(e){
   .pt .pt-plan{font-family:'Baloo 2';font-weight:800;font-size:1.25rem;display:block;}
   .pt .pt-price{font-family:'Baloo 2';font-weight:800;font-size:1.9rem;color:var(--sunny);display:block;margin-top:4px;line-height:1;}
   .pt .pt-price small{font-family:'Fredoka';font-weight:400;font-size:.8rem;color:#c7c0e0;}
+  /* Razorpay draws its own card per plan and we cannot restyle it — so we
+     give the three of them a tidy row of their own, capped in width and
+     stacked on small screens. */
+  /* Razorpay's card is about 480px wide and cannot be restyled, so three
+     of them will not fit a 1120px page at full size. Zoom shrinks the
+     whole card evenly — nothing stretches or crops — and unlike
+     transform:scale it also shrinks the space the card occupies. */
+  .plan-buttons{
+    display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;
+    gap:14px;margin:26px 0 0 50%;
+    /* step outside the 1120px column so the cards can be larger */
+    width:min(1280px, calc(100vw - 36px));
+    transform:translateX(-50%);
+  }
+  .plan-buttons > div{flex:0 0 auto;zoom:.84;}
+  .plan-buttons form{margin:0;}
+  /* Below this they stack, so there is no reason to shrink them at all. */
+  @media(max-width:1000px){
+    .plan-buttons{gap:4px;}
+    .plan-buttons > div{zoom:.9;}
+  }
   .pt .pt-sub{font-size:.8rem;color:#c7c0e0;display:block;margin-top:4px;}
   .pt col.hi{background:#fff8e5;}
   .pt .pop2{display:inline-block;background:var(--coral);color:#fff;font-family:'Baloo 2';font-weight:700;
@@ -884,18 +905,6 @@ function sendBookInterest(e){
             <td><span class="tick">✔</span><span class="note">as many as you like</span></td>
           </tr>
           <tr>
-            <td class="pt-feature">🎨 All ten fun writing tools</td>
-            <td><span class="cross">✘</span></td>
-            <td><span class="tick">✔</span></td>
-            <td><span class="tick">✔</span></td>
-          </tr>
-          <tr>
-            <td class="pt-feature">🔥 Five-day streak badges</td>
-            <td><span class="tick">✔</span></td>
-            <td><span class="tick">✔</span></td>
-            <td><span class="tick">✔</span></td>
-          </tr>
-          <tr>
             <td class="pt-feature">🏆 Wall of Fame &amp; certificates</td>
             <td><span class="tick">✔</span></td>
             <td><span class="tick">✔</span></td>
@@ -907,18 +916,37 @@ function sendBookInterest(e){
             <td><span class="tick">✔</span></td>
             <td><span class="tick">✔</span></td>
           </tr>
+          <tr>
+            <td class="pt-feature">🎨 Fun Tools</td>
+            <td><span class="cross">✘</span></td>
+            <td><span class="tick">✔</span></td>
+            <td><span class="tick">✔</span></td>
+          </tr>
+          <tr>
+            <td class="pt-feature">🔥 Five-day streak badges</td>
+            <td><span class="cross">✘</span></td>
+            <td><span class="tick">✔</span></td>
+            <td><span class="tick">✔</span></td>
+          </tr>
         </tbody>
         <tfoot>
           <tr>
-            <td class="pt-feature"></td>
-            <td><a href="https://rzp.io/rzp/ZhtcFAZ7" target="_blank" rel="noopener" class="btn btn-ghost">Get started</a></td>
-            <td><a href="https://rzp.io/rzp/zLfbMeP" target="_blank" rel="noopener" class="btn btn-primary">Choose Storyteller</a></td>
-            <td><a href="https://rzp.io/rzp/GyMC7W3" target="_blank" rel="noopener" class="btn btn-ghost">Choose Young Author</a></td>
+            <td colspan="4" style="text-align:center;font-size:.92rem;color:#8a8397;padding:14px;background:#fffdf8;">Pick your plan just below 👇</td>
           </tr>
         </tfoot>
       </table>
     </div>
     <p class="pt-hint">← swipe to compare all three plans →</p>
+
+    <!-- Razorpay draws its own card for each plan (name, price, button).
+         They sit below the table rather than inside it — three of these
+         in table cells forced the whole table to scroll sideways.
+         To change a plan, edit only its data-subscription_button_id. -->
+    <div class="plan-buttons">
+      <div><form><script src="https://cdn.razorpay.com/static/widget/subscription-button.js" data-subscription_button_id="pl_TUOxz1XUGn0Pke" data-button_theme="brand-color" async></script></form></div>
+      <div><form><script src="https://cdn.razorpay.com/static/widget/subscription-button.js" data-subscription_button_id="pl_TUN0d7hoPj3i5I" data-button_theme="brand-color" async></script></form></div>
+      <div><form><script src="https://cdn.razorpay.com/static/widget/subscription-button.js" data-subscription_button_id="pl_TUN3DJ4Siv0PqN" data-button_theme="brand-color" async></script></form></div>
+    </div>
     <p style="text-align:center;font-size:.92rem;color:#8a8397;margin-top:14px;">Renews monthly by UPI or card · Secure payment by Razorpay 🔒<br>
     <span style="font-size:.88rem;">Need a break? Email us and we'll pause your month — school holidays, exams, anything. Cancel whenever you like.</span></p>
 
