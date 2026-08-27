@@ -846,20 +846,6 @@ function sendBookInterest(e){
      of them will not fit a 1120px page at full size. Zoom shrinks the
      whole card evenly — nothing stretches or crops — and unlike
      transform:scale it also shrinks the space the card occupies. */
-  /* No transform and no zoom here, deliberately. Razorpay's checkout opens
-     as a position:fixed overlay, and a transformed ancestor makes fixed
-     positioning resolve against that ancestor instead of the window — the
-     checkout opens somewhere off-screen and the button appears dead.
-     Widening is done with negative margins, which are safe. */
-  .plan-buttons{
-    display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;
-    gap:16px;margin:26px -70px 0;
-  }
-  .plan-buttons > div{flex:0 0 auto;}
-  .plan-buttons form{margin:0;}
-  @media(max-width:1100px){
-    .plan-buttons{margin-left:0;margin-right:0;}
-  }
   .pt .pt-sub{font-size:.8rem;color:#c7c0e0;display:block;margin-top:4px;}
   .pt col.hi{background:#fff8e5;}
   .pt .pop2{display:inline-block;background:var(--coral);color:#fff;font-family:'Baloo 2';font-weight:700;
@@ -931,24 +917,17 @@ function sendBookInterest(e){
         </tbody>
         <tfoot>
           <tr>
-            <td colspan="4" style="text-align:center;font-size:.92rem;color:#8a8397;padding:14px;background:#fffdf8;">Pick your plan just below 👇</td>
+            <td class="pt-feature"></td>
+            <td><a href="https://rzp.io/rzp/ZhtcFAZ7" target="_blank" rel="noopener" class="btn btn-ghost">Get started</a></td>
+            <td><a href="https://rzp.io/rzp/zLfbMeP" target="_blank" rel="noopener" class="btn btn-primary">Choose Storyteller</a></td>
+            <td><a href="https://rzp.io/rzp/GyMC7W3" target="_blank" rel="noopener" class="btn btn-ghost">Choose Young Author</a></td>
           </tr>
         </tfoot>
       </table>
     </div>
     <p class="pt-hint">← swipe to compare all three plans →</p>
-
-    <!-- Razorpay draws its own card for each plan (name, price, button).
-         They sit below the table rather than inside it — three of these
-         in table cells forced the whole table to scroll sideways.
-         To change a plan, edit only its data-subscription_button_id. -->
-    <div class="plan-buttons">
-      <div><form><script src="https://cdn.razorpay.com/static/widget/subscription-button.js" data-subscription_button_id="pl_TUOxz1XUGn0Pke" data-button_theme="brand-color" async></script></form></div>
-      <div><form><script src="https://cdn.razorpay.com/static/widget/subscription-button.js" data-subscription_button_id="pl_TUN0d7hoPj3i5I" data-button_theme="brand-color" async></script></form></div>
-      <div><form><script src="https://cdn.razorpay.com/static/widget/subscription-button.js" data-subscription_button_id="pl_TUN3DJ4Siv0PqN" data-button_theme="brand-color" async></script></form></div>
-    </div>
-    <p style="text-align:center;font-size:.92rem;color:#8a8397;margin-top:14px;">Renews monthly by UPI or card · Secure payment by Razorpay 🔒<br>
-    <span style="font-size:.88rem;">Need a break? Email us and we'll pause your month — school holidays, exams, anything. Cancel whenever you like.</span></p>
+    <p style="text-align:center;font-size:.92rem;color:#8a8397;margin-top:14px;">Secure payment by Razorpay · UPI, cards, netbanking &amp; wallets 🔒<br>
+    <span style="font-size:.88rem;">You pay one month at a time. We'll send you a link when the next month is due — nothing is ever charged automatically, so you stop simply by not renewing.</span></p>
 
     <div class="extra-plans">
       <div class="chip2"><b>Extra 1:1 coaching</b> — add more personal sessions · <b>₹599 each</b></div>
@@ -1008,7 +987,7 @@ function sendBookInterest(e){
       <a href="#pricing" class="btn btn-primary">See plans &amp; join 💛</a>
       <a href="about.html" class="btn btn-ghost">Meet Anuradha ✍️</a>
     </div>
-    <p style="font-size:.9rem;margin-top:14px;color:#8f88ad;">Plans from ₹299 a month. Pause or cancel any time, no hidden fees. Questions? Write to <a href="mailto:anuradha@joyofwriting.in" style="color:#ffd23f;">anuradha@joyofwriting.in</a> 💜</p>
+    <p style="font-size:.9rem;margin-top:14px;color:#8f88ad;">Plans from ₹299 a month. No auto-renewal, no hidden fees. Questions? Write to <a href="mailto:anuradha@joyofwriting.in" style="color:#ffd23f;">anuradha@joyofwriting.in</a> 💜</p>
   </div>
 </section>
 
