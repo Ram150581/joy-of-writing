@@ -197,8 +197,8 @@
 
       <div class="row2">
         <div>
-          <label for="wPhone">WhatsApp number <span style="font-weight:400;color:#9a9287">(optional)</span></label>
-          <input type="tel" id="wPhone" autocomplete="tel" inputmode="tel" maxlength="18">
+          <label for="wPhone">WhatsApp number <span class="req">*</span></label>
+          <input type="tel" id="wPhone" autocomplete="tel" inputmode="tel" maxlength="18" required>
         </div>
         <div>
           <label for="wCity">Which city? <span style="font-weight:400;color:#9a9287">(optional)</span></label>
@@ -332,6 +332,13 @@
                 return fail('Please enter an age between 4 and 16.', document.getElementById('wAge'));
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))
                 return fail('That email address doesn’t look quite right.', document.getElementById('wEmail'));
+
+    /* Indian mobiles are 10 digits. Allow +91, 0, spaces and dashes, then
+       count what is left so a paste from a contact list still works. */
+    var digits = phone.replace(/\D/g, '').replace(/^0+/, '').replace(/^91(?=\d{10}$)/, '');
+    if(digits.length !== 10)
+                return fail('Please add a 10-digit WhatsApp number so we can reach you on the day.', document.getElementById('wPhone'));
+
     if(!ok)    return fail('Please tick the box to confirm you’re the parent or guardian.');
 
     go.disabled = true;
