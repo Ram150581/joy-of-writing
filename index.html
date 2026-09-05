@@ -836,6 +836,22 @@ function sendBookInterest(e){
 
 <!-- PRICING -->
 <style>
+  /* pricing now lives on join.html — this is just the signpost */
+  .join-cta{max-width:720px;margin:38px auto 0;text-align:center;}
+  .jc-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px;}
+  .jc-plan{
+    background:var(--paper);border:1px solid #e8ded0;border-radius:18px;
+    padding:18px 12px;display:flex;flex-direction:column;gap:2px;
+  }
+  .jc-plan.featured{border:2px solid var(--coral);}
+  .jc-name{font-family:'Baloo 2';font-weight:700;font-size:1rem;color:#5a5470;}
+  .jc-amt{font-family:'Baloo 2';font-weight:800;font-size:1.9rem;color:var(--grape);line-height:1.1;}
+  .jc-per{font-size:.8rem;color:#9a9287;}
+  .jc-line{color:#5a5470;font-size:1rem;margin-bottom:20px;}
+  @media(max-width:620px){
+    .jc-row{grid-template-columns:1fr;gap:10px;}
+    .jc-plan{flex-direction:row;align-items:baseline;justify-content:center;gap:10px;}
+  }
   .pt-wrap{margin-top:38px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px;}
   .pt{width:100%;min-width:680px;border-collapse:separate;border-spacing:0;background:var(--paper);
     border:1px solid #e8ded0;border-radius:22px;overflow:hidden;box-shadow:0 6px 18px rgba(43,36,64,.10);}
@@ -874,74 +890,16 @@ function sendBookInterest(e){
       <p class="sec-sub center">From ₹299 a month. Pause any month, cancel any time — no notice, no questions.</p>
     </div>
 
-    <div class="pt-wrap">
-      <table class="pt">
-        <colgroup><col><col><col class="hi"><col></colgroup>
-        <thead>
-          <tr>
-            <th class="pt-feature" style="background:var(--ink);color:#fff;">What's included</th>
-            <th><span class="pt-plan">Starter</span><span class="pt-price">₹299<small>/month</small></span><span class="pt-sub">your first step ✨</span></th>
-            <th><span class="pop2">⭐ Most loved</span><span class="pt-plan">Storyteller</span><span class="pt-price">₹499<small>/month</small></span><span class="pt-sub">the happy habit 💛</span></th>
-            <th><span class="pt-plan">Young Author</span><span class="pt-price">₹999<small>/month</small></span><span class="pt-sub">go all in 🚀</span></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="pt-feature">🎥 Live online sessions with Anuradha</td>
-            <td><span class="tick">✔</span><span class="note">2 a month</span></td>
-            <td><span class="tick">✔</span><span class="note">3 a month</span></td>
-            <td><span class="tick">✔</span><span class="note">every week</span></td>
-          </tr>
-          <tr>
-            <td class="pt-feature">✍️ Handwritten stories read &amp; answered</td>
-            <td><span class="tick">✔</span><span class="note">4 a month</span></td>
-            <td><span class="tick">✔</span><span class="note">8 a month</span></td>
-            <td><span class="tick">✔</span><span class="note">as many as you like</span></td>
-          </tr>
-          <tr>
-            <td class="pt-feature">🏆 Wall of Fame &amp; certificates</td>
-            <td><span class="tick">✔</span></td>
-            <td><span class="tick">✔</span></td>
-            <td><span class="tick">✔</span></td>
-          </tr>
-          <tr>
-            <td class="pt-feature">⏸️ Pause for a month, cancel anytime</td>
-            <td><span class="tick">✔</span></td>
-            <td><span class="tick">✔</span></td>
-            <td><span class="tick">✔</span></td>
-          </tr>
-          <tr>
-            <td class="pt-feature">🎨 Fun Tools</td>
-            <td><span class="cross">✘</span></td>
-            <td><span class="tick">✔</span></td>
-            <td><span class="tick">✔</span></td>
-          </tr>
-          <tr>
-            <td class="pt-feature">🔥 Five-day streak badges</td>
-            <td><span class="cross">✘</span></td>
-            <td><span class="tick">✔</span></td>
-            <td><span class="tick">✔</span></td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td class="pt-feature"></td>
-            <td><a href="https://rzp.io/rzp/ZhtcFAZ7" target="_blank" rel="noopener" class="btn btn-ghost">Get started</a></td>
-            <td><a href="https://rzp.io/rzp/zLfbMeP" target="_blank" rel="noopener" class="btn btn-primary">Choose Storyteller</a></td>
-            <td><a href="https://rzp.io/rzp/GyMC7W3" target="_blank" rel="noopener" class="btn btn-ghost">Choose Young Author</a></td>
-          </tr>
-        </tfoot>
-      </table>
+    <div class="join-cta">
+      <div class="jc-row">
+        <div class="jc-plan"><span class="jc-name">Starter</span><span class="jc-amt">₹299</span><span class="jc-per">/month</span></div>
+        <div class="jc-plan featured"><span class="jc-name">Storyteller</span><span class="jc-amt">₹499</span><span class="jc-per">/month</span></div>
+        <div class="jc-plan"><span class="jc-name">Young Author</span><span class="jc-amt">₹999</span><span class="jc-per">/month</span></div>
+      </div>
+      <p class="jc-line">Live sessions, unlimited imagination, and a real reply to every story.<br>
+      One month at a time — nothing renews on its own.</p>
+      <a href="join.html" class="btn btn-primary" style="width:auto;">See what's included &amp; join →</a>
     </div>
-    <p class="pt-hint">← swipe to compare all three plans →</p>
-    <p style="text-align:center;font-size:.92rem;color:#8a8397;margin-top:14px;">Secure payment by Razorpay · UPI, cards, netbanking &amp; wallets 🔒<br>
-    <span style="font-size:.88rem;">You pay one month at a time. We'll send you a link when the next month is due — nothing is ever charged automatically, so you stop simply by not renewing.</span></p>
-
-    <div class="extra-plans">
-      <div class="chip2"><b>Extra 1:1 coaching</b> — add more personal sessions · <b>₹599 each</b></div>
-      <div class="chip2"><b>Family Plan</b> — 2+ kids get <b>20% off</b></div>
-    </div>
-    <p class="price-note">No big-ticket tuition fees. Just one friendly price that grows a lifelong skill. 🌱</p>
   </div>
 </section>
 
