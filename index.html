@@ -158,17 +158,6 @@
   .fame-card .excerpt{font-family:'Gochi Hand';font-size:1.2rem;color:#4a4360;margin-top:10px;border-left:4px solid var(--sunny);padding-left:12px;}
   .fame-card .congrats{margin-top:14px;background:var(--mint);color:#083d2c;font-weight:600;text-align:center;border-radius:12px;padding:8px;font-size:.9rem;}
 
-  /* certificate preview */
-  .cert-row{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center;margin-top:44px;}
-  .cert{
-    background:var(--paper);border:5px double var(--grape);border-radius:16px;padding:28px;text-align:center;
-    box-shadow:0 6px 18px rgba(43,36,64,.10);position:relative;
-  }
-  .cert .seal{position:absolute;bottom:16px;right:16px;font-size:2.6rem;}
-  .cert .ribbon{font-size:2.4rem;}
-  .cert h3{font-family:'Gochi Hand';font-size:2rem;color:var(--grape);margin:6px 0;}
-  .cert .name{font-family:'Baloo 2';font-weight:800;font-size:1.6rem;border-bottom:3px dotted var(--coral);display:inline-block;padding:0 20px 4px;margin:8px 0;}
-  .cert p{color:#5a5470;}
 
   /* ---------- pricing ---------- */
   .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;}
@@ -256,7 +245,6 @@
   /* ---- mobile: stack the blocks that were still side by side ---- */
   @media(max-width:820px){
     .fame-grid{grid-template-columns:1fr 1fr;}
-    .cert-row{grid-template-columns:1fr;gap:24px;}
   }
   @media(max-width:560px){
     .fame-grid{grid-template-columns:1fr;}
@@ -426,7 +414,7 @@
     <div class="center" style="max-width:680px;">
       <span class="kicker">✨ real stories, real writers ✨</span>
       <h2 class="sec-title">The Wall of Fame 🏆</h2>
-      <p class="sec-sub center">Stories that made us stop and read them twice. Every writer we feature gets a big congratulations and a certificate to keep forever.</p>
+      <p class="sec-sub center">Stories that made us stop and read them twice. Every writer we feature gets a note from Anuradha, and a badge of their own.</p>
     </div>
     <div class="fame-grid">
       <div class="fame-card">
@@ -455,22 +443,9 @@
       </div>
     </div>
 
-    <!-- certificate -->
-    <div class="cert-row">
-      <div>
-        <h3 style="color:#fff;font-size:2rem;">…and a certificate lands in their inbox 💌</h3>
-        <p style="color:#effaff;font-size:1.1rem;margin-top:10px;">Every featured writer gets a personal congratulations email with a downloadable, shareable certificate — a real badge of pride for kids and parents alike. Little wins that build a lifelong love of writing.</p>
-        <a href="#studio" class="btn btn-primary" style="margin-top:20px;">Send your story &amp; get featured 🌟</a>
-      </div>
-      <div class="cert float" style="--r:-1deg;">
-        <div class="ribbon">🎀</div>
-        <h3>Certificate of Joyful Writing</h3>
-        <p>proudly awarded to</p>
-        <div class="name doodle-font">Your Young Author</div>
-        <p>for a brilliant piece featured on our Wall of Fame ✨</p>
-        <span class="seal">🏅</span>
-      </div>
-    </div>
+    <p style="text-align:center;margin-top:34px;">
+      <a href="story-studio.html" class="btn btn-primary">Send your story &amp; get featured 🌟</a>
+    </p>
   </div>
 </section>
 
