@@ -1225,7 +1225,19 @@
     if(BLOCKED.indexOf(code) > -1) return null;
     if(LEGACY[code]) return LEGACY[code];
 
-    /* Current format: JOY-S-RAMKUMARWORK-9XT2 */
+    /* Trial code, valid to the end of a month:  JOY-S-ARAINA-2610-K4Q7
+       The expiry is inside the checked part, so it cannot be edited. */
+    var t = code.match(/^JOY-([BSA])-([A-Z0-9]{1,12})-(\d{4})-([A-Z0-9]{4})$/);
+    if(t){
+      if(codeCheck(t[1], t[2] + '|' + t[3]) !== t[4]) return null;
+      var yy = 2000 + parseInt(t[3].slice(0,2), 10);
+      var mm = parseInt(t[3].slice(2), 10);
+      /* good until the first moment of the following month */
+      if(new Date() >= new Date(yy, mm, 1)) return 'expired';
+      return planOf(t[1]);
+    }
+
+    /* Permanent format: JOY-S-RAMKUMARWORK-9XT2 */
     var m = code.match(/^JOY-([BSA])-([A-Z0-9]{1,12})-([A-Z0-9]{4})$/);
     if(m){
       return codeCheck(m[1], m[2]) === m[3] ? planOf(m[1]) : null;
@@ -1303,7 +1315,10 @@
     var v = (document.getElementById('upCode').value || '').trim().toUpperCase();
     var msg = document.getElementById('upMsg');
     var p = codeToPlan(v);
-    if(p){
+    if(p === 'expired'){
+      msg.className='up-msg err';
+      msg.textContent='That was a trial code and it has now ended. Write to us and we will sort you out. 💛';
+    } else if(p){
       setPlan(p); paint();
       msg.className='up-msg ok'; msg.textContent='🎉 Unlocked! All tools are yours.';
       setTimeout(function(){ document.getElementById('upBack').classList.remove('on'); msg.textContent=''; }, 1400);
