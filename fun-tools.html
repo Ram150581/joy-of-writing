@@ -552,7 +552,7 @@
   <div class="who">👤 Your plan: <span class="plan-chip" id="planChip">Starter</span><span id="planNote" style="font-weight:400;font-size:.88rem;color:#8a8397;"></span></div>
   <div class="acts">
     <button type="button" id="planCodeBtn">🔑 I have an access code</button>
-    <button type="button" class="solid" id="planUpBtn">See plans →</button>
+    <button type="button" class="solid" id="planUpBtn">See the twelve weeks →</button>
     <button type="button" id="planOutBtn" style="display:none;">👋 Sign out</button>
   </div>
 </div>
@@ -1132,9 +1132,9 @@
 <div class="up-back" id="upBack">
   <div class="up-box">
     <div class="e" id="upEmoji">🔒</div>
-    <h3 id="upTitle">This tool is part of the Storyteller plan</h3>
-    <p id="upText">Upgrade to <b>Storyteller</b> or <b>Young Author</b> and use all ten fun writing tools right away.</p>
-    <a href="index.html#pricing" class="btn btn-primary" id="upPlans">See plans &amp; upgrade ✨</a>
+    <h3 id="upTitle">This tool comes with Storyteller and Young Author</h3>
+    <p id="upText">Join <b>Storyteller</b> or <b>Young Author</b> and use all ten fun writing tools right away.</p>
+    <a href="join.html" class="btn btn-primary" id="upPlans">See the twelve weeks ✨</a>
     <div class="up-code">
       <input type="text" id="upCode" placeholder="access code" maxlength="32">
       <button type="button" id="upGo">Unlock</button>
@@ -1273,8 +1273,8 @@
   window.jowUpsell = function(id){
     document.getElementById('upEmoji').textContent = '🔒';
     document.getElementById('upPlans').style.display = '';
-    document.getElementById('upTitle').textContent = 'This tool is part of the Storyteller plan';
-    document.getElementById('upText').innerHTML = 'Upgrade to <b>Storyteller</b> or <b>Young Author</b> and use all ten fun writing tools right away.';
+    document.getElementById('upTitle').textContent = 'This tool comes with Storyteller and Young Author';
+    document.getElementById('upText').innerHTML = 'Join <b>Storyteller</b> or <b>Young Author</b> and use all ten fun writing tools right away.';
     document.getElementById('upBack').classList.add('on');
   };
 
@@ -1334,7 +1334,7 @@
     document.getElementById('upClose').addEventListener('click', function(){ document.getElementById('upBack').classList.remove('on'); });
     document.getElementById('upBack').addEventListener('click', function(e){ if(e.target === this) this.classList.remove('on'); });
     document.getElementById('planCodeBtn').addEventListener('click', function(){ document.getElementById('upBack').classList.add('on'); });
-    document.getElementById('planUpBtn').addEventListener('click', function(){ location.href='index.html#pricing'; });
+    document.getElementById('planUpBtn').addEventListener('click', function(){ location.href='join.html'; });
     document.getElementById('planOutBtn').addEventListener('click', function(){
       if(!confirm('Sign out on this device? You will need your access code to unlock the tools again.')) return;
       try{ localStorage.removeItem(KEY); }catch(e){}
@@ -1356,7 +1356,7 @@
       document.getElementById('upText').innerHTML = !joined
         ? 'We emailed your personal code when you joined. Type it here to unlock your tools. Not joined yet?'
         : atTop
-          ? 'You are on <b>Young Author</b>, our highest plan — every tool is already yours. Using a different phone or laptop? Type your code again below.'
+          ? 'You are on <b>Young Author</b>, our six-month journey — every tool is already yours. Using a different phone or laptop? Type your code again below.'
           : 'Your plan is saved on this device, so all your tools are ready. Using a different phone or laptop? Type your code again below.';
       document.getElementById('upBack').classList.add('on');
       var f=document.getElementById('upCode'); if(f){ setTimeout(function(){ f.focus(); }, 120); }

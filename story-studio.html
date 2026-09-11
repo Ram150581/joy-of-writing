@@ -162,7 +162,7 @@
     <span class="pill">📸 Story Studio</span>
     <h1>Send us your <span class="hl">handwritten</span> story!</h1>
     <p>Snap photos of your story — up to 4 pages. Your writing coach will read it and send back friendly feedback. ✨</p>
-    <p style="margin-top:12px;font-size:.95rem;color:#8a8397;">👋 Mentor feedback is part of a paid plan — <a href="index.html#pricing" style="color:var(--grape);font-weight:500;">see plans from ₹299</a>. Already joined? Send your story below.</p>
+    <p style="margin-top:12px;font-size:.95rem;color:#8a8397;">👋 Mentor feedback is part of a paid plan — <a href="join.html" style="color:var(--grape);font-weight:500;">see what the twelve weeks includes</a>. Already joined? Send your story below.</p>
   </div>
 
   <form class="card" id="form" autocomplete="off">
@@ -381,7 +381,7 @@ document.getElementById('again').addEventListener('click',()=>location.reload())
 <script>
 /* ================= FREE FIRST STORY =================
    Every child may send one story free. After that we ask the
-   parent to choose a plan. Members with an access code are
+   parent to join the twelve weeks. Members with an access code are
    never limited.
 
    Honest note for Anuradha: this limit lives in the browser, so
@@ -440,9 +440,9 @@ document.getElementById('again').addEventListener('click',()=>location.reload())
       '<div class="e">💌</div>'+
       '<h3>You have used your free story!</h3>'+
       '<p>Your first story is with your writing coach. To keep sending stories and get feedback every week, '+
-      'choose a plan — they start at ₹299.</p>'+
+      'join the twelve weeks — one payment of ₹1499 for the whole journey.</p>'+
       '<div class="row">'+
-        '<a class="go" href="'+C.home+'#pricing">See plans ✨</a>'+
+        '<a class="go" href="join.html">See the twelve weeks ✨</a>'+
         '<a class="alt" href="fun-tools.html#unlock">I have an access code 🔑</a>'+
       '</div>';
     return d;
@@ -456,7 +456,7 @@ document.getElementById('again').addEventListener('click',()=>location.reload())
       d.innerHTML='<b>✨ '+planLabel()+' — welcome back!</b><p>Send as many stories as you like. Your coach will reply to each one.</p>';
     } else {
       d.innerHTML='<b>🎁 Your first story is free</b><p>Send one story and a real writing coach will read it and write back to you — '+
-        'no payment needed. After that, choose a plan to keep going.</p>';
+        'no payment needed. After that, join the twelve weeks to keep going.</p>';
     }
     return d;
   }
@@ -497,13 +497,13 @@ document.getElementById('again').addEventListener('click',()=>location.reload())
       if(msg){
         msg.innerHTML='Your story is with your writing coach and feedback is on the way to your parent\'s inbox. 💜'+
           '<br><br><b>That was your free story.</b> To keep writing with us every week, '+
-          '<a href="'+C.home+'#pricing" style="color:#9b5de5;font-weight:600;">have a look at the plans</a> — they start at ₹299.';
+          '<a href="join.html" style="color:#9b5de5;font-weight:600;">have a look at the twelve weeks</a> — one payment of ₹1499 for the whole journey.';
       }
       var again=document.getElementById(C.again);
       if(again){
         var fresh=again.cloneNode(false);           /* drops the old "send another" handler */
-        fresh.textContent='See plans ✨';
-        fresh.addEventListener('click', function(){ location.href=C.home+'#pricing'; });
+        fresh.textContent='See the twelve weeks ✨';
+        fresh.addEventListener('click', function(){ location.href='join.html'; });
         again.parentNode.replaceChild(fresh, again);
       }
     }).observe(successBox, {attributes:true, attributeFilter:['style']});
