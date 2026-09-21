@@ -39,6 +39,14 @@
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   html{scroll-behavior:smooth;}
+
+  /* Present in the page for Google and screen readers, invisible on screen.
+     Not display:none — that would hide it from both. */
+  .sr-only{
+    position:absolute !important;width:1px !important;height:1px !important;
+    padding:0 !important;margin:-1px !important;overflow:hidden;
+    clip:rect(0,0,0,0);white-space:nowrap;border:0;
+  }
   body{
     font-family:'Fredoka',sans-serif;
     color:var(--ink);
@@ -348,8 +356,11 @@
 <header class="hero">
   <div class="wrap hero-grid">
     <div>
+      <!-- Read by Google and screen readers, seen by nobody. The page needs
+           one h1 to say what it is about; the visible hero says it with the
+           tagline and the picture instead. -->
+      <h1 class="sr-only">Online creative writing classes for children aged 6 to 15 in India</h1>
       <span class="badge-pill">🌍 For curious kids aged 6–15</span>
-      <h1>Where your kids fall in love with <span class="hl">writing</span>.</h1>
       <p class="lead">In a world racing toward AI, we help children discover the pure joy of putting <em>their own</em> words on the page. Fun weekly challenges, real feedback, and a wall that celebrates young authors. ✨</p>
       <div class="hero-btns">
         <a href="join.html" class="btn btn-primary">See the journey 💛</a>
