@@ -1,0 +1,95 @@
+/* Joy of Writing — shared styles for every blog page.
+   Linked from /blogs/*.html as <link rel="stylesheet" href="_post.css">.
+   Change it once here and every post changes.                            */
+
+:root{
+  --sunny:#ffd23f; --coral:#ff6b6b; --grape:#9b5de5; --mint:#3ec99b;
+  --ink:#2b2440; --cream:#fff8ee; --paper:#fffdf8; --line:#e8ded0; --soft:#5a5470;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Fredoka',sans-serif;color:var(--ink);background:var(--cream);line-height:1.6;}
+h1,h2,h3,h4{font-family:'Baloo 2',cursive;line-height:1.2;}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px;}
+
+/* ---- top bar, with Join always in reach ---- */
+.topbar{background:rgba(255,248,238,.95);backdrop-filter:blur(8px);
+  border-bottom:1px solid #f0e2c2;position:sticky;top:0;z-index:20;}
+.topbar-in{max-width:960px;margin:0 auto;padding:11px 20px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.logo{display:flex;align-items:center;gap:9px;font-family:'Baloo 2';font-weight:800;
+  font-size:1.15rem;color:var(--grape);text-decoration:none;}
+.logo svg{width:23px;height:auto;}
+.topnav{display:flex;align-items:center;gap:18px;}
+.topnav a{font-size:.9rem;color:var(--soft);text-decoration:none;}
+.topnav a:hover{color:var(--grape);}
+.topnav .join{background:var(--coral);color:#fff;font-family:'Baloo 2';font-weight:700;
+  padding:8px 18px;border-radius:999px;font-size:.9rem;}
+.topnav .join:hover{color:#fff;}
+@media(max-width:620px){ .topnav a.hide-sm{display:none;} }
+
+/* ---- article ---- */
+.post-head{padding:44px 0 6px;text-align:center;}
+.crumb{font-size:.84rem;color:#9a9287;margin-bottom:16px;}
+.crumb a{color:#9a9287;text-decoration:none;}
+.crumb a:hover{color:var(--grape);}
+.topic{display:inline-block;font-family:'Baloo 2';font-weight:700;font-size:.72rem;
+  letter-spacing:.06em;padding:5px 13px;border-radius:999px;}
+.topic.parents{background:#f6f0ff;color:var(--grape);}
+.topic.craft{background:#ffefec;color:#c2452f;}
+.topic.think{background:#e9f8f2;color:#1d7a5c;}
+.post-head h1{font-size:2.5rem;margin:16px 0 12px;}
+.post-head .byline{font-size:.92rem;color:#9a9287;}
+
+article{padding:26px 0 10px;}
+article p{font-size:1.08rem;line-height:1.85;color:#3f3a54;margin-bottom:20px;}
+article p.lead{font-size:1.2rem;color:var(--ink);}
+article h2{font-size:1.45rem;margin:34px 0 14px;color:var(--grape);}
+article ol,article ul{margin:0 0 20px 0;padding-left:0;list-style:none;}
+article li{font-size:1.08rem;line-height:1.8;color:#3f3a54;margin-bottom:10px;
+  padding-left:30px;position:relative;}
+article ol{counter-reset:n;}
+article ol li:before{counter-increment:n;content:counter(n);position:absolute;left:0;top:4px;
+  width:21px;height:21px;background:var(--sunny);border-radius:50%;display:grid;
+  place-items:center;font-family:'Baloo 2';font-weight:700;font-size:.76rem;color:#5f4300;}
+article ul li:before{content:"✦";position:absolute;left:4px;color:var(--coral);}
+article em{font-style:italic;}
+
+/* a quiet pull-quote for the line worth remembering */
+.pull{border-left:4px solid var(--sunny);padding:4px 0 4px 20px;margin:28px 0;
+  font-family:'Gochi Hand';font-size:1.5rem;line-height:1.45;color:#4a4360;}
+
+/* ---- the funnel ---- */
+.cta-box{background:var(--paper);border:2px solid var(--coral);border-radius:24px;
+  padding:32px 28px;margin:44px 0 0;text-align:center;}
+.cta-box h2{font-size:1.6rem;color:var(--ink);margin-bottom:12px;}
+.cta-box p{font-size:1.02rem;color:#4a4360;line-height:1.7;margin-bottom:20px;}
+.btn{font-family:'Baloo 2';font-weight:700;font-size:1rem;border:none;
+  padding:14px 30px;border-radius:999px;text-decoration:none;display:inline-block;
+  transition:transform .15s ease, box-shadow .15s ease;}
+.btn-primary{background:var(--coral);color:#fff;box-shadow:0 3px 10px rgba(43,36,64,.08);}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(43,36,64,.13);}
+.cta-box .terms{font-size:.88rem;color:#9a9287;margin:16px 0 0;}
+.cta-soft{text-align:center;font-size:.98rem;color:var(--soft);margin:22px 0 0;}
+.cta-soft a{color:var(--grape);font-weight:600;}
+
+/* ---- read next ---- */
+.next{padding:50px 0 10px;}
+.next h2{text-align:center;font-size:1.35rem;margin-bottom:20px;}
+.next-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.next-card{background:var(--paper);border:1px solid var(--line);border-radius:18px;
+  padding:20px;text-decoration:none;display:block;transition:transform .15s ease;}
+.next-card:hover{transform:translateY(-3px);}
+.next-card .topic{font-size:.68rem;padding:4px 11px;}
+.next-card h3{font-size:1.06rem;margin:11px 0 6px;color:var(--ink);line-height:1.35;}
+.next-card p{font-size:.92rem;color:#5a5470;line-height:1.55;}
+@media(max-width:620px){ .next-grid{grid-template-columns:1fr;} }
+
+footer{text-align:center;padding:46px 20px 50px;color:#9a9287;font-size:.86rem;
+  margin-top:40px;border-top:1px solid var(--line);}
+footer a{color:var(--grape);text-decoration:none;}
+
+@media(max-width:620px){
+  .post-head h1{font-size:1.9rem;}
+  article p{font-size:1.04rem;}
+}
