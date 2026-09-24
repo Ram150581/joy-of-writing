@@ -527,6 +527,84 @@
   .up-msg.err{color:#c0392b;} .up-msg.ok{color:#0b6b47;}
   .up-close{background:none;border:none;color:#8a8397;font-family:'Baloo 2';cursor:pointer;margin-top:8px;}
 </style>
+<style>
+  /* ============ STORY BUILDER — the long version ============
+     Thirteen steps, a genre, a story shape, a middle that goes wrong twice,
+     a surprise the child places on purpose, and an ending they choose.
+     Ends in a printable plan they keep beside them while they handwrite. */
+
+  /* the old static "shape of a story" panel is superseded by the plan below */
+  #tool-builder .sh-wrap{display:none;}
+
+  .sb-bar{height:8px;background:#f2e9da;border-radius:999px;overflow:hidden;margin-bottom:14px;}
+  .sb-bar-fill{height:100%;width:0;border-radius:999px;
+    background:linear-gradient(90deg,var(--sunny),var(--coral));transition:width .3s ease;}
+  .sb-stage{text-align:center;font-family:'Baloo 2';font-weight:700;font-size:.74rem;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--grape);margin-bottom:2px;}
+  .sb-think{text-align:center;color:#7a7390;font-size:.95rem;line-height:1.55;
+    max-width:530px;margin:0 auto 18px;}
+  .sb-opt-note{display:block;font-family:'Fredoka';font-weight:400;font-size:.85rem;
+    color:#8a8397;margin-top:3px;line-height:1.4;}
+  /* options carry a line of explanation now, so they are cards, not pills */
+  #sbOpts .sb-chip{border-radius:16px;line-height:1.35;}
+  .sb-chip.sb-own-trigger{border-style:dashed;border-color:#cbbde8;color:var(--grape);}
+  .sb-nav-r{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end;}
+  .sb-dice{background:none;border:2px solid #e8ded0;border-radius:999px;padding:8px 15px;
+    font-family:'Baloo 2';font-weight:600;color:#8a8397;cursor:pointer;font-size:.88rem;}
+  .sb-dice:hover{border-color:var(--grape);color:var(--grape);}
+  .sb-saved{text-align:center;font-size:.82rem;color:#a89f92;margin-top:14px;min-height:16px;}
+
+  /* ---- the finished plan ---- */
+  .sb-plan-kicker{font-family:'Baloo 2';font-weight:700;font-size:.78rem;letter-spacing:.09em;
+    text-transform:uppercase;color:var(--grape);display:block;margin-bottom:4px;}
+  .sb-path{text-align:left;margin:24px 0 10px;position:relative;}
+  .sb-path:before{content:"";position:absolute;left:31px;top:26px;bottom:26px;
+    border-left:4px dashed #e4d9c6;z-index:0;}
+  .sb-beat{display:flex;gap:16px;align-items:flex-start;margin-bottom:16px;position:relative;z-index:1;}
+  .sb-beat .dot{flex:0 0 auto;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;
+    font-size:1.55rem;background:#fff;border:1px solid #e8ded0;box-shadow:0 1px 4px rgba(43,36,64,.07);}
+  .sb-beat .bd{flex:1 1 auto;background:#fff;border:2px solid #ece3d6;border-radius:18px;padding:15px 19px;}
+  .sb-beat .bd .n{font-family:'Gochi Hand';font-size:1.2rem;color:var(--coral);display:block;}
+  .sb-beat .bd h5{font-family:'Baloo 2';font-size:1.16rem;margin:0 0 6px;color:var(--ink);}
+  .sb-beat .bd p{font-size:.97rem;color:#4a4360;line-height:1.6;}
+  .sb-beat.surp .dot{background:var(--sunny);}
+  .sb-beat.surp .bd{background:#fffaed;border-color:var(--sunny);border-style:dashed;}
+  .sb-tip{margin-top:9px;background:#fff8e6;border:1px dashed #e8d5a8;border-radius:12px;
+    padding:9px 13px;font-size:.88rem;color:#7a5a1e;line-height:1.55;}
+  .sb-beat.surp .sb-tip{background:#fff;border-color:#e6c96a;}
+
+  .sb-grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;text-align:left;}
+  .sb-note{background:#fff;border:2px solid #ece3d6;border-radius:18px;padding:16px 19px;}
+  .sb-note h4{font-family:'Baloo 2';font-size:1.06rem;margin-bottom:6px;}
+  .sb-note p{font-size:.95rem;color:#4a4360;line-height:1.55;}
+  .sb-check{text-align:left;background:#f3faf6;border:2px solid #cfe9dd;border-radius:18px;
+    padding:16px 20px;margin-top:14px;}
+  .sb-check h4{font-family:'Baloo 2';font-size:1.06rem;margin-bottom:9px;color:#0b6b47;}
+  .sb-check ul{margin:0;padding:0;}
+  .sb-check li{list-style:none;padding-left:25px;position:relative;margin-bottom:8px;
+    font-size:.94rem;color:#3d5a4e;line-height:1.55;}
+  .sb-check li:before{content:"✔";position:absolute;left:0;top:0;color:var(--mint);font-weight:700;}
+  .sb-timerwrap{margin-top:16px;}
+  .sb-start{margin-top:12px;background:var(--sunny);border:none;border-radius:999px;padding:10px 24px;
+    font-family:'Baloo 2';font-weight:700;color:#4a3a00;cursor:pointer;font-size:.95rem;}
+  .sb-acts{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;}
+  .sb-acts .btn{flex:1 1 210px;justify-content:center;}
+
+  @media(max-width:620px){
+    .sb-grid2{grid-template-columns:1fr;}
+    .sb-path:before{left:25px;}
+    .sb-beat{gap:12px;}
+    .sb-beat .dot{width:46px;height:46px;font-size:1.25rem;}
+    .sb-beat .bd{padding:13px 15px;}
+  }
+  @media print{
+    nav,.plan-bar,.ft-hero,.ft-grid,.ft-back,.sb-card,.sb-acts,.sb-redo,
+    .sb-timerwrap,.sb-saved,footer,#toast,.badge-pill{display:none!important;}
+    body{background:#fff;}
+    .sb-seed{border:none!important;box-shadow:none!important;background:#fff!important;padding:0!important;}
+    .sb-beat,.sb-note,.sb-check{break-inside:avoid;page-break-inside:avoid;}
+  }
+</style>
 </head>
 <body>
 <nav>
@@ -563,7 +641,7 @@
       <button type="button" class="ft-card" data-t="builder">
         <span class="ft-emoji">🎨</span>
         <span class="ft-name">Story Builder</span>
-        <span class="ft-desc">Answer 5 quick questions to spark a story idea.<br>Then you get 20 minutes to write it by hand.</span>
+        <span class="ft-desc">Work out your whole story, one question at a time.<br>Genre, shape, the middle, the surprise, the ending.</span>
       </button>
       <button type="button" class="ft-card" data-t="card">
         <span class="ft-emoji">🎉</span>
@@ -617,29 +695,69 @@
 
     <div class="head">
       <span class="badge-pill">🎨 Story Builder</span>
-      <h2>Build your <span class="hl">story seeds</span>!</h2>
-      <p>Answer 5 quick questions to spark your idea. Then you get <b>20 minutes</b> to handwrite your story and upload it — the rest is all your imagination! ✨</p>
+      <h2>Build your <span class="hl">story</span>, one question at a time</h2>
+      <p>Pick a kind of story, then a shape for it. We will work out the middle together, decide where the surprise lands, and choose how it ends. At the end you get a <b>story plan</b> to print and keep beside you while you write. Take your time — this part is meant to be slow. ✨</p>
     </div>
+
     <div class="sb-card" id="sbCard">
-      <div class="sb-progress" id="sbProg">Question 1 of 5</div>
+      <div class="sb-bar"><div class="sb-bar-fill" id="sbBarFill"></div></div>
+      <div class="sb-stage" id="sbStage"></div>
+      <div class="sb-progress" id="sbProg"></div>
       <h4 class="sb-qtitle" id="sbQ"></h4>
+      <p class="sb-think" id="sbThink"></p>
       <div class="sb-opts" id="sbOpts"></div>
       <input type="text" class="sb-own-input" id="sbOwn" placeholder="type your own idea…" style="display:none;">
       <div class="sb-nav">
         <button type="button" class="sb-back" id="sbBack" style="visibility:hidden;">← Back</button>
-        <button type="button" class="btn btn-primary" id="sbNext" style="display:none;width:auto;">Use this →</button>
+        <div class="sb-nav-r">
+          <button type="button" class="sb-dice" id="sbDice">🎲 Surprise me</button>
+          <button type="button" class="btn btn-primary" id="sbNext" style="display:none;width:auto;">Use this →</button>
+        </div>
       </div>
+      <p class="sb-saved" id="sbSaved"></p>
     </div>
 
     <div class="sb-seed" id="sbSeed">
-      <h3>🌱 Your story seeds</h3>
+      <span class="sb-plan-kicker" id="sbPlanKicker"></span>
+      <h3>🌱 Your story plan</h3>
       <p id="sbSeedText"></p>
-      <div class="sb-timerwrap">
-        <div class="sb-timerlabel" id="sbTimerLabel">✍️ Your 20 minutes starts now — write your story by hand!</div>
-        <div class="sb-timer" id="sbTime">20:00</div>
+
+      <div class="sb-path" id="sbPath"></div>
+
+      <div class="sb-grid2">
+        <div class="sb-note">
+          <h4>⚡ Your surprise</h4>
+          <p id="sbSurprise"></p>
+          <p class="sb-tip" id="sbSurpriseTip"></p>
+        </div>
+        <div class="sb-note">
+          <h4>🎬 Your ending</h4>
+          <p id="sbEnding"></p>
+          <p class="sb-tip" id="sbEndingTip"></p>
+        </div>
       </div>
-      <a href="story-studio.html" class="btn btn-primary" style="width:100%;">I'm done — upload my story ✏️</a>
-      <button type="button" class="sb-redo" id="sbRedo">↺ start over</button>
+
+      <div class="sb-check">
+        <h4>Four things worth knowing before you start</h4>
+        <ul>
+          <li>Write the <b>first line</b> before anything else. It is allowed to be terrible. You will change it later.</li>
+          <li>You do not have to write it in order. Start with the bit you can already picture.</li>
+          <li>Keep this plan beside you — but if the story wants to go somewhere else, let it. The plan is a map, not a fence.</li>
+          <li>Nobody writes a good first draft. That is what a first draft is <i>for</i>.</li>
+        </ul>
+      </div>
+
+      <div class="sb-timerwrap">
+        <div class="sb-timerlabel" id="sbTimerLabel">✍️ When you are ready, give yourself twenty quiet minutes.</div>
+        <div class="sb-timer" id="sbTime">20:00</div>
+        <button type="button" class="sb-start" id="sbStart">▶ Start my twenty minutes</button>
+      </div>
+
+      <div class="sb-acts">
+        <button type="button" class="btn btn-ghost" id="sbPrint">🖨️ Print my story plan</button>
+        <a href="story-studio.html" class="btn btn-primary">I'm done — upload my story ✏️</a>
+      </div>
+      <button type="button" class="sb-redo" id="sbRedo">↺ start a different story</button>
     </div>
 
     <!-- the shape of a story: guidance the child can read while writing -->
@@ -2256,122 +2374,425 @@
 </script>
 <script>
 (function(){
-  const GOALS=[['to find a hidden treasure','💎 Find a hidden treasure'],['to make a true friend','🤝 Make a true friend'],['to win a great contest','🏆 Win a great contest'],['to save the day','🦸 Save the day'],['to solve a tricky mystery','🔍 Solve a tricky mystery']];
-  const GENERIC={
-    places:[['a big city','🏙️ A big city'],['a small village','🏡 A small village'],['a faraway land','🗺️ A faraway land']],
-    heroes:[['a curious child','🧒 A curious child'],['a brave hero','🦸 A brave hero'],['a clever animal','🦊 A clever animal']],
-    twists:[['a big surprise appears','✨ A big surprise appears'],['a wild storm strikes','🌪️ A wild storm strikes'],['a secret is revealed','🕵️ A secret is revealed']]
+  /* ================= STORY BUILDER =================
+     Thirteen steps. A genre, a story shape, a world, a middle that goes wrong
+     twice, a surprise the child places deliberately, and a chosen ending.
+     Everything the child picks is a lowercase sentence fragment, so it can be
+     dropped into the plan's sentences without any capitalisation gymnastics. */
+
+  /* ---- the twelve shapes a story can take ---- */
+  const SHAPES={
+    quest:{e:'🧭',n:'The Quest',d:'Your hero leaves home to fetch something, and comes back a different person.'},
+    mystery:{e:'🔍',n:'The Mystery',d:'Something is wrong. Your hero follows the clues until the truth turns up.'},
+    trap:{e:'🚪',n:'The Trap',d:'Your hero is stuck. Every way out fails — until one nobody thought of.'},
+    wish:{e:'🌟',n:'The Wish That Came True',d:'Your hero gets exactly what they wanted. That is the problem.'},
+    newcomer:{e:'🚶',n:'The Newcomer',d:'A stranger arrives, and nothing stays the way it was.'},
+    underdog:{e:'🏅',n:'The Underdog',d:'Nobody thinks your hero can do it. Including, some days, your hero.'},
+    secret:{e:'🤫',n:'The Secret',d:'Your hero is hiding something, and hiding it is getting harder.'},
+    rescue:{e:'🆘',n:'The Rescue',d:'Somebody is in trouble, and there is not much time.'},
+    discovery:{e:'🔦',n:'The Discovery',d:'Something perfectly ordinary turns out to be anything but.'},
+    rivalry:{e:'⚔️',n:'The Rivalry',d:'Two people want the same thing. Only one of them can have it.'},
+    home:{e:'🏠',n:'The Long Way Home',d:'Your hero is a long way from home, and getting back is the whole story.'},
+    swap:{e:'🔄',n:'The Swap',d:'Two lives trade places, and neither is what the other imagined.'}
   };
-  const THEMES={
-    medieval:{
-      places:[['a grand kingdom','🏰 A grand kingdom'],['a royal castle','🏯 A royal castle'],['a walled medieval town','🛡️ A medieval town'],["a knight's training ground",'⚔️ A training ground']],
-      heroes:[['a king or queen','👑 A king or queen'],['a brave knight','🛡️ A brave knight'],['a hard-working farmer','🌾 A farmer'],['a young explorer','🧭 A young explorer']],
-      twists:[['a fire-breathing dragon appears','🐉 A dragon appears'],['a secret treasure map turns up','🗺️ A secret map turns up'],['a wild storm strikes at sea','🌊 A wild storm'],['an enemy army marches in','⚔️ An enemy army']]},
-    present:{
-      places:[['a busy city','🏙️ A busy city'],['a small village','🏡 A small village'],['a school','🏫 A school'],['a sports stadium','🏟️ A sports stadium']],
-      heroes:[['a curious kid','🧒 A curious kid'],['a star sportsperson','⚽ A sportsperson'],['a clever scientist','🔬 A scientist'],['a hard-working farmer','🌾 A farmer']],
-      twists:[['a huge storm hits the town','🌪️ A huge storm'],['a mysterious new kid arrives','🧑 A mysterious new kid'],['a beloved pet goes missing','🐶 A pet goes missing'],['the big match finally begins','🏆 The big match']]},
-    space:{
-      places:[['a space station','🛰️ A space station'],['a city of robots','🤖 A robot city'],['a faraway planet','🪐 A faraway planet'],['a floating sky-city','🏙️ A floating sky-city']],
-      heroes:[['a space explorer','🧑‍🚀 A space explorer'],['a friendly robot','🤖 A friendly robot'],['an alien friend','👽 An alien friend'],['a young inventor','💡 A young inventor']],
-      twists:[['a robot suddenly breaks down','🤖 A robot breaks down'],['a strange alien signal appears','📡 An alien signal'],['a glowing time portal opens','🌀 A time portal'],['a meteor races toward them','☄️ A meteor races in']]},
-    magical:{
-      places:[['an enchanted forest','🌲 An enchanted forest'],['a wizard’s castle','🏰 A wizard’s castle'],['a dragon’s mountain','⛰️ A dragon’s mountain'],['a tiny fairy village','🍄 A fairy village']],
-      heroes:[['a young wizard','🧙 A young wizard'],['a kind fairy','🧚 A kind fairy'],['a talking animal','🦊 A talking animal'],['a dragon rider','🐲 A dragon rider']],
-      twists:[['a spell goes wonderfully wrong','✨ A spell goes wrong'],['an ancient curse awakens','🌙 An ancient curse'],['a magical creature needs help','🦄 A creature needs help'],['a hidden portal appears','🚪 A hidden portal']]},
-    ocean:{
-      places:[['a deep coral reef','🐠 A deep coral reef'],['a hidden underwater city','🏙️ An underwater city'],['a pirate ship at sea','🏴‍☠️ A pirate ship'],['a mysterious island','🏝️ A mysterious island']],
-      heroes:[['a young mermaid or merman','🧜 A mermaid/merman'],['a brave sailor','⛵ A brave sailor'],['a curious deep-sea diver','🤿 A deep-sea diver'],['a talking dolphin','🐬 A talking dolphin']],
-      twists:[['a sudden storm hits the ship','🌊 A sudden storm'],['a giant sea creature appears','🐋 A giant sea creature'],['an old shipwreck is discovered','⚓ A shipwreck is found'],['the tide starts rising fast','🌊 The tide rises fast']]},
-    jungle:{
-      places:[['a deep jungle','🌴 A deep jungle'],['a wildlife safari park','🦁 A safari park'],['a tall rainforest canopy','🌳 A rainforest canopy'],['a hidden animal kingdom','🐾 A hidden animal kingdom']],
-      heroes:[['a jungle explorer','🧭 A jungle explorer'],['a wildlife ranger','🦺 A wildlife ranger'],['a clever monkey','🐒 A clever monkey'],['a talking tiger','🐯 A talking tiger']],
-      twists:[['a flash flood blocks the path','🌧️ A flash flood'],['a lost baby animal needs help','🐘 A lost baby animal'],['ancient ruins are discovered','🗿 Ancient ruins found'],['a rival explorer shows up','🧑‍🦱 A rival explorer']]}
-  };
-  const ERA_OPTS=[['long, long ago','🏰 Long, long ago'],['in the present day','⏰ Right now'],['far in the future','🚀 Far in the future'],['in a magical land','🧚 In a magical land']];
-  const ERA_THEME={'long, long ago':'medieval','in the present day':'present','far in the future':'space','in a magical land':'magical'};
-  // Keywords ONLY ever scan text the child TYPES themselves (never preset options),
-  // and match on whole words so "working" can't match "king" or "sky-city" match "city".
-  const KEYWORDS=[
-    ['space',['space','rocket','rockets','planet','planets','astronaut','moon','mars','galaxy','alien','aliens','spaceship','spacecraft','satellite','starship','robot','robots','orbit','universe','cosmos','martian']],
-    ['magical',['magic','magical','wizard','witch','fairy','fairies','enchanted','spell','spells','unicorn','elf','elves','dragon','dragons','sorcerer','potion']],
-    ['ocean',['ocean','sea','undersea','underwater','mermaid','merman','submarine','coral','reef','whale','dolphin','shark','beach','island','pirate','ship','sailor']],
-    ['jungle',['jungle','safari','rainforest','wildlife','forest','tiger','lion','monkey','elephant','animals','animal']],
-    ['medieval',['kingdom','castle','knight','knights','king','queen','medieval','throne','royal','princess','prince','sword','dungeon','village']],
-    ['present',['school','stadium','football','cricket','match','city','town','office','park','market']]
+
+  /* ---- the twelve kinds of story, each with its own world ---- */
+  const GENRES=[
+  {id:'adventure',e:'🧗',n:'Adventure',note:'Somebody goes somewhere difficult, on purpose.',
+   shapes:['quest','trap','rescue','discovery','home'],
+   places:['a mountain pass nobody uses','an old fort on a hill','a river in full flood','a night train crossing the country','a forest at the edge of a village'],
+   heroes:['a child who is not supposed to be there','a guide who knows every path','a stubborn younger sister','a boy carrying a message','a girl with one good idea and no plan'],
+   wants:['to reach the other side before dark','to bring back proof that it exists','to get there before somebody else does','to keep a promise they should not have made'],
+   blocks:['a bridge that is no longer there','a grown-up who says absolutely not','weather that turns without warning','a map that is wrong in one important place']},
+
+  {id:'mystery',e:'🔍',n:'Mystery & Detective',note:'Something is wrong, and only one person has noticed.',
+   shapes:['mystery','secret','discovery','trap','rivalry'],
+   places:['a housing society where everyone knows everyone','a school after the last bell','a shop that closed years ago','a quiet lane with one working streetlight','a wedding hall the morning after'],
+   heroes:['a child who notices everything','a pair of friends who argue about everything','the youngest person in the building','somebody nobody suspects, because nobody looks at them'],
+   wants:['to find out who did it before the grown-ups decide','to clear a friend everybody has already blamed','to work out what the note means','to prove they were not imagining it'],
+   blocks:['nobody believes a child','the only witness will not talk','the evidence keeps disappearing','the obvious suspect has an answer for everything']},
+
+  {id:'funny',e:'😂',n:'Funny & Silly',note:'Everything that can go wrong does, in the worst order.',
+   shapes:['wish','swap','secret','rivalry','trap'],
+   places:['a school sports day','a kitchen forty minutes before guests arrive','a crowded bus with one empty seat','a family wedding','a birthday party for somebody who did not want one'],
+   heroes:['a child with a terrible idea and total confidence','a very serious person in a very silly situation','somebody trying to keep a small lie alive','a grandmother who is far more dangerous than she looks'],
+   wants:['to get away with it, just this once','to look impressive in front of exactly one person','to fix it before anybody finds out','to win something that is not worth winning'],
+   blocks:['a little brother who tells the truth at the worst moments','a rule that was made for this exact situation','somebody who is unbelievably good at noticing','their own big mouth']},
+
+  {id:'magic',e:'🪄',n:'Magic & Wonder',note:'One impossible thing exists. Everything else stays normal.',
+   shapes:['wish','discovery','quest','secret','swap'],
+   places:['a house with one door that was not there yesterday','a banyan tree older than the town','a bookshop with a back room','a garden that only grows at night','a station platform that does not appear on the board'],
+   heroes:['a child who can do one small impossible thing','somebody who was given a gift they did not ask for','a keeper of something they do not understand','a person magic seems to keep bumping into'],
+   wants:['to undo the thing they did','to find out where it came from','to keep it hidden for one more day','to give it back to whoever it belongs to'],
+   blocks:['the magic only works when it feels like it','a rule about it nobody explained','somebody else wants it, badly','using it costs something each time']},
+
+  {id:'animal',e:'🐾',n:'Animal Tales',note:'Told from the side of the story that cannot speak.',
+   shapes:['home','rescue','newcomer','quest','underdog'],
+   places:['a colony of street dogs behind a market','a zoo on the night everything goes quiet','a field at the edge of a farm','a rooftop with pigeons and one crow','a forest the road has just reached'],
+   heroes:['a stray who has never had a name','the smallest one in the group','an old animal who remembers the way things were','a pet who has got out for the first time'],
+   wants:['to get back to the place they came from','to keep the young ones safe through one night','to be allowed to stay','to find out what happened to the one who is missing'],
+   blocks:['humans, who mean well and make it worse','a bigger animal with a longer memory','a fence that was not there last season','hunger, and not much time']},
+
+  {id:'everyday',e:'🏠',n:'Everyday Life',note:'No magic, no villains. Just people, which is harder.',
+   shapes:['secret','newcomer','underdog','swap','rivalry'],
+   places:['a two-bedroom flat with four people in it','a classroom on the day the results come out','a grandmother’s house in the summer holidays','the terrace, at eight in the evening','a hospital waiting room'],
+   heroes:['the child everybody calls sensible','somebody who has just moved to a new city','the middle one, who is always fine','a child keeping their family’s mood steady'],
+   wants:['to be believed, just once','to keep something private','to make one person proud','to say the thing they have not said'],
+   blocks:['a parent who is not listening this week','the wrong words coming out','a friend who has changed','something the whole family has decided not to mention']},
+
+  {id:'sport',e:'⚽',n:'Sport & Contest',note:'A clock, a score, and somebody who wants it more.',
+   shapes:['underdog','rivalry','trap','secret','quest'],
+   places:['a gully cricket match with one bat between eleven','a school ground the evening before the final','a chess board in a dusty hall','an athletics track at five in the morning','a badminton court with one working light'],
+   heroes:['the last person picked, every single time','a champion who has started losing','somebody’s younger sibling with something to prove','a player carrying an injury nobody knows about'],
+   wants:['to be picked for the team','to beat one particular person','to finish, even if they cannot win','to prove the coach wrong'],
+   blocks:['a rival who is simply better','a body that will not do what it is told','a coach who has already decided','the moment their nerve goes']},
+
+  {id:'future',e:'🚀',n:'Science & The Future',note:'What if one thing about the world were different?',
+   shapes:['discovery','quest','trap','swap','secret'],
+   places:['a city where it has not rained for nine years','a space station on its last week','a school where the teacher is a machine','a lab three floors underground','the first town on a planet nobody has named'],
+   heroes:['a young engineer who fixes what others replace','the only child on board','somebody who talks to a machine like a friend','a person who remembers the old way of doing things'],
+   wants:['to get the thing working before the deadline','to find out what the machine is not saying','to get a message back to Earth','to stop the switch being flipped'],
+   blocks:['a system that is following its rules perfectly','one part that cannot be replaced','an adult who does not want the truth known','running out of air, water or time']},
+
+  {id:'spooky',e:'👻',n:'Spooky (not too scary)',note:'Creaks, shadows and an explanation that is stranger than the fear.',
+   shapes:['mystery','discovery','trap','secret','newcomer'],
+   places:['a house at the end of the lane','a school corridor after a power cut','an old well nobody draws water from','a stairwell that has one step too many','a room the family keeps locked'],
+   heroes:['a child who is scared and goes in anyway','somebody who does not believe in any of it','the one who dared the others','a person who hears what nobody else hears'],
+   wants:['to find out what the sound actually is','to spend one whole night in there','to get back the thing that was taken','to prove there is nothing to be afraid of'],
+   blocks:['a door that will not stay shut','an explanation that keeps not fitting','the friend who runs','the dark, and a torch with old batteries']},
+
+  {id:'history',e:'🏺',n:'Long Ago',note:'The same feelings, in a world without any of our machines.',
+   shapes:['quest','underdog','secret','rescue','rivalry'],
+   places:['a river port where the boats come in','a fort under siege','a workshop of potters','a caravan crossing a desert','a palace kitchen'],
+   heroes:['an apprentice who is not allowed to touch anything yet','a messenger who cannot read the message','the cook’s child','a young soldier who has never fought'],
+   wants:['to finish the work their teacher left undone','to deliver something before the season changes','to be taken seriously by people twice their age','to keep their family’s craft alive'],
+   blocks:['a master who has no patience','a journey longer than the food will last','somebody powerful who has other plans','a skill they have not learned yet']},
+
+  {id:'survival',e:'⛰️',n:'Survival & The Wild',note:'The world is not cruel. It simply does not care.',
+   shapes:['home','trap','rescue','quest','underdog'],
+   places:['an island after the boat has gone','a snowed-in hill station','a forest after the group took the wrong path','a village cut off by the flood','a desert with one landmark'],
+   heroes:['somebody who packed all the wrong things','the person who is keeping everyone else calm','a child alone with an animal','two people who do not like each other'],
+   wants:['to last until morning','to get to high ground','to find water before the second day','to keep everybody together'],
+   blocks:['a river that has risen','an injury that slows them down','the sun going','somebody who wants to split the group']},
+
+  {id:'friendship',e:'🤝',n:'Friendship & Falling Out',note:'The hardest stories are about people you already love.',
+   shapes:['secret','rivalry','newcomer','swap','underdog'],
+   places:['a bench two people have always shared','a group chat with somebody missing from it','a school trip, on the bus','a building where two families live one floor apart','a cricket ground at the edge of the colony'],
+   heroes:['somebody who said the wrong thing and cannot take it back','a friend who has been left out','a child caught between two people they love','the one who always apologises first'],
+   wants:['to get back what they had before','to be forgiven','to keep a friend’s secret without lying','to be chosen, for once'],
+   blocks:['pride, on both sides','a new friend who fits better','a misunderstanding nobody will explain','a parent who says they cannot']}
   ];
-  function kwTheme(text){
-    if(!text)return null;
-    const t=' '+String(text).toLowerCase().replace(/[^a-z0-9]+/g,' ').trim()+' ';
-    for(const [th,kws] of KEYWORDS){
-      for(const k of kws){ if(t.indexOf(' '+k+' ')!==-1) return th; }
-    }
+  const GEN={}; GENRES.forEach(function(g){GEN[g.id]=g;});
+
+  /* ---- the middle: structural, so the same pool works for every genre ---- */
+  const TRIES=[
+   ['they try the obvious thing','The obvious thing','It should work. That is exactly why it will not.'],
+   ['they ask a grown-up for help','Ask a grown-up','Grown-ups in stories are either too busy or too sure.'],
+   ['they decide to do it alone, in secret','Do it alone, in secret','Secrecy makes everything harder. Good.'],
+   ['they make a plan with a friend','Make a plan with a friend','Two people means two opinions about what to do next.'],
+   ['they try to talk their way past it','Talk their way past it','Words work — until somebody asks one more question.'],
+   ['they wait and watch before doing anything','Wait and watch first','A careful hero is interesting. Let their patience cost them.'],
+   ['they rush in without thinking it through','Rush in without thinking','Fast is fun to read. It is also usually wrong.']
+  ];
+  const WRONGS=[
+   ['it works — but only for a little while','It works, briefly','The cruellest kind of failure is one that nearly worked.'],
+   ['it makes the problem twice as big','It makes it worse','Show the moment your hero realises what they have done.'],
+   ['somebody finds out who was not meant to','Somebody finds out','Now there are two problems: the first one, and this person.'],
+   ['they lose the one thing they needed','They lose the crucial thing','Let us have seen that thing earlier, so we feel it go.'],
+   ['the person who promised to help does not come','Their help does not come','Do not explain why yet. Save it.'],
+   ['they were wrong about who the enemy was','They had the wrong enemy','This is the moment the story turns from simple to interesting.'],
+   ['time runs out faster than they expected','Time runs out faster','Put a clock in the first page so this lands.']
+  ];
+  const WORSE=[
+   ['now somebody they care about is in trouble too','Somebody they love is dragged in','Raise the price, not the noise.'],
+   ['the one person they could trust stops trusting them','They lose their ally','The lowest point of a story is usually a lonely one.'],
+   ['they have to choose between two things they want','An impossible choice','A choice between good and bad is not a choice. Make both hurt.'],
+   ['everybody finds out what they were hiding','It all comes out','Write the face of the person they least wanted to know.'],
+   ['they give up, properly, for a whole page','They give up for a while','Let them stop. Readers need to believe it might not work out.'],
+   ['the way back is closed behind them','No way back','From here the only direction is forward.']
+  ];
+
+  /* ---- surprises: what kind, and where it lands ---- */
+  const SURPRISE=[
+   ['the help comes from the person nobody trusted','Help from the one nobody trusted','Plant one small kindness from them early, and say nothing about it.'],
+   ['the thing they were chasing was never the real problem','It was never the real problem','The reader should be able to look back and see it.'],
+   ['somebody is not who they said they were','Somebody is not who they said','Let them say one odd thing in their first scene.'],
+   ['a small thing from the very beginning turns out to matter','A small early thing matters','Mention it once, plainly, then never again until now.'],
+   ['your hero has had what they needed all along','They had it all along','This only works if we saw it and thought nothing of it.'],
+   ['a rule everybody believed turns out to be wrong','The rule was wrong','Have a character state the rule confidently on page one.'],
+   ['what they wanted is not what they needed','Wanted one thing, needed another','The strongest ending in any story. Hard, and worth it.']
+  ];
+  /* [value, label, tip, where-it-sits-in-a-sentence] */
+  const WHERE=[
+   ['early','Early — in the first few lines','A jolt right at the start. The reader has to keep going just to understand it, and you spend the rest of the story explaining it.','right at the start'],
+   ['middle','In the middle — just as they think they have solved it','The most satisfying place of all. Your hero relaxes, and so does the reader. Then the floor goes.','in the middle, just as everyone relaxes'],
+   ['late','Late — one page before the end','Everything the reader thought they understood quietly rearranges itself. Do not over-explain afterwards.','one page before the end'],
+   ['last','In the very last line — and then stop','The hardest one to land. One sentence, no explanation, and put the pen down. Do not add a single word after it.','in the very last line']
+  ];
+
+  /* ---- endings ---- */
+  const ENDINGS=[
+   ['they get what they wanted, but it costs them something','They win, but it costs them','Show us the cost in the last paragraph, not the victory.'],
+   ['they do not get it — and find something better instead','They lose, and find better','Let them notice the better thing themselves. Do not tell us.'],
+   ['they end up exactly where they began, seeing it differently','Back where they began, changed','Repeat a line from your opening, word for word. It will mean something new.'],
+   ['they solve it, and hand the problem on to somebody else','Solved — and passed on','Ends the story without ending the world. Useful if you want a part two.'],
+   ['one small ordinary moment, after all the noise','A quiet last moment','Tea, a bus, a light going off. Small endings after big stories feel true.'],
+   ['the problem is over, but something new has just begun','An open door','One line of new trouble. Do not explain it. That is the point.']
+  ];
+  const CHANGES=[
+   ['braver than they were on the first page','Braver than they were'],
+   ['less certain they are always right','Less sure they are always right'],
+   ['no longer alone','No longer alone'],
+   ['able to forgive somebody','Able to forgive somebody'],
+   ['finished with pretending','Done with pretending'],
+   ['carrying something they now know about their family','Knowing something new about their family'],
+   ['willing to ask for help','Willing to ask for help']
+  ];
+  /* ---- the thirteen steps ----
+     Options are [value, label, note]. Steps 3–6 read from the chosen genre,
+     so the world a child is offered always belongs to the story they picked. */
+  function plain(list){ return list.map(function(v){return [v, v.charAt(0).toUpperCase()+v.slice(1)];}); }
+  function steps(){
+    var g = GEN[a.genre] || GENRES[0];
+    return [
+    {k:'genre',stage:'The kind of story',
+     q:'📚 What kind of story do you feel like writing today?',
+     think:'There is no best one here. Pick the one you would want to read.',
+     ph:'or describe your own kind of story…',
+     opts:GENRES.map(function(x){return [x.id, x.e+'  '+x.n, x.note];})},
+
+    {k:'shape',stage:'The shape',
+     q:'🗺️ Every story has a shape. Which one is yours?',
+     think:'This is the single most useful decision you will make. It tells you what happens after the beginning.',
+     ph:'or describe the shape in your own words…',
+     opts:g.shapes.map(function(id){var s=SHAPES[id];return [id, s.e+'  '+s.n, s.d];})},
+
+    {k:'place',stage:'The world',
+     q:'🌍 Where does it happen?',
+     think:'Choose somewhere you can picture with your eyes shut. You will have to describe the smell of it.',
+     ph:'or type your own place…', opts:plain(g.places)},
+
+    {k:'hero',stage:'The world',
+     q:'🦸 Who is it about?',
+     think:'A hero is not the strongest person in the story. It is the one with the most to lose.',
+     ph:'or type your own hero…', opts:plain(g.heroes)},
+
+    {k:'want',stage:'The world',
+     q:'🎯 What does your hero want more than anything?',
+     think:'Say it in one line. If you cannot, your story does not know either — and neither will your reader.',
+     ph:'or type what they want…', opts:plain(g.wants)},
+
+    {k:'block',stage:'The world',
+     q:'🚧 And what is standing in the way?',
+     think:'Wanting something is not a story. Wanting it and not being able to have it is.',
+     ph:'or type your own obstacle…', opts:plain(g.blocks)},
+
+    {k:'try',stage:'The middle',
+     q:'🧗 The first thing your hero tries',
+     think:'Here is the secret of middles: the first attempt must fail. If it works, your story is over on page two.',
+     ph:'or type what they try first…', opts:TRIES},
+
+    {k:'wrong',stage:'The middle',
+     q:'💥 …and it goes wrong. How?',
+     think:'Not a disaster yet. Just enough to make your hero think harder.',
+     ph:'or type how it goes wrong…', opts:WRONGS},
+
+    {k:'worse',stage:'The middle',
+     q:'🌀 Now make it worse',
+     think:'This is the part most children skip, and it is the part that makes a story feel real. Be a little cruel here — you can be kind again at the end.',
+     ph:'or type what makes it worse…', opts:WORSE},
+
+    {k:'surprise',stage:'The surprise',
+     q:'⚡ What is the surprise?',
+     think:'A good surprise is one the reader did not see coming but could have. You have to leave the clue, quietly.',
+     ph:'or type your own surprise…', opts:SURPRISE},
+
+    {k:'where',stage:'The surprise',
+     q:'📍 Where should the surprise land?',
+     think:'The same surprise in a different place makes a completely different story. This is a real writer’s decision — take a minute over it.',
+     ph:'', opts:WHERE},
+
+    {k:'end',stage:'The end',
+     q:'🎬 How does it end?',
+     think:'Endings are not about who wins. They are about what is different now.',
+     ph:'or type your own ending…', opts:ENDINGS},
+
+    {k:'change',stage:'The end',
+     q:'🌱 And what is different about your hero on the last page?',
+     think:'If nothing has changed in them, the story was only a series of events. This one line turns it into a story.',
+     ph:'or type what has changed…', opts:CHANGES}
+    ];
+  }
+
+  const a={};let step=0,timerId;
+  const SAVE='jow_storybuilder_v2';
+  function save(done){try{localStorage.setItem(SAVE,JSON.stringify({a:a,step:step,done:!!done}));}catch(e){}}
+  function wipe(){try{localStorage.removeItem(SAVE);}catch(e){}}
+  const $=function(id){return document.getElementById(id);};
+  const prog=$('sbProg'),qEl=$('sbQ'),optsEl=$('sbOpts'),own=$('sbOwn'),
+        nextBtn=$('sbNext'),backBtn=$('sbBack'),stageEl=$('sbStage'),
+        thinkEl=$('sbThink'),barEl=$('sbBarFill'),diceBtn=$('sbDice'),savedEl=$('sbSaved');
+
+  /* the label a child actually chose, for the plan. Genre and shape are ids;
+     everything else is already the sentence fragment we want to print. */
+  function label(k){
+    var v=a[k];
+    if(k==='genre') return GEN[v] ? GEN[v].n : v;
+    if(k==='shape') return SHAPES[v] ? SHAPES[v].n : v;
+    return v;
+  }
+  function metaFor(k,val){
+    var pool={try:TRIES,wrong:WRONGS,worse:WORSE,surprise:SURPRISE,where:WHERE,end:ENDINGS}[k];
+    if(!pool) return null;
+    for(var i=0;i<pool.length;i++){ if(pool[i][0]===val) return pool[i]; }
     return null;
   }
-  const answers={};let step=0,timerId;
-  let theme='generic';            // current world; presets set it explicitly, typed text can change it
-  const themeHistory=[];          // theme BEFORE each step, so Back restores correctly
-  const prog=document.getElementById('sbProg'),qEl=document.getElementById('sbQ'),optsEl=document.getElementById('sbOpts'),own=document.getElementById('sbOwn'),nextBtn=document.getElementById('sbNext'),backBtn=document.getElementById('sbBack');
-  function detectTheme(){return theme;}
-  function activeSet(){return THEMES[theme]||GENERIC;}
-  function config(){
-    const set=activeSet();
-    if(step===0)return{key:'era',q:'⏳ When does your story happen?',opts:ERA_OPTS,ph:'type your own time…'};
-    if(step===1)return{key:'place',q:'🌍 Where does your story happen?',opts:set.places,ph:'type your own place…'};
-    if(step===2)return{key:'hero',q:'🦸 Who is your hero?',opts:set.heroes,ph:'type your own hero…'};
-    if(step===3)return{key:'goal',q:'🎯 What does your hero really want?',opts:GOALS,ph:'type your own goal…'};
-    return{key:'twist',q:'⚡ What surprise shakes things up?',opts:set.twists,ph:'type your own twist…'};
-  }
+
   function render(){
-    const c=config();
-    prog.textContent='Question '+(step+1)+' of 5';
+    var S=steps(), c=S[step];
+    stageEl.textContent=c.stage;
+    prog.textContent='Question '+(step+1)+' of '+S.length;
+    barEl.style.width=Math.round((step/S.length)*100)+'%';
     qEl.textContent=c.q;
-    optsEl.innerHTML='';own.style.display='none';own.value='';own.placeholder=c.ph;nextBtn.style.display='none';
-    c.opts.forEach(o=>{
-      const b=document.createElement('button');b.type='button';b.className='sb-chip';b.textContent=o[1];
-      b.addEventListener('click',()=>{
-        themeHistory[step]=theme;
-        answers[c.key]=o[0];
-        // A preset is already from the current world. Only the era step re-anchors the world.
-        if(c.key==='era') theme=ERA_THEME[o[0]]||'generic';
-        advance();
-      });
+    thinkEl.textContent=c.think;
+    optsEl.innerHTML='';own.style.display='none';own.value='';own.placeholder=c.ph||'type your own idea…';
+    nextBtn.style.display='none';
+    c.opts.forEach(function(o){
+      var b=document.createElement('button');b.type='button';b.className='sb-chip';
+      b.appendChild(document.createTextNode(o[1]));
+      if(o[2]){var n=document.createElement('span');n.className='sb-opt-note';n.textContent=o[2];b.appendChild(n);}
+      b.addEventListener('click',function(){ a[c.k]=o[0]; advance(); });
       optsEl.appendChild(b);
     });
-    const ob=document.createElement('button');ob.type='button';ob.className='sb-chip sb-own-trigger';ob.textContent='✏️ My own idea';
-    ob.addEventListener('click',()=>{own.style.display='block';own.focus();nextBtn.style.display='inline-flex';});
-    optsEl.appendChild(ob);
+    if(c.ph){
+      var ob=document.createElement('button');ob.type='button';ob.className='sb-chip sb-own-trigger';
+      ob.textContent='✏️ My own idea';
+      ob.addEventListener('click',function(){own.style.display='block';own.focus();nextBtn.style.display='inline-flex';});
+      optsEl.appendChild(ob);
+    }
     backBtn.style.visibility=step>0?'visible':'hidden';
+    savedEl.textContent=step>0?'Saved on this device — you can close this and come back to it.':'';
   }
-  nextBtn.addEventListener('click',()=>{
-    const c=config();const v=own.value.trim();if(!v){own.focus();return;}
-    themeHistory[step]=theme;
-    answers[c.key]=v;
-    // Only text the child typed is scanned for a world; if nothing matches, keep the world we're already in.
-    const found=kwTheme(v);
-    if(found) theme=found;
-    else if(c.key==='era') theme='generic';
-    advance();
+
+  own.addEventListener('keydown',function(e){ if(e.key==='Enter'){e.preventDefault();nextBtn.click();} });
+  nextBtn.addEventListener('click',function(){
+    var S=steps(),c=S[step],v=own.value.trim();
+    if(!v){own.focus();return;}
+    a[c.k]=v; advance();
   });
-  backBtn.addEventListener('click',()=>{if(step>0){step--;if(themeHistory[step]!==undefined)theme=themeHistory[step];render();}});
-  function advance(){if(step<4){step++;render();}else finish();}
-  function fmt(x){const m=Math.floor(x/60),s=x%60;return (m<10?'0':'')+m+':'+(s<10?'0':'')+s;}
-  function startTimer(){clearInterval(timerId);let t=20*60;const disp=document.getElementById('sbTime'),lbl=document.getElementById('sbTimerLabel');disp.textContent=fmt(t);lbl.textContent='✍️ Your 20 minutes starts now — write your story by hand!';timerId=setInterval(()=>{t--;disp.textContent=fmt(Math.max(t,0));if(t<=0){clearInterval(timerId);disp.textContent='00:00';lbl.textContent='⏰ Pencils up! Time to upload your story below.';}},1000);}
+  diceBtn.addEventListener('click',function(){
+    var S=steps(),c=S[step],o=c.opts[Math.floor(Math.random()*c.opts.length)];
+    a[c.k]=o[0]; advance();
+  });
+  backBtn.addEventListener('click',function(){ if(step>0){step--;save();render();} });
+  function advance(){
+    /* If a child goes Back and picks a different genre, the shape and the world
+       they chose belonged to the old one. Clear them rather than carry a jungle
+       into a space station. Steps 7 onwards are structural, so they survive. */
+    if(step===0 && a._g && a._g!==a.genre){
+      ['shape','place','hero','want','block'].forEach(function(k){delete a[k];});
+    }
+    if(step===0) a._g=a.genre;
+    var S=steps();
+    if(step<S.length-1){ step++; save(); render(); } else { save(true); finish(); }
+  }
+
+  /* ---------- the plan ---------- */
+  function cap(s){ return String(s||'').charAt(0).toUpperCase()+String(s||'').slice(1); }
+  function beat(e,n,t,body,tip,isSurp){
+    return '<div class="sb-beat'+(isSurp?' surp':'')+'"><div class="dot">'+e+'</div><div class="bd">'+
+      '<span class="n">'+n+'</span><h5>'+t+'</h5><p>'+body+'</p>'+
+      (tip?'<p class="sb-tip">✨ '+tip+'</p>':'')+'</div></div>';
+  }
   function finish(){
-    document.getElementById('sbCard').style.display='none';
-    document.getElementById('sbSeedText').textContent='Your story happens in '+answers.place+', '+answers.era+'. Your hero is '+answers.hero+', who wants '+answers.goal+'. But then — '+answers.twist+'! What happens next is all up to your imagination. ✨';
-    document.getElementById('sbSeed').style.display='block';
-    startTimer();
-    document.getElementById('sbSeed').scrollIntoView({behavior:'smooth'});
+    var sh=SHAPES[a.shape], g=GEN[a.genre];
+    var surpMeta=metaFor('surprise',a.surprise), whereMeta=metaFor('where',a.where),
+        endMeta=metaFor('end',a.end), tryMeta=metaFor('try',a.try),
+        wrongMeta=metaFor('wrong',a.wrong), worseMeta=metaFor('worse',a.worse);
+
+    $('sbPlanKicker').textContent=(g?g.e+' '+g.n:label('genre'))+'  ·  '+(sh?sh.e+' '+sh.n:label('shape'));
+    $('sbSeedText').textContent=
+      'Your hero is '+a.hero+'. Your world is '+a.place+'. They want '+a.want+
+      '. Standing in the way: '+a.block+'. First '+a.try+', and '+a.wrong+
+      '. Then '+a.surprise+'. In the end, '+a.end+'.';
+
+    var b=[];
+    b.push(beat('🌍','Open here','Your world',
+      'Your world: <b>'+cap(a.place)+'</b>. Give us two or three sentences of it — what can be seen, heard and smelled. Then bring in <b>'+a.hero+'</b>.',
+      'Two good details beat ten ordinary ones. Pick the two nobody else would notice.'));
+    b.push(beat('🎯','Then','What your hero wants',
+      'Make us understand that '+a.hero+' wants '+a.want+'. Then show us what is standing in the way: '+a.block+'.',
+      'Show the want, do not announce it. Let us watch them try something small and be stopped.'));
+    b.push(beat('🧗','The middle begins','The first attempt',
+      'First, '+a.try+'.<br>And then '+a.wrong+'.',
+      tryMeta?tryMeta[2]:''));
+    b.push(beat('🌀','And then','It gets worse',
+      'Now '+a.worse+'. This is the lowest your hero gets.',
+      worseMeta?worseMeta[2]:''));
+    var wPhrase=whereMeta?whereMeta[3]:'somewhere in the middle';
+    b.push(beat('⚡','The turn','The surprise — '+wPhrase,
+      'This is where '+a.surprise+'.'+
+      (a.where==='last'?'<br>Write it as one sentence. Then stop. Nothing comes after it.':''),
+      surpMeta?surpMeta[2]:'', true));
+    b.push(beat('🎬','The end','How it finishes',
+      'In the end, '+a.end+'. On the last page '+a.hero+' is '+a.change+'.',
+      endMeta?endMeta[2]:''));
+
+    /* move the surprise card to wherever the child decided it should land */
+    var surp=b.splice(4,1)[0];
+    var at={early:1, middle:3, late:5, last:6}[a.where];
+    if(at===undefined) at=4;
+    b.splice(Math.min(at,b.length),0,surp);
+    $('sbPath').innerHTML=b.join('');
+
+    $('sbSurprise').textContent=cap(a.surprise)+' — and it lands '+wPhrase+'.';
+    $('sbSurpriseTip').textContent=whereMeta?whereMeta[2]:'';
+    $('sbEnding').textContent=cap(a.end)+'. Your hero ends the story '+a.change+'.';
+    $('sbEndingTip').textContent=endMeta?endMeta[2]:'';
+
+    $('sbCard').style.display='none';
+    $('sbSeed').style.display='block';
+    $('sbSeed').scrollIntoView({behavior:'smooth'});
   }
-  document.getElementById('sbRedo').addEventListener('click',()=>{
-    clearInterval(timerId);Object.keys(answers).forEach(k=>delete answers[k]);step=0;theme='generic';themeHistory.length=0;
-    document.getElementById('sbSeed').style.display='none';
-    document.getElementById('sbCard').style.display='block';
-    render();
-    document.getElementById('sbCard').scrollIntoView({behavior:'smooth'});
+
+  /* ---------- the timer: starts when the child is ready, not before ---------- */
+  function fmt(x){var m=Math.floor(x/60),s=x%60;return (m<10?'0':'')+m+':'+(s<10?'0':'')+s;}
+  $('sbStart').addEventListener('click',function(){
+    clearInterval(timerId);
+    var t=20*60,disp=$('sbTime'),lbl=$('sbTimerLabel');
+    disp.textContent=fmt(t); lbl.textContent='✍️ Twenty minutes, starting now. Write it by hand.';
+    this.style.display='none';
+    timerId=setInterval(function(){
+      t--; disp.textContent=fmt(Math.max(t,0));
+      if(t<=0){clearInterval(timerId);disp.textContent='00:00';lbl.textContent='⏰ Pencils up! Send it to us below.';}
+    },1000);
   });
-  render();
+  $('sbPrint').addEventListener('click',function(){window.print();});
+
+  $('sbRedo').addEventListener('click',function(){
+    clearInterval(timerId); wipe();
+    Object.keys(a).forEach(function(k){delete a[k];});
+    step=0;
+    $('sbSeed').style.display='none';
+    $('sbCard').style.display='block';
+    $('sbStart').style.display='';
+    $('sbTime').textContent='20:00';
+    $('sbTimerLabel').textContent='✍️ When you are ready, give yourself twenty quiet minutes.';
+    render();
+    $('sbCard').scrollIntoView({behavior:'smooth'});
+  });
+
+  /* ---------- pick up where they left off ---------- */
+  (function restore(){
+    var raw=null; try{raw=localStorage.getItem(SAVE);}catch(e){}
+    if(!raw){render();return;}
+    var s=null; try{s=JSON.parse(raw);}catch(e){}
+    if(!s||!s.a){render();return;}
+    Object.keys(s.a).forEach(function(k){a[k]=s.a[k];});
+    if(s.done && a.change){ render(); finish(); return; }
+    step=Math.min(Math.max(s.step|0,0), steps().length-1);
+    render();
+  })();
 })();
 </script>
 <script>
