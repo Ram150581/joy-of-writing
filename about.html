@@ -322,6 +322,16 @@
   .mv-card.vision .lbl{color:#9a6b00;}
   .mv-card h3{font-family:'Baloo 2';font-size:1.6rem;margin:8px 0 10px;color:var(--ink);}
   .mv-card p{color:#4a4360;line-height:1.7;}
+  /* the mission's five, numbered */
+  .mv-list{margin:14px 0 0;padding:0;counter-reset:mvn;list-style:none;}
+  .mv-list li{counter-increment:mvn;position:relative;padding-left:34px;margin-bottom:9px;
+    color:#4a4360;line-height:1.5;font-size:1.02rem;}
+  .mv-list li:before{content:counter(mvn);position:absolute;left:0;top:1px;
+    width:23px;height:23px;border-radius:50%;background:var(--grape);color:#fff;
+    font-family:'Baloo 2';font-weight:700;font-size:.82rem;display:grid;place-items:center;}
+  /* the vision card now carries only its line — centre it so the pair stay even */
+  .mv-card.vision{display:flex;flex-direction:column;justify-content:center;}
+  .mv-card.vision h3{margin-bottom:0;}
   .why2{padding:70px 0;background:linear-gradient(180deg,#fff3f0,#fffdf8);}
   .why2 .center{text-align:center;max-width:640px;margin:0 auto 34px;}
   .why2 h2{font-size:2.2rem;margin:10px 0;}
@@ -378,6 +388,7 @@
       <a href="index.html">Home</a>
       <a href="index.html#how">Programs</a>
       <a href="fun-tools.html">Fun Tools</a>
+      <a href="blogs/index.html">Blog</a>
       <a href="join.html">The twelve weeks</a>
       <a href="story-studio.html" class="nav-cta">Send a Story 📸</a>
       <a href="fun-tools.html#unlock" class="nav-member" id="memberBtn">🔑 Members</a>
@@ -420,14 +431,21 @@
       <div class="mv-card mission">
         <div class="lbl">Our mission</div>
         <h3>Help every child enjoy the art of writing</h3>
-        <p>To serve and enable every child to discover the joy of writing — building imagination, clarity of thought and confident self-expression in the years that shape them most, even as the world leans on machines to write on its behalf.</p>
+        <p>And in the process, build five foundation skills.</p>
+        <ol class="mv-list">
+          <li>Creativity and imagination</li>
+          <li>Logical thinking and problem solving</li>
+          <li>Expression and communication</li>
+          <li>Attention and observation</li>
+          <li>Reasoning and empathy</li>
+        </ol>
       </div>
       <div class="mv-card vision">
         <div class="lbl">Our vision</div>
         <h3>India's most-loved children's writing community</h3>
-        <p>A place where a child's own words on a page are celebrated as warmly as any exam result or trophy — and where writing is experienced as joyful play, never as homework.</p>
       </div>
     </div>
+
   </div>
 </section>
 

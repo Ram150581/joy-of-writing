@@ -82,15 +82,9 @@
   .nav-cta:hover{background:#ff5252!important;}
   .burger{display:none;font-size:1.6rem;background:none;border:none;cursor:pointer;}
 
-  /* ---------- hero ---------- */
-  .hero{position:relative;padding:70px 0 90px;overflow:hidden;}
-  .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;}
+  /* ---------- opening ---------- */
   .badge-pill{display:inline-flex;align-items:center;gap:8px;background:#fff;border:2px solid var(--grape);color:var(--grape);font-weight:600;padding:7px 16px;border-radius:999px;font-size:.9rem;transform:rotate(-2deg);box-shadow:0 1px 4px rgba(43,36,64,.07);}
-  .hero h1{font-size:3.6rem;margin:18px 0 14px;color:var(--ink);}
-  .hero h1 .hl{color:var(--coral);position:relative;white-space:nowrap;}
-  .hero h1 .hl2{color:var(--grape);}
-  .hero p.lead{font-size:1.25rem;max-width:520px;color:#4a4360;}
-  .hero-btns{display:flex;gap:14px;margin-top:28px;flex-wrap:wrap;}
+  .hero-btns{display:flex;gap:14px;margin-top:28px;flex-wrap:wrap;justify-content:center;}
   .btn{
     font-family:'Baloo 2';font-weight:700;font-size:1.05rem;cursor:pointer;
     border:none;padding:15px 28px;border-radius:999px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;
@@ -101,23 +95,6 @@
   .btn-ghost{background:#fff;color:var(--grape);border:2px solid var(--grape);box-shadow:0 3px 10px rgba(43,36,64,.08);}
   .btn-ghost:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(43,36,64,.13);}
 
-  /* hero art card */
-  .hero-art{position:relative;}
-  .paper-card{
-    background:var(--paper);
-    border:1px solid #e8ded0;
-    border-radius:22px;
-    padding:26px;
-    box-shadow:0 6px 18px rgba(43,36,64,.10);
-    transform:rotate(2deg);
-    position:relative;
-  }
-  .paper-card .lines{position:absolute;inset:26px;background-image:repeating-linear-gradient(transparent, transparent 27px, #dfe7ff 28px);opacity:.6;pointer-events:none;border-radius:8px;}
-  .paper-card h3{font-family:'Gochi Hand';font-size:1.9rem;color:var(--grape);position:relative;}
-  .paper-card p{font-family:'Gochi Hand';font-size:1.35rem;color:#5a5470;position:relative;margin-top:6px;}
-  .pencil{position:absolute;bottom:-26px;right:-10px;font-size:3rem;transform:rotate(20deg);}
-  .star-sticker{position:absolute;font-size:2.4rem;top:-22px;left:-18px;transform:rotate(-15deg);}
-
   /* wavy divider */
   .wave{display:block;width:100%;height:60px;}
 
@@ -126,6 +103,32 @@
   .sec-pad{padding:72px 0;}
   .kicker{font-family:'Gochi Hand';font-size:1.5rem;color:var(--coral);}
   .sec-title{font-size:2.5rem;margin:4px 0 10px;}
+
+  /* ---- the five foundation skills ---- */
+  /* The opening and the five skills are one section: the banner photograph
+     above does the visual work, this does all the talking. */
+  .five-sec{padding:56px 0 74px;background:#fffdf8;}
+  .five-head{text-align:center;max-width:660px;margin:0 auto 32px;}
+  .five-head .badge-pill{margin-bottom:16px;}
+  .five-head .lead{font-size:1.25rem;line-height:1.6;color:#4a4360;max-width:620px;margin:10px auto 0;}
+  .five-head .sec-title{margin-top:0;}
+  .five-sec .hero-btns{margin-top:36px;}
+  .five-head p{color:#5a5470;font-size:1.08rem;line-height:1.6;}
+  .five-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;}
+  .five-card{background:#fffefb;border:1px solid #ece3d6;border-radius:18px;
+    padding:22px 18px 20px;position:relative;overflow:hidden;
+    transition:transform .18s ease, border-color .18s ease;}
+  .five-card:before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:var(--sunny);}
+  .five-card:nth-child(2):before{background:var(--coral);}
+  .five-card:nth-child(3):before{background:var(--sky);}
+  .five-card:nth-child(4):before{background:var(--mint);}
+  .five-card:nth-child(5):before{background:var(--grape);}
+  .five-card:hover{transform:translateY(-4px);border-color:#dcd0bd;}
+  .five-card .emo{font-size:1.9rem;display:block;}
+  .five-card h4{font-family:'Baloo 2';font-size:1.05rem;margin:8px 0 7px;color:var(--ink);line-height:1.25;}
+  .five-card p{font-size:.92rem;color:#5a5470;line-height:1.55;}
+  @media(max-width:900px){ .five-grid{grid-template-columns:repeat(2,1fr);} }
+  @media(max-width:520px){ .five-grid{grid-template-columns:1fr;} }
   .sec-sub{font-size:1.15rem;color:#5a5470;max-width:640px;}
   .center{text-align:center;margin:0 auto;}
 
@@ -207,14 +210,12 @@
   .float{animation:floaty 4s ease-in-out infinite;}
 
   @media(max-width:860px){
-    .hero-grid{grid-template-columns:1fr;}
-    .hero h1{font-size:2.6rem;}
     .steps{grid-template-columns:repeat(3,1fr);}
     .nav-links{display:none;position:absolute;top:100%;right:14px;background:#fff;flex-direction:column;padding:12px;border-radius:18px;border:2px solid var(--sunny);box-shadow:0 3px 10px rgba(43,36,64,.08);}
     .nav-links.open{display:flex;}
     .burger{display:block;}
   }
-  @media(max-width:560px){.steps{grid-template-columns:1fr;}.hero h1{font-size:2.2rem;}}
+  @media(max-width:560px){.steps{grid-template-columns:1fr;}.five-head .lead{font-size:1.12rem;}}
 
   .consent{margin-top:16px;background:#f7f3ff;border:3px dashed var(--grape);border-radius:16px;padding:14px 16px;}
   .consent label{display:flex;gap:10px;align-items:flex-start;font-family:'Fredoka';font-weight:400;font-size:.92rem;color:#4a4360;cursor:pointer;line-height:1.5;}
@@ -334,6 +335,7 @@
       <a href="fun-tools.html">Fun Tools</a>
       <a href="story-studio.html">Send a Story</a>
       <a href="about.html">About</a>
+      <a href="blogs/index.html">Blog</a>
       <a href="join.html" class="nav-cta">Join 💛</a>
       <a href="fun-tools.html#unlock" class="nav-member" id="memberBtn">🔑 Members</a>
     </div>
@@ -353,31 +355,52 @@
 </div>
 
 <!-- HERO -->
-<header class="hero">
-  <div class="wrap hero-grid">
-    <div>
+<!-- OPENING + THE FIVE FOUNDATION SKILLS -->
+<section class="five-sec">
+  <div class="wrap">
+    <div class="five-head">
       <!-- Read by Google and screen readers, seen by nobody. The page needs
-           one h1 to say what it is about; the visible hero says it with the
+           one h1 to say what it is about; the visible page says it with the
            tagline and the picture instead. -->
       <h1 class="sr-only">Online creative writing classes for children aged 6 to 15 in India</h1>
       <span class="badge-pill">🌍 For curious kids aged 6–15</span>
-      <p class="lead">In a world racing toward AI, we help children discover the pure joy of putting <em>their own</em> words on the page. Fun weekly challenges, real feedback, and a wall that celebrates young authors. ✨</p>
-      <div class="hero-btns">
-        <a href="join.html" class="btn btn-primary">See the journey 💛</a>
-        <a href="#how" class="btn btn-ghost">How it works 📚</a>
+      <h2 class="sec-title">The five things writing builds</h2>
+      <p class="lead">In a world racing toward AI, we help children discover the pure joy of putting <em>their own</em> words on the page. In the process they build five foundational skills.</p>
+    </div>
+    <div class="five-grid">
+      <div class="five-card">
+        <span class="emo">💡</span>
+        <h4>Creativity &amp; Imagination</h4>
+        <p>Inventing a world that did not exist until they wrote it down.</p>
+      </div>
+      <div class="five-card">
+        <span class="emo">🧩</span>
+        <h4>Logical Thinking &amp; Problem Solving</h4>
+        <p>A story has to hold together — cause, effect, and an ending the beginning has earned.</p>
+      </div>
+      <div class="five-card">
+        <span class="emo">💬</span>
+        <h4>Expression &amp; Communication</h4>
+        <p>Finding the exact word for a feeling, so that somebody else feels it too.</p>
+      </div>
+      <div class="five-card">
+        <span class="emo">👀</span>
+        <h4>Attention &amp; Observation</h4>
+        <p>Noticing the small thing everybody else walked past, and thinking it worth keeping.</p>
+      </div>
+      <div class="five-card">
+        <span class="emo">🤝</span>
+        <h4>Reasoning &amp; Empathy</h4>
+        <p>Writing a character who wants something you do not. That is where empathy begins.</p>
       </div>
     </div>
-    <div class="hero-art">
-      <div class="paper-card float" style="--r:2deg;">
-        <span class="star-sticker">⭐</span>
-        <div class="lines"></div>
-        <h3>This week's challenge:</h3>
-        <p>“Write a letter from a raindrop on its very first journey to the sea…” 🌧️➡️🌊</p>
-        <span class="pencil">✏️</span>
-      </div>
+
+    <div class="hero-btns">
+      <a href="join.html" class="btn btn-primary">See the journey 💛</a>
+      <a href="#how" class="btn btn-ghost">How it works 📚</a>
     </div>
   </div>
-</header>
+</section>
 
 <!-- HOW IT WORKS -->
 <section class="sec-pad" id="how" style="background:#fff3f0;">
@@ -941,7 +964,7 @@ function sendBookInterest(e){
 <footer>
   <a href="#top" class="logo" style="text-decoration:none;" aria-label="Go to homepage"><svg class="logo-mark" viewBox="0 0 90 175" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(24,26)"><path d="M52 8 L52 92 Q52 128 20 128 Q-8 128 -12 104" fill="none" stroke="#ffd23f" stroke-width="26" stroke-linecap="round"/><path d="M52 8 L52 92 Q52 128 20 128 Q-8 128 -12 104" fill="none" stroke="#2b2440" stroke-width="4" stroke-linecap="round" opacity=".85"/><path d="M39 6 L52 -22 L65 6 Z" fill="#ff6b6b" stroke="#2b2440" stroke-width="3.5" stroke-linejoin="round"/><path d="M46 -6 L52 -20 L58 -6 Z" fill="#2b2440"/><circle cx="-12" cy="104" r="6" fill="#ff6b6b"/></g></svg>Joy of Writing</a>
   <p>Enabling every child to enjoy the art of writing — in a world moving fast toward AI.</p>
-  <p style="margin-top:10px;">Made with 💛 for young authors · <a href="about.html">About</a> · <a href="join.html">The journey</a> · <a href="join.html">Join</a></p>
+  <p style="margin-top:10px;">Made with 💛 for young authors · <a href="about.html">About</a> · <a href="blogs/index.html">Blog</a> · <a href="join.html">The journey</a> · <a href="join.html">Join</a></p>
   <p style="margin-top:14px;font-size:.8rem;color:#7a7398;">© 2026 Joy of Writing · joyofwriting.in</p>
 </footer>
 
