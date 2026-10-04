@@ -533,8 +533,33 @@
      a surprise the child places on purpose, and an ending they choose.
      Ends in a printable plan they keep beside them while they handwrite. */
 
-  /* the old static "shape of a story" panel is superseded by the plan below */
+  /* The static "shape of a story" panel is the right level of guidance for
+     the quick route, which hands over a seed rather than a full plan.
+     The long route builds its own path, so it hides this one. */
   #tool-builder .sh-wrap{display:none;}
+  #tool-builder.quick-done .sh-wrap{display:block;}
+  /* the quick route's seed card has no beats, no surprise box, no checklist */
+  #sbSeed.quick .sb-path,
+  #sbSeed.quick .sb-grid2,
+  #sbSeed.quick .sb-check,
+  #sbSeed.quick #sbPrint{display:none;}
+
+  /* the two ways in */
+  .sb-pick{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:760px;margin:0 auto;}
+  .sb-pick-card{background:var(--paper);border:2px solid #ece3d6;border-radius:22px;
+    padding:26px 24px;text-align:left;cursor:pointer;font-family:'Fredoka',sans-serif;
+    display:flex;flex-direction:column;gap:7px;position:relative;overflow:hidden;
+    transition:transform .18s ease,border-color .18s ease;}
+  .sb-pick-card:before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:var(--sunny);}
+  .sb-pick-card:nth-child(2):before{background:var(--grape);}
+  .sb-pick-card:hover{transform:translateY(-4px);border-color:#dcd0bd;}
+  .sb-pick-card .e{font-size:2.2rem;}
+  .sb-pick-card .t{font-family:'Baloo 2';font-weight:700;font-size:1.22rem;color:var(--ink);line-height:1.25;}
+  .sb-pick-card .d{font-size:.95rem;color:#5a5470;line-height:1.55;}
+  .sb-pick-card .m{font-family:'Baloo 2';font-weight:600;font-size:.82rem;color:var(--grape);margin-top:4px;}
+  .sb-swap{background:none;border:none;color:var(--grape);font-family:'Baloo 2';font-weight:600;
+    cursor:pointer;font-size:.9rem;text-decoration:underline;display:block;margin:18px auto 0;}
+  @media(max-width:620px){ .sb-pick{grid-template-columns:1fr;} }
 
   .sb-bar{height:8px;background:#f2e9da;border-radius:999px;overflow:hidden;margin-bottom:14px;}
   .sb-bar-fill{height:100%;width:0;border-radius:999px;
@@ -697,10 +722,27 @@
     <div class="head">
       <span class="badge-pill">🎨 Story Builder</span>
       <h2>Build your <span class="hl">story</span>, one question at a time</h2>
-      <p>Pick a kind of story, then a shape for it. We will work out the middle together, decide where the surprise lands, and choose how it ends. At the end you get a <b>story plan</b> to print and keep beside you while you write. Take your time — this part is meant to be slow. ✨</p>
+      <p>Answer a few questions and we will work out your story together. How many questions is up to you. ✨</p>
     </div>
 
-    <div class="sb-card" id="sbCard">
+    <!-- Two ways in. Not beginner and advanced — it depends on how much
+         you feel like doing today, which changes from one day to the next. -->
+    <div class="sb-pick" id="sbPick">
+      <button type="button" class="sb-pick-card" data-mode="quick">
+        <span class="e">⚡</span>
+        <span class="t">Just give me an idea</span>
+        <span class="d">Five quick questions and you are writing in two minutes. For the days you want to fill a page and see where it goes.</span>
+        <span class="m">5 questions · about 2 minutes</span>
+      </button>
+      <button type="button" class="sb-pick-card" data-mode="full">
+        <span class="e">🗺️</span>
+        <span class="t">Help me plan a whole story</span>
+        <span class="d">We work out the middle, decide where the surprise lands and how it ends. You get a plan to print and keep beside you.</span>
+        <span class="m">13 questions · about 15 minutes</span>
+      </button>
+    </div>
+
+    <div class="sb-card" id="sbCard" style="display:none;">
       <div class="sb-bar"><div class="sb-bar-fill" id="sbBarFill"></div></div>
       <div class="sb-stage" id="sbStage"></div>
       <div class="sb-progress" id="sbProg"></div>
@@ -2553,7 +2595,17 @@
      Options are [value, label, note]. Steps 3–6 read from the chosen genre,
      so the world a child is offered always belongs to the story they picked. */
   function plain(list){ return list.map(function(v){return [v, v.charAt(0).toUpperCase()+v.slice(1)];}); }
+  /* Which questions this run asks. The quick route takes the five that a
+     story cannot do without — kind, place, who, what they want, and the
+     surprise — and leaves the middle and the ending to the child. */
+  var QUICK = ['genre', 'place', 'hero', 'want', 'surprise'];
   function steps(){
+    var all = allSteps();
+    if (mode !== 'quick') return all;
+    return all.filter(function (s) { return QUICK.indexOf(s.k) > -1; });
+  }
+
+  function allSteps(){
     var g = GEN[a.genre] || GENRES[0];
     return [
     {k:'genre',stage:'The kind of story',
@@ -2625,9 +2677,9 @@
     ];
   }
 
-  const a={};let step=0,timerId;
-  const SAVE='jow_storybuilder_v2';
-  function save(done){try{localStorage.setItem(SAVE,JSON.stringify({a:a,step:step,done:!!done}));}catch(e){}}
+  const a={};let step=0,timerId,mode=null;
+  const SAVE='jow_storybuilder_v3';
+  function save(done){try{localStorage.setItem(SAVE,JSON.stringify({a:a,step:step,mode:mode,done:!!done}));}catch(e){}}
   function wipe(){try{localStorage.removeItem(SAVE);}catch(e){}}
   const $=function(id){return document.getElementById(id);};
   const prog=$('sbProg'),qEl=$('sbQ'),optsEl=$('sbOpts'),own=$('sbOwn'),
@@ -2671,7 +2723,8 @@
       ob.addEventListener('click',function(){own.style.display='block';own.focus();nextBtn.style.display='inline-flex';});
       optsEl.appendChild(ob);
     }
-    backBtn.style.visibility=step>0?'visible':'hidden';
+    backBtn.style.visibility='visible';
+    backBtn.textContent = step>0 ? '← Back' : '← Choose again';
     savedEl.textContent=step>0?'Saved on this device — you can close this and come back to it.':'';
   }
 
@@ -2705,7 +2758,26 @@
       '<span class="n">'+n+'</span><h5>'+t+'</h5><p>'+body+'</p>'+
       (tip?'<p class="sb-tip">✨ '+tip+'</p>':'')+'</div></div>';
   }
+  /* ---- the quick route's ending: a seed, and the shape to hang it on ---- */
+  function finishQuick(){
+    var g=GEN[a.genre];
+    $('sbPlanKicker').textContent = g ? g.e+' '+g.n : label('genre');
+    $('sbSeed').querySelector('h3').textContent = '🌱 Your story seed';
+    $('sbSeedText').textContent =
+      'Your hero is '+a.hero+'. Your world is '+a.place+'. They want '+a.want+
+      '. And then — '+a.surprise+'. What happens next is yours.';
+    $('sbSeed').classList.add('quick');
+    document.getElementById('tool-builder').classList.add('quick-done');
+    $('sbCard').style.display='none';
+    $('sbSeed').style.display='block';
+    $('sbSeed').scrollIntoView({behavior:'smooth'});
+  }
+
   function finish(){
+    if (mode === 'quick') return finishQuick();
+    $('sbSeed').classList.remove('quick');
+    document.getElementById('tool-builder').classList.remove('quick-done');
+    $('sbSeed').querySelector('h3').textContent = '🌱 Your story plan';
     var sh=SHAPES[a.shape], g=GEN[a.genre];
     var surpMeta=metaFor('surprise',a.surprise), whereMeta=metaFor('where',a.where),
         endMeta=metaFor('end',a.end), tryMeta=metaFor('try',a.try),
@@ -2770,27 +2842,52 @@
   });
   $('sbPrint').addEventListener('click',function(){window.print();});
 
-  $('sbRedo').addEventListener('click',function(){
-    clearInterval(timerId); wipe();
+  /* ---------- choosing a route ---------- */
+  function begin(m){
+    mode=m; step=0;
     Object.keys(a).forEach(function(k){delete a[k];});
-    step=0;
+    $('sbPick').style.display='none';
     $('sbSeed').style.display='none';
     $('sbCard').style.display='block';
+    save(); render();
+    $('sbCard').scrollIntoView({behavior:'smooth'});
+  }
+  Array.prototype.forEach.call(
+    document.querySelectorAll('#sbPick .sb-pick-card'),
+    function(b){ b.addEventListener('click',function(){ begin(b.dataset.mode); }); }
+  );
+
+  function toStart(){
+    clearInterval(timerId); wipe();
+    Object.keys(a).forEach(function(k){delete a[k];});
+    step=0; mode=null;
+    $('sbSeed').style.display='none';
+    $('sbSeed').classList.remove('quick');
+    document.getElementById('tool-builder').classList.remove('quick-done');
+    $('sbCard').style.display='none';
+    $('sbPick').style.display='';
     $('sbStart').style.display='';
     $('sbTime').textContent='20:00';
     $('sbTimerLabel').textContent='✍️ When you are ready, give yourself twenty quiet minutes.';
-    render();
-    $('sbCard').scrollIntoView({behavior:'smooth'});
-  });
+    $('sbPick').scrollIntoView({behavior:'smooth'});
+  }
+  $('sbRedo').addEventListener('click',toStart);
+
+  /* Back from the first question returns to the choice, not nowhere. */
+  backBtn.addEventListener('click',function(){ if(step===0) toStart(); });
 
   /* ---------- pick up where they left off ---------- */
   (function restore(){
     var raw=null; try{raw=localStorage.getItem(SAVE);}catch(e){}
-    if(!raw){render();return;}
+    if(!raw) return;                       /* no saved run — show the choice */
     var s=null; try{s=JSON.parse(raw);}catch(e){}
-    if(!s||!s.a){render();return;}
+    if(!s||!s.a||!s.mode) return;
+    mode=s.mode;
     Object.keys(s.a).forEach(function(k){a[k]=s.a[k];});
-    if(s.done && a.change){ render(); finish(); return; }
+    $('sbPick').style.display='none';
+    $('sbCard').style.display='block';
+    var done = s.done && (mode==='quick' ? a.surprise : a.change);
+    if(done){ render(); finish(); return; }
     step=Math.min(Math.max(s.step|0,0), steps().length-1);
     render();
   })();

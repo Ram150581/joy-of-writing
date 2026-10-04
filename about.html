@@ -329,9 +329,7 @@
   .mv-list li:before{content:counter(mvn);position:absolute;left:0;top:1px;
     width:23px;height:23px;border-radius:50%;background:var(--grape);color:#fff;
     font-family:'Baloo 2';font-weight:700;font-size:.82rem;display:grid;place-items:center;}
-  /* the vision card now carries only its line — centre it so the pair stay even */
-  .mv-card.vision{display:flex;flex-direction:column;justify-content:center;}
-  .mv-card.vision h3{margin-bottom:0;}
+  .mv-card.vision p + p{margin-top:12px;}
   .why2{padding:70px 0;background:linear-gradient(180deg,#fff3f0,#fffdf8);}
   .why2 .center{text-align:center;max-width:640px;margin:0 auto 34px;}
   .why2 h2{font-size:2.2rem;margin:10px 0;}
@@ -443,6 +441,8 @@
       <div class="mv-card vision">
         <div class="lbl">Our vision</div>
         <h3>India's most-loved children's writing community</h3>
+        <p>A generation of children who write because they want to, not because they have been set it — and homes where a child's own page is celebrated as warmly as any exam result or trophy.</p>
+        <p>We want writing to be something they carry into adulthood, not something they remember being made to do at school.</p>
       </div>
     </div>
 
