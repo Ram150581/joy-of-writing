@@ -159,7 +159,7 @@
   <div class="hero">
     <span class="free-tag">COMPLETELY FREE</span>
     <h1>A 30-minute writing workshop your child will <span class="hl">actually enjoy</span></h1>
-    <p class="lead">Live with Anuradha, online — join from anywhere in India. Bring paper and a pen, we'll do the rest.</p>
+    <p class="lead">Live with Anuradha, online — join from anywhere. Bring paper and a pen, we'll do the rest.</p>
 
     <div class="facts">
       <div class="fact"><div class="k">When</div><div class="v">Sat 10 October</div></div>
@@ -198,7 +198,8 @@
       <div class="row2">
         <div>
           <label for="wPhone">WhatsApp number <span class="req">*</span></label>
-          <input type="tel" id="wPhone" autocomplete="tel" inputmode="tel" maxlength="18" required>
+          <input type="tel" id="wPhone" autocomplete="tel" inputmode="tel" maxlength="18"
+                 placeholder="with country code if outside India" required>
         </div>
         <div>
           <label for="wCity">Which city? <span style="font-weight:400;color:#9a9287">(optional)</span></label>
@@ -271,6 +272,10 @@
       <p>Register anyway — we'll email you when the next one is scheduled.</p>
     </div>
     <div class="faq">
+      <h4>We're outside India — can we join?</h4>
+      <p>Yes, and you'd be very welcome. The session is at 12:30 pm India time, which is 11am in Dubai, 3pm in Singapore and 6pm on Australia's east coast. Do add your country code to the WhatsApp number so we can reach you.</p>
+    </div>
+    <div class="faq">
       <h4>Who is teaching?</h4>
       <p>Anuradha, who has been a professional writer for two decades. <a href="about.html" style="color:var(--grape);">More about her →</a></p>
     </div>
@@ -333,11 +338,13 @@
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))
                 return fail('That email address doesn’t look quite right.', document.getElementById('wEmail'));
 
-    /* Indian mobiles are 10 digits. Allow +91, 0, spaces and dashes, then
-       count what is left so a paste from a contact list still works. */
-    var digits = phone.replace(/\D/g, '').replace(/^0+/, '').replace(/^91(?=\d{10}$)/, '');
-    if(digits.length !== 10)
-                return fail('Please add a 10-digit WhatsApp number so we can reach you on the day.', document.getElementById('wPhone'));
+    /* Any international mobile. India is still the common case, so a bare
+       10-digit number works and a leading 0 is forgiven — but a family in
+       Dubai or Singapore must not be told their own number is wrong.
+       ITU numbers run to 15 digits; the shortest in use are 7. */
+    var digits = phone.replace(/\D/g, '').replace(/^0+/, '');
+    if(digits.length < 7 || digits.length > 15)
+                return fail('Please add a WhatsApp number we can reach you on — with the country code if you are outside India.', document.getElementById('wPhone'));
 
     if(!ok)    return fail('Please tick the box to confirm you’re the parent or guardian.');
 
