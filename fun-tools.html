@@ -942,6 +942,13 @@
           <button type="button" class="fc-fest sel" data-m="6">🌱 In 6 months</button>
           <button type="button" class="fc-fest" data-m="12">🎈 In 1 year</button>
           <button type="button" class="fc-fest" data-m="24">🚀 In 2 years</button>
+          <button type="button" class="fc-fest" data-m="date">📅 A special day</button>
+        </div>
+        <div id="flCustom" style="display:none;margin:10px 0 4px;">
+          <label for="flDate">Pick the day</label>
+          <input type="date" id="flDate">
+          <p class="fc-hint" style="margin-top:8px;">🎂 Great for a birthday or another special day. Pick any day from next week up to three years away.</p>
+          <p class="fc-hint" style="margin-top:6px;">💛 <b>Before you choose:</b> your letter is emailed to your parent, so they will be the one who opens it — and they may read it. Write only things you are happy for them to see. If it is for someone else's birthday, don't put that person's full name or private details in the letter.</p>
         </div>
         <p class="fc-hint" id="flDateNote"></p>
 
@@ -1638,7 +1645,17 @@
   const nameEl=document.getElementById('flName'),ageEl=document.getElementById('flAge'),emailEl=document.getElementById('flEmail');
   const prevName=document.getElementById('flPrevName'),prevDate=document.getElementById('flPrevDate');
   const statusEl=document.getElementById('flStatus');
-  let months=6, spark='';
+  const customEl=document.getElementById('flCustom'),dateEl=document.getElementById('flDate');
+  let months=6, spark='', custom=false;
+
+  /* Today's date as yyyy-mm-dd in the child's own time zone (not UTC). */
+  function localIso(d){
+    const p=n=>String(n).padStart(2,'0');
+    return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate());
+  }
+  const soonest=new Date();soonest.setDate(soonest.getDate()+7);
+  const latest=new Date();latest.setFullYear(latest.getFullYear()+3);
+  dateEl.min=localIso(soonest);dateEl.max=localIso(latest);
 
   SPARKS.forEach(s=>{
     const b=document.createElement('button');b.type='button';b.className='fc-fest';b.textContent=s[0];
@@ -1649,21 +1666,42 @@
     sparksEl.appendChild(b);
   });
 
-  function deliveryDate(){const d=new Date();d.setMonth(d.getMonth()+months);return d;}
+  /* The chosen day, or null if a special day is selected but not picked
+     (or is outside the allowed range). */
+  function deliveryDate(){
+    if(custom){
+      const v=dateEl.value;
+      if(!/^\d{4}-\d{2}-\d{2}$/.test(v))return null;
+      if(v<dateEl.min||v>dateEl.max)return null;
+      const y=+v.slice(0,4),m=+v.slice(5,7),day=+v.slice(8,10);
+      return new Date(y,m-1,day,12,0,0);
+    }
+    const d=new Date();d.setMonth(d.getMonth()+months);return d;
+  }
   function fmt(d){return d.toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});}
-  function iso(d){return d.toISOString().slice(0,10);}
+  function iso(d){return localIso(d);}
   function refresh(){
     const d=deliveryDate();
-    prevDate.textContent=fmt(d);
-    dateNote.textContent='📅 Your letter will fly back to you on '+fmt(d)+'.';
+    if(d){
+      prevDate.textContent=fmt(d);
+      dateNote.textContent='📅 Your letter will fly back to you on '+fmt(d)+'.';
+    }else{
+      prevDate.textContent='—';
+      dateNote.textContent='📅 Pick a day above — any day from next week to three years away.';
+    }
     prevName.textContent=(nameEl.value.trim()||'future me');
   }
   whenEl.querySelectorAll('.fc-fest').forEach(b=>{
     b.addEventListener('click',()=>{
       whenEl.querySelectorAll('.fc-fest').forEach(x=>x.classList.remove('sel'));
-      b.classList.add('sel');months=parseInt(b.dataset.m,10);refresh();
+      b.classList.add('sel');
+      custom=(b.dataset.m==='date');
+      if(!custom)months=parseInt(b.dataset.m,10);
+      customEl.style.display=custom?'block':'none';
+      refresh();
     });
   });
+  dateEl.addEventListener('change',refresh);
   nameEl.addEventListener('input',refresh);
   refresh();
 
@@ -1671,11 +1709,12 @@
     const n=nameEl.value.trim(),a=ageEl.value.trim(),e=emailEl.value.trim();
     if(!n||!e){statusEl.className='fl-status err';statusEl.textContent='Please add your name and a parent email first 😊';return;}
     const d=deliveryDate();
+    if(!d){statusEl.className='fl-status err';statusEl.textContent='Please pick a day for your letter — any day from next week to three years away 📅';return;}
     const subject=encodeURIComponent('Future Letter — deliver on '+iso(d)+' to '+n);
     const body=encodeURIComponent(
       'A new Letter to My Future Self has been sealed!\n\n'+
       'Child name: '+n+'\nAge: '+(a||'—')+'\nParent email: '+e+'\n'+
-      'Deliver on: '+iso(d)+' ('+fmt(d)+')\nWriting spark: '+(spark||'—')+'\n\n'+
+      'Deliver on: '+iso(d)+' ('+fmt(d)+')'+(custom?'  [special day chosen by the child]':'')+'\nWriting spark: '+(spark||'—')+'\n\n'+
       'Add this to the "Future Letters" tab of the Joy of Writing submissions sheet, then upload the photo of the handwritten letter.'
     );
     window.location.href='mailto:anuradha@joyofwriting.in?subject='+subject+'&body='+body;
