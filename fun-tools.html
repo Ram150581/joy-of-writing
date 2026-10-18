@@ -1254,6 +1254,7 @@
     <div class="fc-panel">
       <div class="fc-step"><span>1</span>What will you celebrate?</div>
       <div class="fl-sparks" id="ivSparks"></div>
+      <p class="fc-hint" style="margin-top:8px;">Tap an idea to start from it, or tap <b>✨ My own idea</b> and invent one from scratch. You can change every box.</p>
       <div class="fc-row" style="margin-top:14px;">
         <div><label>Festival name</label><input type="text" id="ivName" placeholder="Chotu Diwas" maxlength="26"></div>
         <div><label>Invented by</label><input type="text" id="ivBy" placeholder="Your name" maxlength="22"></div>
@@ -2377,6 +2378,18 @@
     });
     sparksEl.appendChild(b);
   });
+  /* "My own idea": a blank page. Clears the example text so the child
+     starts from nothing, keeping their own name in "Invented by". */
+  (function(){
+    var own=document.createElement('button');own.type='button';own.className='fc-fest';own.textContent='✨ My own idea';
+    own.addEventListener('click',function(){
+      sparksEl.querySelectorAll('.fc-fest').forEach(function(e){e.classList.remove('sel');});
+      own.classList.add('sel');
+      [nameEl,whenEl,whatEl,ritualEl,foodEl].forEach(function(el){el.value='';});
+      draw();nameEl.focus();
+    });
+    sparksEl.appendChild(own);
+  })();
   [nameEl,byEl,whenEl,whatEl,ritualEl,foodEl].forEach(function(el){el.addEventListener('input',draw);});
 
   function fit(t,maxW){if(ctx.measureText(t).width<=maxW)return t;var s=t;while(s.length>1&&ctx.measureText(s+'\u2026').width>maxW)s=s.slice(0,-1);return s+'\u2026';}
