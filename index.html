@@ -127,6 +127,12 @@
   .five-card .emo{font-size:1.9rem;display:block;}
   .five-card h4{font-family:'Baloo 2';font-size:1.05rem;margin:8px 0 7px;color:var(--ink);line-height:1.25;}
   .five-card p{font-size:.92rem;color:#5a5470;line-height:1.55;}
+  /* first letter of each skill: larger, in the card colour */
+  .five-card h4 .cl{font-size:1.45em;font-weight:800;line-height:1;color:#e0a100;}
+  .five-card:nth-child(2) h4 .cl{color:#ff6b6b;}
+  .five-card:nth-child(3) h4 .cl{color:#3aa0e8;}
+  .five-card:nth-child(4) h4 .cl{color:#1d9e75;}
+  .five-card:nth-child(5) h4 .cl{color:#9b5de5;}
   @media(max-width:900px){ .five-grid{grid-template-columns:repeat(2,1fr);} }
   @media(max-width:520px){ .five-grid{grid-template-columns:1fr;} }
   .sec-sub{font-size:1.15rem;color:#5a5470;max-width:640px;}
@@ -370,27 +376,27 @@
     <div class="five-grid">
       <div class="five-card">
         <span class="emo">💡</span>
-        <h4>Creativity &amp; Imagination</h4>
+        <h4><span class="cl">C</span>reativity &amp; Imagination</h4>
         <p>Inventing a world that did not exist until they wrote it down.</p>
       </div>
       <div class="five-card">
         <span class="emo">🧩</span>
-        <h4>Logical Thinking &amp; Problem Solving</h4>
+        <h4><span class="cl">L</span>ogical Thinking &amp; Problem Solving</h4>
         <p>A story has to hold together — cause, effect, and an ending the beginning has earned.</p>
       </div>
       <div class="five-card">
         <span class="emo">💬</span>
-        <h4>Expression &amp; Communication</h4>
+        <h4><span class="cl">E</span>xpression &amp; Communication</h4>
         <p>Finding the exact word for a feeling, so that somebody else feels it too.</p>
       </div>
       <div class="five-card">
         <span class="emo">👀</span>
-        <h4>Attention &amp; Observation</h4>
+        <h4><span class="cl">A</span>ttention &amp; Observation</h4>
         <p>Noticing the small thing everybody else walked past, and thinking it worth keeping.</p>
       </div>
       <div class="five-card">
         <span class="emo">🤝</span>
-        <h4>Reasoning &amp; Empathy</h4>
+        <h4><span class="cl">R</span>easoning &amp; Empathy</h4>
         <p>Writing a character who wants something you do not. That is where empathy begins.</p>
       </div>
     </div>
