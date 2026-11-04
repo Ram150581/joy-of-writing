@@ -235,7 +235,7 @@
 
       <div class="errline" id="lErr"></div>
       <button type="submit" class="btn btn-primary" id="lGo">Register 🏏✍️</button>
-      <p class="formnote">Entry is ₹250, paid by UPI after you register. We'll only contact you about this event.</p>
+      <p class="formnote">Entry is ₹250. Clicking Register takes you to a secure payment page, and your confirmation email follows once the payment is done. We'll only contact you about this event.</p>
     </form>
 
     <div class="done" id="regDone">
@@ -269,7 +269,7 @@
     </div>
     <div class="faq">
       <h4>How do I pay the ₹250?</h4>
-      <p>By UPI, straight to Anuradha. After you register, the page and your confirmation email show how.</p>
+      <p>Online, when you click Register: you are taken to a secure Razorpay page where UPI, cards and net banking all work. Your confirmation email arrives once the payment is done.</p>
     </div>
     <div class="faq">
       <h4>Do I need to be a Joy of Writing student?</h4>
@@ -302,6 +302,11 @@
      empty, the page tells people the details will be sent to them. */
   var UPI_ID = '';
   var FEE = 250;
+
+  /* The Razorpay Payment Page for the Rs 250 entry fee, e.g.
+     https://pages.razorpay.com/pl_XXXXXXXXXXXXXX/view
+     While empty, the page falls back to the UPI instructions below. */
+  var PAY_URL = 'https://rzp.io/rzp/86740Rgi';
 
   var box = document.getElementById('count');
   function tick(){
@@ -350,7 +355,7 @@
     if(!ok)    return fail('Please tick the box to confirm.');
 
     go.disabled = true;
-    go.textContent = 'Registering…';
+    go.textContent = PAY_URL ? 'Taking you to payment…' : 'Registering…';
 
     var body = new URLSearchParams({
       src:'league', token:'joy-2026-anuradha',
@@ -358,14 +363,20 @@
       submittedAt:new Date().toISOString()
     });
 
+    /* With an online payment page, Register saves the details and then goes
+       straight to the Razorpay page. The confirmation email is sent only
+       once the payment is received. */
+    var moved = false;
+    function next(){
+      if(moved) return;
+      moved = true;
+      if(PAY_URL) window.location.href = PAY_URL; else show(name);
+    }
+    setTimeout(next, 6000);   /* never leave someone stuck on a slow reply */
+
     fetch(ENDPOINT, {method:'POST', body:body})
-      .then(function(){ show(name); })
-      .catch(function(){
-        /* The request usually still lands even when the browser blocks
-           us reading the reply, so treat it as done rather than making
-           someone fill the form twice. */
-        show(name);
-      });
+      .then(next)
+      .catch(next);   /* the request usually still lands even when the browser blocks reading the reply */
   });
 
   function show(name){
@@ -373,7 +384,12 @@
     document.getElementById('doneTitle').textContent = name ? (name + ' is registered!') : 'You’re registered!';
 
     var pay = document.getElementById('payBox');
-    if(UPI_ID){
+    if(PAY_URL){
+      pay.innerHTML = '<b>Pay the ₹' + FEE + ' entry fee now</b><br>' +
+                      'UPI, cards and net banking all work. Please use the same email you registered with.' +
+                      '<br><a class="btn btn-primary" id="payBtn" target="_blank" rel="noopener" style="margin-top:12px;text-decoration:none;">Pay ₹' + FEE + ' securely →</a>';
+      document.getElementById('payBtn').href = PAY_URL;
+    }else if(UPI_ID){
       var link = 'upi://pay?pa=' + encodeURIComponent(UPI_ID) + '&pn=' + encodeURIComponent('Anuradha') +
                  '&am=' + FEE + '&cu=INR&tn=' + encodeURIComponent('Writing Premier League - ' + name);
       pay.innerHTML = '<b>Pay ₹' + FEE + ' by UPI to Anuradha</b><br><span class="upi"></span>' +
