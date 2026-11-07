@@ -342,12 +342,112 @@
       <a href="story-studio.html">Send a Story</a>
       <a href="about.html">About</a>
       <a href="blogs/index.html">Blog</a>
+      <a href="#cdSpecial" id="cdNav" style="display:none;background:#9b5de5;color:#fff;font-weight:600;">🎈 Children's Day</a>
       <a href="join.html" class="nav-cta">Join 💛</a>
       <a href="fun-tools.html#unlock" class="nav-member" id="memberBtn">🔑 Members</a>
     </div>
   </div>
 </nav>
 
+
+<!-- CHILDREN'S DAY SPECIAL: shows itself from 7 Nov (teaser) to 14 Nov (India time) and vanishes after.
+     Test any day with  ?preview=soon  (teaser),  ?preview=cd13  (13 Nov)  or  ?preview=cd  (14 Nov) -->
+<style>
+  .cd{display:none;position:relative;overflow:hidden;padding:34px 0 38px;text-align:center;
+      background:linear-gradient(135deg,#fff3c4 0%,#ffd9e0 45%,#e6d9fb 100%);border-bottom:4px dashed var(--grape);}
+  .cd.on{display:block;}
+  .cd .wrap{max-width:1000px;}
+  .cd .pill{display:inline-block;background:var(--grape);color:#fff;font-family:'Baloo 2';font-weight:800;
+      letter-spacing:.08em;font-size:.82rem;padding:5px 16px;border-radius:999px;}
+  .cd h2{font-size:clamp(2rem,5vw,3.1rem);margin:12px 0 6px;color:var(--ink);}
+  .cd h2 .hl{color:var(--coral);}
+  .cd .sub{font-size:1.1rem;color:#5a5470;max-width:640px;margin:0 auto 24px;}
+  .cd-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;text-align:left;}
+  .cd-card{background:#fff;border-radius:20px;padding:22px 20px;box-shadow:0 6px 18px rgba(43,36,64,.12);
+      text-decoration:none;color:var(--ink);display:flex;flex-direction:column;border-top:6px solid var(--sunny);
+      transition:transform .15s ease, box-shadow .15s ease;}
+  .cd-card:nth-child(2){border-top-color:var(--coral);}
+  .cd-card:nth-child(3){border-top-color:var(--mint);}
+  .cd-card:hover{transform:translateY(-4px);box-shadow:0 12px 26px rgba(43,36,64,.16);}
+  .cd-card .e{font-size:2rem;}
+  .cd-card h3{font-size:1.25rem;margin:6px 0 4px;}
+  .cd-card p{font-size:.95rem;color:#5a5470;flex:1;}
+  .cd-card .go{margin-top:14px;font-family:'Baloo 2';font-weight:700;color:var(--grape);}
+  .cd .fine{margin-top:18px;font-size:.88rem;color:#7a7390;}
+  .cd .fine a{color:var(--grape);font-weight:600;}
+  .cd{padding-top:0;}
+  .cd-bunting{width:100%;height:38px;display:block;margin-bottom:22px;position:relative;z-index:2;}
+  .cd-fx{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1;}
+  .cd-bal{position:absolute;width:34px;height:42px;border-radius:50% 50% 48% 48%;opacity:.9;animation:cdbob 5s ease-in-out infinite;}
+  .cd-bal:after{content:"";position:absolute;left:50%;top:100%;width:2px;height:48px;background:#b9aebd;}
+  .cb1{left:3%;top:60px;background:#ff6b6b;} .cb2{left:11%;top:150px;background:#ffd23f;animation-delay:1.2s;}
+  .cb3{right:4%;top:62px;background:#3aa8f0;animation-delay:.6s;} .cb4{right:12%;top:150px;background:#3ec99b;animation-delay:1.8s;}
+  .cb5{left:21%;top:48px;background:#9b5de5;animation-delay:2.4s;width:26px;height:32px;} .cb6{right:21%;top:46px;background:#ff9f1c;animation-delay:.3s;width:26px;height:32px;}
+  @keyframes cdbob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-12px) rotate(3deg)}}
+  .cd-fx i{position:absolute;top:-14px;width:9px;height:14px;border-radius:2px;animation:cdfall linear infinite;opacity:.85;}
+  @keyframes cdfall{to{transform:translateY(620px) rotate(540deg);}}
+  .cd h2 .hl{background:linear-gradient(90deg,#ff6b6b,#ff9f1c,#1d9e75,#3aa8f0,#9b5de5);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  @media(max-width:700px){.cb2,.cb4,.cb5,.cb6{display:none;}}
+  @media(prefers-reduced-motion:reduce){.cd-bal,.cd-fx i{animation:none;}}
+
+</style>
+<section class="cd" id="cdSpecial" aria-label="Children's Day special">
+  <svg class="cd-bunting" viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="5" x2="1000" y2="5" stroke="#b9aebd" stroke-width="2"/><polygon points="6,6 34,6 20,34" fill="#ff6b6b"/><polygon points="42,6 70,6 56,34" fill="#ffd23f"/><polygon points="78,6 106,6 92,34" fill="#3ec99b"/><polygon points="114,6 142,6 128,34" fill="#3aa8f0"/><polygon points="150,6 178,6 164,34" fill="#9b5de5"/><polygon points="186,6 214,6 200,34" fill="#ff9f1c"/><polygon points="222,6 250,6 236,34" fill="#ff6b6b"/><polygon points="258,6 286,6 272,34" fill="#ffd23f"/><polygon points="294,6 322,6 308,34" fill="#3ec99b"/><polygon points="330,6 358,6 344,34" fill="#3aa8f0"/><polygon points="366,6 394,6 380,34" fill="#9b5de5"/><polygon points="402,6 430,6 416,34" fill="#ff9f1c"/><polygon points="438,6 466,6 452,34" fill="#ff6b6b"/><polygon points="474,6 502,6 488,34" fill="#ffd23f"/><polygon points="510,6 538,6 524,34" fill="#3ec99b"/><polygon points="546,6 574,6 560,34" fill="#3aa8f0"/><polygon points="582,6 610,6 596,34" fill="#9b5de5"/><polygon points="618,6 646,6 632,34" fill="#ff9f1c"/><polygon points="654,6 682,6 668,34" fill="#ff6b6b"/><polygon points="690,6 718,6 704,34" fill="#ffd23f"/><polygon points="726,6 754,6 740,34" fill="#3ec99b"/><polygon points="762,6 790,6 776,34" fill="#3aa8f0"/><polygon points="798,6 826,6 812,34" fill="#9b5de5"/><polygon points="834,6 862,6 848,34" fill="#ff9f1c"/><polygon points="870,6 898,6 884,34" fill="#ff6b6b"/><polygon points="906,6 934,6 920,34" fill="#ffd23f"/><polygon points="942,6 970,6 956,34" fill="#3ec99b"/><polygon points="978,6 1006,6 992,34" fill="#3aa8f0"/></svg>
+  <div class="cd-fx"><div class="cd-bal cb1"></div><div class="cd-bal cb2"></div><div class="cd-bal cb3"></div><div class="cd-bal cb4"></div><div class="cd-bal cb5"></div><div class="cd-bal cb6"></div><i style="left:42%;background:#ffd23f;animation-duration:8.0s;animation-delay:-0.5s"></i><i style="left:69%;background:#ff6b6b;animation-duration:7.8s;animation-delay:-0.6s"></i><i style="left:65%;background:#ffd23f;animation-duration:6.2s;animation-delay:-4.3s"></i><i style="left:9%;background:#ffd23f;animation-duration:6.5s;animation-delay:-4.2s"></i><i style="left:73%;background:#ff6b6b;animation-duration:10.7s;animation-delay:-6.3s"></i><i style="left:75%;background:#ff6b6b;animation-duration:8.9s;animation-delay:-4.0s"></i><i style="left:29%;background:#ff6b6b;animation-duration:8.8s;animation-delay:-1.3s"></i><i style="left:54%;background:#ffd23f;animation-duration:8.7s;animation-delay:-5.7s"></i><i style="left:72%;background:#ff9f1c;animation-duration:6.9s;animation-delay:-5.8s"></i><i style="left:82%;background:#ffd23f;animation-duration:7.9s;animation-delay:-5.5s"></i><i style="left:9%;background:#9b5de5;animation-duration:6.3s;animation-delay:-2.1s"></i><i style="left:88%;background:#9b5de5;animation-duration:8.1s;animation-delay:-3.1s"></i><i style="left:75%;background:#3aa8f0;animation-duration:7.8s;animation-delay:-2.5s"></i><i style="left:24%;background:#ff9f1c;animation-duration:9.9s;animation-delay:-0.8s"></i><i style="left:39%;background:#9b5de5;animation-duration:8.5s;animation-delay:-3.4s"></i><i style="left:58%;background:#3ec99b;animation-duration:9.0s;animation-delay:-0.7s"></i><i style="left:66%;background:#3aa8f0;animation-duration:6.8s;animation-delay:-3.4s"></i><i style="left:63%;background:#3aa8f0;animation-duration:6.2s;animation-delay:-6.7s"></i><i style="left:98%;background:#9b5de5;animation-duration:8.9s;animation-delay:-8.8s"></i><i style="left:41%;background:#3ec99b;animation-duration:9.5s;animation-delay:-5.9s"></i><i style="left:75%;background:#3aa8f0;animation-duration:6.3s;animation-delay:-0.9s"></i><i style="left:35%;background:#3aa8f0;animation-duration:9.5s;animation-delay:-0.6s"></i><i style="left:94%;background:#ff9f1c;animation-duration:7.5s;animation-delay:-5.8s"></i><i style="left:88%;background:#3aa8f0;animation-duration:7.4s;animation-delay:-3.9s"></i><i style="left:86%;background:#3ec99b;animation-duration:6.1s;animation-delay:-4.6s"></i><i style="left:22%;background:#9b5de5;animation-duration:6.6s;animation-delay:-0.6s"></i><i style="left:99%;background:#3ec99b;animation-duration:6.6s;animation-delay:-2.5s"></i><i style="left:51%;background:#3aa8f0;animation-duration:6.4s;animation-delay:-4.5s"></i><i style="left:71%;background:#3ec99b;animation-duration:10.4s;animation-delay:-8.2s"></i><i style="left:71%;background:#3ec99b;animation-duration:9.5s;animation-delay:-9.9s"></i></div>
+  <div class="wrap">
+    <span class="pill" id="cdPill">CHILDREN'S DAY · 14 NOVEMBER</span>
+    <h2 id="cdHead">Happy Children's Day! <span class="hl">Write something wonderful.</span></h2>
+    <p class="sub" id="cdSub">Everything is open and free for the whole day, so every child can come and play with words.</p>
+    <div class="cd-grid">
+      <a class="cd-card" href="fun-tools.html">
+        <span class="e">🎈</span>
+        <h3 id="cdToolsH">All fun writing tools, free</h3>
+        <p>Story builders, festival cards, letters to your future self and more. No code needed while the site is open.</p>
+        <span class="go">Open the tools →</span>
+      </a>
+      <a class="cd-card" href="challenge.html">
+        <span class="e">🏆</span>
+        <h3>The Children's Day Writing Challenge</h3>
+        <p>Three story tasks: finish the story, write something funny, and discover a new world. Every child who takes part gets a digital badge.</p>
+        <span class="go">Take the challenge →</span>
+      </a>
+      <a class="cd-card" href="league.html">
+        <span class="e">✍️</span>
+        <h3>Writing Premier League</h3>
+        <p>Live at Woods Club, L&amp;T Seawoods Residences, 4 pm. Ages 6 to 10, 11 to 15, and above 15 and adults.</p>
+        <span class="go">Register for the league →</span>
+      </a>
+    </div>
+    <p class="fine">Parents: want your child to keep writing after today? <a href="join.html">See the weekly programme</a>.</p>
+  </div>
+</section>
+<script>
+(function(){
+  var q = new URLSearchParams(location.search).get('preview');
+  var today = new Date(Date.now() + 19800000).toISOString().slice(0,10);   /* India date */
+  /* Teaser from 7 Nov; the site is open to everyone on 13 and 14 Nov (India time);
+     the banner disappears after that. */
+  var open14 = today === '2026-11-14' || q === 'cd';
+  var open13 = today === '2026-11-13' || q === 'cd13';
+  var teaser = (today >= '2026-11-07' && today < '2026-11-13') || q === 'soon';
+  if(!open14 && !open13 && !teaser) return;
+  document.getElementById('cdSpecial').className = 'cd on';
+  document.getElementById('cdNav').style.display = '';
+  var head = document.getElementById('cdHead').firstChild;
+  if(teaser){
+    document.getElementById('cdPill').textContent = 'COMING ON CHILDREN\u2019S DAY \u00B7 13 & 14 NOVEMBER';
+    head.textContent = 'Children\u2019s Day is coming! ';
+    document.getElementById('cdSub').textContent = 'From 13 November the whole site opens up for everyone, free for two days. Get your pencils ready.';
+    document.getElementById('cdToolsH').textContent = '13 & 14 Nov: all fun tools, free';
+  }else if(open13){
+    document.getElementById('cdPill').textContent = 'OPEN FOR EVERYONE \u00B7 13 & 14 NOVEMBER';
+    head.textContent = 'Children\u2019s Day is tomorrow! ';
+    document.getElementById('cdSub').textContent = 'The whole site is open and free today and tomorrow. Come and play with words.';
+  }else{
+    document.getElementById('cdPill').textContent = 'CHILDREN\u2019S DAY \u00B7 14 NOVEMBER';
+  }
+})();
+</script>
 
 <!-- HERO BANNER -->
 <style>

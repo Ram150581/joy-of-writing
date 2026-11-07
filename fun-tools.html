@@ -1433,11 +1433,19 @@
   /* tools anyone can use, even without a paid plan */
   var FREE_TOOLS = ['spark'];
 
+  /* OPEN DAYS: on these dates (India time) every tool is open to everyone,
+     no code needed. Nothing is saved on the visitor's device, so the tools
+     lock again by themselves at midnight. Format: 'YYYY-MM-DD'. */
+  var OPEN_DAYS = ['2026-11-13', '2026-11-14'];   /* Children's Day, and the day before */
+  function istToday(){ return new Date(Date.now() + 19800000).toISOString().slice(0, 10); }
+  function isOpenDay(){ return OPEN_DAYS.indexOf(istToday()) > -1; }
+
   function plan(){ try{ return localStorage.getItem(KEY) || 'none'; }catch(e){ return 'none'; } }
   function setPlan(p){ try{ localStorage.setItem(KEY,p); }catch(e){} }
 
   window.jowLocked = function(id){
     if(FREE_TOOLS.indexOf(id) > -1) return false;
+    if(isOpenDay()) return false;
     return !(PLANS[plan()] || PLANS.none).tools;
   };
   window.jowUpsell = function(id){
@@ -1458,7 +1466,8 @@
     }
     var atTop = plan() === 'author';          /* nothing left to upgrade to */
     if(note) note.textContent =
-        atTop            ? '— our highest plan, everything unlocked 🎉'
+        (isOpenDay() && !p.tools) ? '— open to everyone for Children’s Day 🎈'
+      : atTop            ?'— our highest plan, everything unlocked 🎉'
       : p.tools          ? '— all tools unlocked ✨'
       : plan()==='starter' ? '— add fun tools by upgrading'
       :                    '— fun tools are locked';
@@ -2503,7 +2512,7 @@
 
   {id:'mystery',e:'🔍',n:'Mystery & Detective',note:'Something is wrong, and only one person has noticed.',
    shapes:['mystery','secret','discovery','trap','rivalry'],
-   places:['a housing society where everyone knows everyone','a school after the last bell','a shop that closed years ago','a quiet lane with one working streetlight','a wedding hall the morning after'],
+   places:['a housing society where everyone knows everyone','a school after the last bell','a shop that closed years ago','a quiet lane with one working streetlight','a toy shop just after closing time'],
    heroes:['a child who notices everything','a pair of friends who argue about everything','the youngest person in the building','somebody nobody suspects, because nobody looks at them'],
    wants:['to find out who did it before the grown-ups decide','to clear a friend everybody has already blamed','to work out what the note means','to prove they were not imagining it'],
    blocks:['nobody believes a child','the only witness will not talk','the evidence keeps disappearing','the obvious suspect has an answer for everything']},
