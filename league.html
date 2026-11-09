@@ -306,7 +306,7 @@
   /* The Razorpay Payment Page for the Rs 250 entry fee, e.g.
      https://pages.razorpay.com/pl_XXXXXXXXXXXXXX/view
      While empty, the page falls back to the UPI instructions below. */
-  var PAY_URL = 'https://rzp.io/rzp/86740Rgi';
+  var PAY_URL = 'https://pages.razorpay.com/pl_Tw2FO8mlA2eHsg/view';
 
   var box = document.getElementById('count');
   function tick(){
@@ -370,7 +370,15 @@
     function next(){
       if(moved) return;
       moved = true;
-      if(PAY_URL) window.location.href = PAY_URL; else show(name);
+      if(PAY_URL){
+        /* Carry the details across so the parent does not type them twice.
+           Razorpay fills the fields named in the web address. */
+        var ph = phone.replace(/\D/g,''); if(ph.length > 10 && ph.indexOf('91') === 0) ph = ph.slice(2);
+        window.location.href = PAY_URL + '?email=' + encodeURIComponent(email) +
+          '&phone=' + encodeURIComponent(ph) +
+          '&participant_name=' + encodeURIComponent(name) +
+          '&age_group=' + encodeURIComponent(group);
+      } else show(name);
     }
     setTimeout(next, 6000);   /* never leave someone stuck on a slow reply */
 
