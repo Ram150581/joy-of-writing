@@ -555,9 +555,10 @@
   #tool-builder.quick-done .sh-wrap{display:block;}
   /* the quick route's seed card has no beats, no surprise box, no checklist */
   #sbSeed.quick .sb-path,
-  #sbSeed.quick .sb-grid2,
-  #sbSeed.quick .sb-check,
   #sbSeed.quick #sbPrint{display:none;}
+  /* both routes: no extra notes box or checklist — just the plan */
+  #sbSeed .sb-grid2,
+  #sbSeed .sb-check{display:none;}
 
   /* the two ways in */
   .sb-pick{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:760px;margin:0 auto;}
@@ -757,8 +758,8 @@
       <button type="button" class="sb-pick-card" data-mode="full">
         <span class="e">🗺️</span>
         <span class="t">Help me plan a whole story</span>
-        <span class="d">We work out the middle, decide where the surprise lands and how it ends. You get a plan to print and keep beside you.</span>
-        <span class="m">13 questions · about 15 minutes</span>
+        <span class="d">We work out the middle, the surprise and how it ends. You get a plan to print and keep beside you.</span>
+        <span class="m">10 questions · about 10 minutes</span>
       </button>
     </div>
 
@@ -2765,13 +2766,8 @@
      think:'Here is the secret of middles: the first attempt must fail. If it works, your story is over on page two.',
      ph:'or type what they try first…', opts:TRIES},
 
-    {k:'wrong',stage:'The middle',
-     q:'💥 …and it goes wrong. How?',
-     think:'Not a disaster yet. Just enough to make your hero think harder.',
-     ph:'or type how it goes wrong…', opts:WRONGS},
-
     {k:'worse',stage:'The middle',
-     q:'🌀 Now make it worse',
+     q:'🌀 It does not work — and things get worse. How?',
      think:'This is the part most children skip, and it is the part that makes a story feel real. Be a little cruel here — you can be kind again at the end.',
      ph:'or type what makes it worse…', opts:WORSE},
 
@@ -2780,25 +2776,15 @@
      think:'A good surprise is one the reader did not see coming but could have. You have to leave the clue, quietly.',
      ph:'or type your own surprise…', opts:SURPRISE},
 
-    {k:'where',stage:'The surprise',
-     q:'📍 Where should the surprise land?',
-     think:'The same surprise in a different place makes a completely different story. This is a real writer’s decision — take a minute over it.',
-     ph:'', opts:WHERE},
-
     {k:'end',stage:'The end',
      q:'🎬 How does it end?',
      think:'Endings are not about who wins. They are about what is different now.',
-     ph:'or type your own ending…', opts:ENDINGS},
-
-    {k:'change',stage:'The end',
-     q:'🌱 And what is different about your hero on the last page?',
-     think:'If nothing has changed in them, the story was only a series of events. This one line turns it into a story.',
-     ph:'or type what has changed…', opts:CHANGES}
+     ph:'or type your own ending…', opts:ENDINGS}
     ];
   }
 
   const a={};let step=0,timerId,mode=null;
-  const SAVE='jow_storybuilder_v4';
+  const SAVE='jow_storybuilder_v5';
   function save(done){try{localStorage.setItem(SAVE,JSON.stringify({a:a,step:step,mode:mode,done:!!done}));}catch(e){}}
   function wipe(){try{localStorage.removeItem(SAVE);}catch(e){}}
   const $=function(id){return document.getElementById(id);};
@@ -2900,18 +2886,17 @@
     document.getElementById('tool-builder').classList.remove('quick-done');
     $('sbSeed').querySelector('h3').textContent = '🌱 Your story plan';
     var sh=SHAPES[a.shape], g=GEN[a.genre];
-    var surpMeta=metaFor('surprise',a.surprise), whereMeta=metaFor('where',a.where),
+    var surpMeta=metaFor('surprise',a.surprise),
         endMeta=metaFor('end',a.end), tryMeta=metaFor('try',a.try),
-        wrongMeta=metaFor('wrong',a.wrong), worseMeta=metaFor('worse',a.worse);
+        worseMeta=metaFor('worse',a.worse);
 
     $('sbPlanKicker').textContent=(g?g.e+' '+g.n:label('genre'))+'  ·  '+(sh?sh.e+' '+sh.n:label('shape'));
     /* the whole plan as one story summary that reads in order */
     $('sbSeedText').textContent=
       'Picture '+a.place+'. Meet '+a.hero+'. They want '+a.want+
-      '. Standing in their way: '+a.block+'. At first, '+a.try+', and '+a.wrong+
-      '. Then it gets worse: '+a.worse+
+      '. Standing in their way: '+a.block+'. At first, '+a.try+', but it does not work. Then it gets worse: '+a.worse+
       '. And then, '+a.surprise+
-      '. In the end, '+a.end+', and by the last page they are '+a.change+'.';
+      '. In the end, '+a.end+'.';
 
     var b=[];
     b.push(beat('🌍','Open here','Your world',
@@ -2921,31 +2906,18 @@
       'Make us understand that '+a.hero+' wants '+a.want+'. Then show us what is standing in the way: '+a.block+'.',
       'Show the want, do not announce it. Let us watch them try something small and be stopped.'));
     b.push(beat('🧗','The middle begins','The first attempt',
-      'First, '+a.try+'.<br>And then '+a.wrong+'.',
+      'First, '+a.try+'. It does not work.',
       tryMeta?tryMeta[2]:''));
     b.push(beat('🌀','And then','It gets worse',
-      'Now '+a.worse+'. This is the lowest your hero gets.',
+      cap(a.worse)+'. This is the lowest your hero gets.',
       worseMeta?worseMeta[2]:''));
-    var wPhrase=whereMeta?whereMeta[3]:'somewhere in the middle';
-    b.push(beat('⚡','The turn','The surprise — '+wPhrase,
-      'This is where '+a.surprise+'.'+
-      (a.where==='last'?'<br>Write it as one sentence. Then stop. Nothing comes after it.':''),
+    b.push(beat('⚡','The turn','The surprise',
+      'This is where '+a.surprise+'.',
       surpMeta?surpMeta[2]:'', true));
     b.push(beat('🎬','The end','How it finishes',
-      'In the end, '+a.end+'. On the last page '+a.hero+' is '+a.change+'.',
+      'In the end, '+a.end+'.',
       endMeta?endMeta[2]:''));
-
-    /* move the surprise card to wherever the child decided it should land */
-    var surp=b.splice(4,1)[0];
-    var at={early:1, middle:3, late:5, last:6}[a.where];
-    if(at===undefined) at=4;
-    b.splice(Math.min(at,b.length),0,surp);
     $('sbPath').innerHTML=b.join('');
-
-    $('sbSurprise').textContent=cap(a.surprise)+' — and it lands '+wPhrase+'.';
-    $('sbSurpriseTip').textContent=whereMeta?whereMeta[2]:'';
-    $('sbEnding').textContent=cap(a.end)+'. Your hero ends the story '+a.change+'.';
-    $('sbEndingTip').textContent=endMeta?endMeta[2]:'';
 
     $('sbCard').style.display='none';
     $('sbSeed').style.display='block';
@@ -3010,7 +2982,7 @@
     Object.keys(s.a).forEach(function(k){a[k]=s.a[k];});
     $('sbPick').style.display='none';
     $('sbCard').style.display='block';
-    var done = s.done && (mode==='quick' ? a.surprise : a.change);
+    var done = s.done && (mode==='quick' ? a.surprise : a.end);
     if(done){ render(); finish(); return; }
     step=Math.min(Math.max(s.step|0,0), steps().length-1);
     render();
